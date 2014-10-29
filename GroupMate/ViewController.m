@@ -16,12 +16,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    //Add '+' button to UIBarButton to create new meeting
+    UIBarButtonItem * newMeeting = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                                 target:self
+                                                                                 action:@selector(createNewMeeting)];
+    
+    [self.navigationItem setRightBarButtonItem:newMeeting];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) createNewMeeting{
+    [self performSegueWithIdentifier:@"newMeetingSegue"sender:self];
 }
 
 @end
