@@ -18,11 +18,16 @@
     [super viewDidLoad];
     
     //Add '+' button to UIBarButton to create new meeting
-    UIBarButtonItem * newMeeting = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+    UIBarButtonItem *newMeeting = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                  target:self
                                                                                  action:@selector(createNewMeeting)];
+    //Add hamburger button to UIBarButton to view profile
+    UIBarButtonItem * viewProfileButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
+                                                                                 target:self
+                                                                                 action:@selector(viewProfile)];
     
     [self.navigationItem setRightBarButtonItem:newMeeting];
+    [self.navigationItem setLeftBarButtonItem:viewProfileButton];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,6 +37,10 @@
 
 -(void) createNewMeeting{
     [self performSegueWithIdentifier:@"newMeetingSegue"sender:self];
+}
+
+-(void) viewProfile{
+    
 }
 
 @end

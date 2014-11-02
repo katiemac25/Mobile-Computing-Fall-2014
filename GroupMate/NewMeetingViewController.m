@@ -19,7 +19,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    //Add save button to UIBarButton
+    UIBarButtonItem *saveMeetingButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
+                                                                                        target:self
+                                                                                        action:@selector(saveMeeting)];
+    [self.navigationItem setRightBarButtonItem:saveMeetingButton];
+    
     colourIndex = 0;
     [[self.notes layer] setBorderColor:[[UIColor grayColor] CGColor]];
     [[self.notes layer] setBorderWidth:1];
@@ -72,6 +78,10 @@
         [self.colourPicker setBackgroundColor:[UIColor redColor]];
         colourIndex = 0;
     }
+    
+}
+
+-(void) saveMeeting{
     
 }
 @end
