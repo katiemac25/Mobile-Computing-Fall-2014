@@ -8,6 +8,7 @@
 
 #import "NewMeetingViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Meeting.h"
 
 @interface NewMeetingViewController ()
 
@@ -82,6 +83,32 @@
 }
 
 -(void) saveMeeting{
+    Meeting *newMeeting;
+    
+    if(![self.meetingName.text  isEqual: @""]){
+        [newMeeting setName:self.meetingName.text];
+    }else{
+        [newMeeting setName:@"New Meeting"];
+    }
+    
+    if(colourIndex == 0){
+        [newMeeting setColour:@"Red"];
+    }else if(colourIndex == 1){
+        [newMeeting setColour:@"Orange"];
+    }else if(colourIndex == 2){
+        [newMeeting setColour:@"Yellow"];
+    }else if(colourIndex == 3){
+        [newMeeting setColour:@"Green"];
+    }else if(colourIndex == 4){
+        [newMeeting setColour:@"Blue"];
+    }else if(colourIndex == 5){
+        [newMeeting setColour:@"Purple"];
+    }else if(colourIndex == 6){
+        [newMeeting setColour:@"Black"];
+    }
+    
+    [newMeeting setNotes:self.notes.text];
+    
     
 }
 @end
