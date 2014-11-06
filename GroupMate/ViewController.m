@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "NewMeetingViewController.h"
 #import "Meeting.h"
 
 @interface ViewController ()
@@ -94,6 +95,27 @@
 
 -(void) viewProfile{
     
+}
+
+- (void) addMeeting:(Meeting*)meeting{
+    [meetingList addObject:meeting];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"newMeetingSegue"]) {
+        NewMeetingViewController *controller = [segue destinationViewController];
+        
+        [controller setMeetingList:meetingList];
+    }
+}
+
+- (void)setMeetingList:(NSMutableArray*) meetingListCopy{
+    meetingList = meetingListCopy;
+}
+
+- (void) viewWillAppear:(BOOL)animated{
+    NSLog(@"View will appear");
+    [self.meetingListTable reloadData];
 }
 
 @end

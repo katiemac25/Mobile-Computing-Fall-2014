@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewMeetingViewController : UIViewController
+@interface NewMeetingViewController : UIViewController{
+    NSMutableArray *meetingList;
+}
 
 @property (weak, nonatomic) IBOutlet UIButton *colourPicker;
 @property (weak, nonatomic) IBOutlet UITextView *notes;
@@ -16,5 +18,7 @@
 
 - (IBAction)updateMeetingName:(id)sender;
 - (IBAction)changeColourTag:(id)sender;
+- (void)setMeetingList:(NSMutableArray*) meetingListCopy;
+- (void)backToMeetingList;
 
 @end

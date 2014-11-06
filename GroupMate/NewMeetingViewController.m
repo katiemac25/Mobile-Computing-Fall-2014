@@ -7,6 +7,7 @@
 //
 
 #import "NewMeetingViewController.h"
+#import "ViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Meeting.h"
 
@@ -21,6 +22,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.hidesBackButton = YES;
+    
+    //Add custom back button to UIBarButton
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]initWithTitle:@"Back"
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self
+                                                                 action:@selector(backToMeetingList)];
+    
+    [self.navigationItem setLeftBarButtonItem:backButton];
+
     //Add save button to UIBarButton
     UIBarButtonItem *saveMeetingButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
                                                                                         target:self
@@ -37,16 +48,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)updateMeetingName:(id)sender {
     if(![self.meetingName.text  isEqual: @""]){
@@ -83,7 +84,7 @@
 }
 
 -(void) saveMeeting{
-    Meeting *newMeeting;
+    Meeting *newMeeting = [[Meeting alloc] init];
     
     if(![self.meetingName.text  isEqual: @""]){
         [newMeeting setName:self.meetingName.text];
@@ -109,6 +110,22 @@
     
     [newMeeting setNotes:self.notes.text];
     
-    
+    [meetingList addObject:newMeeting];
+}
+
+- (void)setMeetingList:(NSMutableArray*) meetingListCopy{
+    meetingList = meetingListCopy;
+}
+
+- (void)backToMeetingList{
+    [self performSegueWithIdentifier:@"leaveNewMeetingSegue"sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"leaveNewMeetingSegue"]) {
+        ViewController *controller = [segue destinationViewController];
+        
+        [controller setMeetingList:meetingList];
+    }
 }
 @end

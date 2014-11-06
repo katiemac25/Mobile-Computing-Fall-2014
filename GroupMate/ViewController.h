@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Meeting.h"
 
 @interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
     NSMutableArray *meetingList;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *meetingListTable;
+
+- (void) addMeeting:(Meeting*)meeting;
+- (void)setMeetingList:(NSMutableArray*) meetingListCopy;
 
 @end
 
