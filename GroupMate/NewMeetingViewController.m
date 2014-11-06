@@ -23,14 +23,6 @@
     [super viewDidLoad];
     
     self.navigationItem.hidesBackButton = YES;
-    
-    //Add custom back button to UIBarButton
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]initWithTitle:@"Back"
-                                                                  style:UIBarButtonItemStylePlain
-                                                                 target:self
-                                                                 action:@selector(backToMeetingList)];
-    
-    [self.navigationItem setLeftBarButtonItem:backButton];
 
     //Add save button to UIBarButton
     UIBarButtonItem *saveMeetingButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
@@ -117,15 +109,5 @@
     meetingList = meetingListCopy;
 }
 
-- (void)backToMeetingList{
-    [self performSegueWithIdentifier:@"leaveNewMeetingSegue"sender:self];
-}
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"leaveNewMeetingSegue"]) {
-        ViewController *controller = [segue destinationViewController];
-        
-        [controller setMeetingList:meetingList];
-    }
-}
 @end

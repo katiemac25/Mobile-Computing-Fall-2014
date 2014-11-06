@@ -16,7 +16,10 @@
 @property (weak, nonatomic) IBOutlet UITableView *meetingListTable;
 
 - (void) addMeeting:(Meeting*)meeting;
+- (void) viewProfile;
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
+- (IBAction)unwindToList:(UIStoryboardSegue *)segue;
+
 
 @end
 

@@ -24,7 +24,7 @@
     //Add '+' button to UIBarButton to create new meeting
     UIBarButtonItem *newMeeting = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                  target:self
-                                                                                 action:@selector(createNewMeeting)];
+                                                                                 action:@selector(addMeeting)];
     //Add hamburger button to UIBarButton to view profile
     UIBarButtonItem * viewProfileButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
                                                                                  target:self
@@ -33,7 +33,8 @@
     [self.navigationItem setRightBarButtonItem:newMeeting];
     [self.navigationItem setLeftBarButtonItem:viewProfileButton];
     
-    Meeting *testMeeting1 = [[Meeting alloc] init];
+    //Test meetings
+    /*Meeting *testMeeting1 = [[Meeting alloc] init];
     [testMeeting1 setName:@"Test 1"];
     [testMeeting1 setColour:@"Red"];
     
@@ -43,7 +44,7 @@
     [testMeeting2 setName:@"Test 2"];
     [testMeeting2 setColour:@"Blue"];
     
-    [meetingList addObject:testMeeting2];
+    [meetingList addObject:testMeeting2];*/
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,7 +90,7 @@
     return cell;
 }
 
--(void) createNewMeeting{
+-(void) addMeeting{
     [self performSegueWithIdentifier:@"newMeetingSegue"sender:self];
 }
 
@@ -114,8 +115,15 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated{
-    NSLog(@"View will appear");
     [self.meetingListTable reloadData];
+}
+
+- (IBAction)unwindToList:(UIStoryboardSegue *)segue{
+    if ([segue.identifier isEqualToString:@"leaveNewMeetingSegue"]) {
+        ViewController *controller = [segue destinationViewController];
+        
+        [controller setMeetingList:meetingList];
+    }
 }
 
 @end

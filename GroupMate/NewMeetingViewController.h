@@ -19,6 +19,5 @@
 - (IBAction)updateMeetingName:(id)sender;
 - (IBAction)changeColourTag:(id)sender;
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
-- (void)backToMeetingList;
 
 @end
