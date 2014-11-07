@@ -18,12 +18,14 @@
 @implementation NewMeetingViewController{
     int colourIndex;
     Meeting *newMeeting;
+    int new;//Keeps track if meeting is new or being saved again
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     newMeeting = [[Meeting alloc] init];
+    new = true;
     
     //Get date and time when meeting starts
     [newMeeting setDate:[NSDate date]];
@@ -76,13 +78,16 @@
         [self.colourPicker setBackgroundColor:[UIColor redColor]];
         colourIndex = 0;
     }
-    
 }
 
 -(void) saveMeeting{
+    //Get meeting name
     if(![self.meetingName.text  isEqual: @""]){
+        //If user has created a cutom meeting name, use it
         [newMeeting setName:self.meetingName.text];
     }else{
+        //If user has not created a custom meeting name, make meeting name
+        //"New Meeting - " plus the date and time of the meeting
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterShortStyle];
         [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
@@ -92,6 +97,7 @@
         [newMeeting setName:meetingTitle];
     }
     
+    //Convert colourIndex into string representation of colour
     if(colourIndex == 0){
         [newMeeting setColour:@"Red"];
     }else if(colourIndex == 1){
@@ -108,14 +114,22 @@
         [newMeeting setColour:@"Black"];
     }
     
+    //set meeting notes
     [newMeeting setNotes:self.notes.text];
     
-    [meetingList addObject:newMeeting];
+    if(new){
+        //If meeting has not been saved before, add it to meetingList
+        [meetingList addObject:newMeeting];
+        new = false;
+    }else{
+        //If meeting has  been saved before, replace last item in meetingList
+        [meetingList replaceObjectAtIndex:[meetingList count] - 1 withObject:newMeeting];
+    }
+    
 }
 
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy{
     meetingList = meetingListCopy;
 }
-
 
 @end
