@@ -135,11 +135,12 @@
                     <connections>
                         <outlet property="meetingListTable" destination="nfe-Yf-2Wi" id="Pyd-MR-pUF"/>
                         <segue destination="PnM-EG-Vii" kind="show" identifier="newMeetingSegue" id="XQZ-jJ-Cwp"/>
+                        <segue destination="Gw4-oj-0Qv" kind="show" identifier="viewMeetingSegue" id="NiZ-sb-Gqh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1710" y="384"/>
+            <point key="canvasLocation" x="1686" y="387"/>
         </scene>
         <!--New Meeting-->
         <scene sceneID="TvU-w6-Kvm">
@@ -313,6 +314,98 @@
                 <exit id="j90-Ob-w5c" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2392.5" y="387"/>
+        </scene>
+        <!--Meeting-->
+        <scene sceneID="kBV-tI-6UK">
+            <objects>
+                <viewController id="Gw4-oj-0Qv" customClass="MeetingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="629-oU-xBL"/>
+                        <viewControllerLayoutGuide type="bottom" id="6To-Aj-0kM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uwC-4M-1IY">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltT-iY-MXE">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7g3-QR-jTP">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ltT-iY-MXE" firstAttribute="leading" secondItem="uwC-4M-1IY" secondAttribute="leadingMargin" id="Hre-sB-j9c"/>
+                            <constraint firstItem="7g3-QR-jTP" firstAttribute="top" secondItem="ltT-iY-MXE" secondAttribute="bottom" constant="8" symbolic="YES" id="Lm7-TN-1PY"/>
+                            <constraint firstItem="7g3-QR-jTP" firstAttribute="trailing" secondItem="ltT-iY-MXE" secondAttribute="trailing" id="P3R-Kl-pv3"/>
+                            <constraint firstItem="6To-Aj-0kM" firstAttribute="top" secondItem="7g3-QR-jTP" secondAttribute="bottom" constant="222" id="uIO-AX-FLd"/>
+                            <constraint firstItem="ltT-iY-MXE" firstAttribute="trailing" secondItem="uwC-4M-1IY" secondAttribute="trailingMargin" id="uOg-1V-8T8"/>
+                            <constraint firstItem="ltT-iY-MXE" firstAttribute="leading" secondItem="7g3-QR-jTP" secondAttribute="leading" id="w2n-Is-C9Q"/>
+                            <constraint firstItem="ltT-iY-MXE" firstAttribute="top" secondItem="629-oU-xBL" secondAttribute="bottom" constant="8" symbolic="YES" id="yD8-uz-L6K"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="ltT-iY-MXE"/>
+                                <exclude reference="7g3-QR-jTP"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="Hre-sB-j9c"/>
+                                <exclude reference="uOg-1V-8T8"/>
+                                <exclude reference="w2n-Is-C9Q"/>
+                                <exclude reference="yD8-uz-L6K"/>
+                                <exclude reference="Lm7-TN-1PY"/>
+                                <exclude reference="P3R-Kl-pv3"/>
+                                <exclude reference="uIO-AX-FLd"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="ltT-iY-MXE"/>
+                                <include reference="7g3-QR-jTP"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="Hre-sB-j9c"/>
+                                <include reference="uOg-1V-8T8"/>
+                                <include reference="w2n-Is-C9Q"/>
+                                <include reference="yD8-uz-L6K"/>
+                                <include reference="Lm7-TN-1PY"/>
+                                <include reference="P3R-Kl-pv3"/>
+                                <include reference="uIO-AX-FLd"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Meeting" id="l3b-kF-Fh7">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="tcQ-YG-Sv3">
+                            <connections>
+                                <action selector="backButton:" destination="Gw4-oj-0Qv" id="xob-eG-iGO"/>
+                                <segue destination="Uqc-FN-HRQ" kind="unwind" unwindAction="unwindToList:" id="zEa-ht-Nd1"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="h8P-gb-sWr">
+                            <connections>
+                                <action selector="editButton:" destination="Gw4-oj-0Qv" id="DIT-Wo-mte"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="dateLabel" destination="ltT-iY-MXE" id="08K-95-xcZ"/>
+                        <outlet property="notesLabel" destination="7g3-QR-jTP" id="Mla-Hd-ggh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LXh-qN-g9f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Uqc-FN-HRQ" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2392.5" y="1134"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2TR-IO-FZN">

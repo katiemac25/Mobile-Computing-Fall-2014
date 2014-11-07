@@ -102,6 +102,8 @@
     
     [newMeeting setNotes:self.notes.text];
     
+    [newMeeting setDate:[NSDate date]];
+    
     [meetingList addObject:newMeeting];
 }
 

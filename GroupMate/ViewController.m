@@ -8,18 +8,22 @@
 
 #import "ViewController.h"
 #import "NewMeetingViewController.h"
+#import "MeetingViewController.h"
 #import "Meeting.h"
 
 @interface ViewController ()
 
 @end
 
-@implementation ViewController
+@implementation ViewController{
+    NSUInteger currMeetingIndex;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     meetingList = [[NSMutableArray alloc] init];
+    currMeetingIndex = -1;
     
     //Add '+' button to UIBarButton to create new meeting
     UIBarButtonItem *newMeeting = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
@@ -65,7 +69,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MeetingCell" forIndexPath:indexPath];
     
-    Meeting *currMeeting = (Meeting*)[meetingList objectAtIndex:indexPath.row];
+    NSUInteger index = [meetingList count] - indexPath.row - 1;
+    Meeting *currMeeting = (Meeting*)[meetingList objectAtIndex:index];
     
     UILabel *colourTag = (UILabel *)[cell viewWithTag:101];
     if([currMeeting.colour isEqual: @"Red"]){
@@ -90,6 +95,13 @@
     return cell;
 }
 
+//Cell selected
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    currMeetingIndex = [meetingList count] - indexPath.row - 1;
+    
+    [self performSegueWithIdentifier:@"viewMeetingSegue"sender:self];
+}
+
 -(void) addMeeting{
     [self performSegueWithIdentifier:@"newMeetingSegue"sender:self];
 }
@@ -107,6 +119,9 @@
         NewMeetingViewController *controller = [segue destinationViewController];
         
         [controller setMeetingList:meetingList];
+    }else if ([segue.identifier isEqualToString:@"viewMeetingSegue"]){
+         MeetingViewController *controller = [segue destinationViewController];
+        [controller setMeeting:(Meeting*)[meetingList objectAtIndex:currMeetingIndex]];
     }
 }
 
