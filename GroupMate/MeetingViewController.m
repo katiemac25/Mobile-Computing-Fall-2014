@@ -19,14 +19,35 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     NSDate *date = meeting.date;
-    NSString *formattedDateString = [dateFormatter stringFromDate:date];
-    [self.dateLabel setText:formattedDateString];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    [self.dateLabel setText:dateString];
     [self.notesLabel setText:meeting.notes];
     [self.navigationItem setTitle:meeting.name];
     
-    // Do any additional setup after loading the view.
+    if([meeting.colour  isEqual: @"Red"]){
+        [self.navigationController.navigationBar
+         setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor redColor]}];
+    }else if([meeting.colour  isEqual: @"Orange"]){
+        [self.navigationController.navigationBar
+         setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor orangeColor]}];
+    }else if([meeting.colour  isEqual: @"Yellow"]){
+        [self.navigationController.navigationBar
+         setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor yellowColor]}];
+    }else if([meeting.colour  isEqual: @"Green"]){
+        [self.navigationController.navigationBar
+         setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor greenColor]}];
+    }else if([meeting.colour  isEqual: @"Blue"]){
+        [self.navigationController.navigationBar
+         setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blueColor]}];
+    }else if([meeting.colour  isEqual: @"Purple"]){
+        [self.navigationController.navigationBar
+         setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor purpleColor]}];
+    }else if([meeting.colour  isEqual: @"Black"]){
+        [self.navigationController.navigationBar
+         setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

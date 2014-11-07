@@ -17,12 +17,16 @@
 
 @implementation NewMeetingViewController{
     int colourIndex;
+    Meeting *newMeeting;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.hidesBackButton = YES;
+    newMeeting = [[Meeting alloc] init];
+    
+    //Get date and time when meeting starts
+    [newMeeting setDate:[NSDate date]];
 
     //Add save button to UIBarButton
     UIBarButtonItem *saveMeetingButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
@@ -76,12 +80,16 @@
 }
 
 -(void) saveMeeting{
-    Meeting *newMeeting = [[Meeting alloc] init];
-    
     if(![self.meetingName.text  isEqual: @""]){
         [newMeeting setName:self.meetingName.text];
     }else{
-        [newMeeting setName:@"New Meeting"];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        NSDate *date = [NSDate date];
+        NSString *dateString = [dateFormatter stringFromDate:date];
+        NSString *meetingTitle = [NSString stringWithFormat:@"New Meeting - %@", dateString];
+        [newMeeting setName:meetingTitle];
     }
     
     if(colourIndex == 0){
@@ -101,8 +109,6 @@
     }
     
     [newMeeting setNotes:self.notes.text];
-    
-    [newMeeting setDate:[NSDate date]];
     
     [meetingList addObject:newMeeting];
 }
