@@ -25,6 +25,9 @@
     meetingList = [[NSMutableArray alloc] init];
     currMeetingIndex = -1;
     
+    //Remove warning about ambiguous row height
+    self.meetingListTable.rowHeight = 44;
+    
     //Add '+' button to UIBarButton to create new meeting
     UIBarButtonItem *newMeeting = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                  target:self
@@ -38,7 +41,7 @@
     [self.navigationItem setLeftBarButtonItem:viewProfileButton];
     
     //Test meetings
-    /*Meeting *testMeeting1 = [[Meeting alloc] init];
+    Meeting *testMeeting1 = [[Meeting alloc] init];
     [testMeeting1 setName:@"Test 1"];
     [testMeeting1 setColour:@"Red"];
     
@@ -48,7 +51,7 @@
     [testMeeting2 setName:@"Test 2"];
     [testMeeting2 setColour:@"Blue"];
     
-    [meetingList addObject:testMeeting2];*/
+    [meetingList addObject:testMeeting2];
 }
 
 - (void)didReceiveMemoryWarning {

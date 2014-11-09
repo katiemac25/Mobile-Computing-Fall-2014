@@ -19,5 +19,6 @@
 - (IBAction)editButton:(id)sender;
 - (IBAction)backButton:(id)sender;
 - (void) setMeeting:(Meeting*)currMeeting;
+- (IBAction)unwindToDisplay:(UIStoryboardSegue *)segue;
 
 @end

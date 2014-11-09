@@ -6,10 +6,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Meetings-->
+        <!--Meeting List-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                <viewController title="Meeting List" id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -298,9 +298,10 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="New Meeting" id="lP9-po-TaW">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="C6E-rK-0VP">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="C6E-rK-0VP">
                             <connections>
-                                <segue destination="j90-Ob-w5c" kind="unwind" unwindAction="unwindToList:" id="q4T-E3-KyQ"/>
+                                <action selector="confirmCancel:" destination="PnM-EG-Vii" id="Y8i-2A-pHi"/>
+                                <segue destination="j90-Ob-w5c" kind="unwind" unwindAction="unwindToList:" id="AWB-0V-gjt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -315,15 +316,16 @@
             </objects>
             <point key="canvasLocation" x="2392.5" y="387"/>
         </scene>
-        <!--Meeting-->
+        <!--Meeting Display-->
         <scene sceneID="kBV-tI-6UK">
             <objects>
-                <viewController id="Gw4-oj-0Qv" customClass="MeetingViewController" sceneMemberID="viewController">
+                <viewController title="Meeting Display" id="Gw4-oj-0Qv" customClass="MeetingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="629-oU-xBL"/>
                         <viewControllerLayoutGuide type="bottom" id="6To-Aj-0kM"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uwC-4M-1IY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltT-iY-MXE">
@@ -335,7 +337,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7g3-QR-jTP">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
@@ -346,7 +348,9 @@
                             <constraint firstItem="ltT-iY-MXE" firstAttribute="leading" secondItem="uwC-4M-1IY" secondAttribute="leadingMargin" id="Hre-sB-j9c"/>
                             <constraint firstItem="7g3-QR-jTP" firstAttribute="top" secondItem="ltT-iY-MXE" secondAttribute="bottom" constant="8" symbolic="YES" id="Lm7-TN-1PY"/>
                             <constraint firstItem="7g3-QR-jTP" firstAttribute="trailing" secondItem="ltT-iY-MXE" secondAttribute="trailing" id="P3R-Kl-pv3"/>
-                            <constraint firstItem="6To-Aj-0kM" firstAttribute="top" secondItem="7g3-QR-jTP" secondAttribute="bottom" constant="222" id="uIO-AX-FLd"/>
+                            <constraint firstItem="6To-Aj-0kM" firstAttribute="top" secondItem="7g3-QR-jTP" secondAttribute="bottom" constant="222" id="uIO-AX-FLd">
+                                <variation key="widthClass=compact" constant="232"/>
+                            </constraint>
                             <constraint firstItem="ltT-iY-MXE" firstAttribute="trailing" secondItem="uwC-4M-1IY" secondAttribute="trailingMargin" id="uOg-1V-8T8"/>
                             <constraint firstItem="ltT-iY-MXE" firstAttribute="leading" secondItem="7g3-QR-jTP" secondAttribute="leading" id="w2n-Is-C9Q"/>
                             <constraint firstItem="ltT-iY-MXE" firstAttribute="top" secondItem="629-oU-xBL" secondAttribute="bottom" constant="8" symbolic="YES" id="yD8-uz-L6K"/>
@@ -361,9 +365,9 @@
                                 <exclude reference="uOg-1V-8T8"/>
                                 <exclude reference="w2n-Is-C9Q"/>
                                 <exclude reference="yD8-uz-L6K"/>
+                                <exclude reference="uIO-AX-FLd"/>
                                 <exclude reference="Lm7-TN-1PY"/>
                                 <exclude reference="P3R-Kl-pv3"/>
-                                <exclude reference="uIO-AX-FLd"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -376,9 +380,9 @@
                                 <include reference="uOg-1V-8T8"/>
                                 <include reference="w2n-Is-C9Q"/>
                                 <include reference="yD8-uz-L6K"/>
+                                <include reference="uIO-AX-FLd"/>
                                 <include reference="Lm7-TN-1PY"/>
                                 <include reference="P3R-Kl-pv3"/>
-                                <include reference="uIO-AX-FLd"/>
                             </mask>
                         </variation>
                     </view>
@@ -387,12 +391,13 @@
                         <barButtonItem key="leftBarButtonItem" title="Back" id="tcQ-YG-Sv3">
                             <connections>
                                 <action selector="backButton:" destination="Gw4-oj-0Qv" id="xob-eG-iGO"/>
-                                <segue destination="Uqc-FN-HRQ" kind="unwind" unwindAction="unwindToList:" id="zEa-ht-Nd1"/>
+                                <segue destination="Uqc-FN-HRQ" kind="unwind" identifier="UnwindToList" unwindAction="unwindToList:" id="zEa-ht-Nd1"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="h8P-gb-sWr">
                             <connections>
                                 <action selector="editButton:" destination="Gw4-oj-0Qv" id="DIT-Wo-mte"/>
+                                <segue destination="Zgi-jf-CG0" kind="show" identifier="editSegue" id="Kxs-I9-tp9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -406,6 +411,124 @@
                 <exit id="Uqc-FN-HRQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2392.5" y="1134"/>
+        </scene>
+        <!--Edit Meeting-->
+        <scene sceneID="cgs-DW-hSZ">
+            <objects>
+                <viewController title="Edit Meeting" id="Zgi-jf-CG0" customClass="EditViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CFb-cC-hRl"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Rg-7X-OAt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fjs-61-26T">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Wuc-Q4-yQt">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Meeting Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UOe-Fb-1vy">
+                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="updateMeetingName:" destination="Zgi-jf-CG0" eventType="editingDidEnd" id="GTq-hu-lRt"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nom-HP-ULM">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="4SQ-Nf-MGS"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="4SQ-Nf-MGS"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="4SQ-Nf-MGS"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="changeColourTag:" destination="Zgi-jf-CG0" eventType="touchUpInside" id="MXA-eo-AWj"/>
+                                    <action selector="changeColourTag:" destination="PnM-EG-Vii" eventType="touchUpInside" id="VuF-OC-bYV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UOe-Fb-1vy" firstAttribute="top" secondItem="CFb-cC-hRl" secondAttribute="bottom" constant="21" id="0Pe-KY-VRC"/>
+                            <constraint firstItem="Wuc-Q4-yQt" firstAttribute="leading" secondItem="UOe-Fb-1vy" secondAttribute="leading" id="1FY-kC-xKa"/>
+                            <constraint firstItem="nom-HP-ULM" firstAttribute="leading" secondItem="UOe-Fb-1vy" secondAttribute="trailing" constant="8" symbolic="YES" id="8V1-Ig-v2X"/>
+                            <constraint firstItem="2Rg-7X-OAt" firstAttribute="top" secondItem="Wuc-Q4-yQt" secondAttribute="bottom" constant="210" id="KLE-fh-YnT"/>
+                            <constraint firstItem="UOe-Fb-1vy" firstAttribute="top" secondItem="nom-HP-ULM" secondAttribute="top" id="S7U-ps-jXH"/>
+                            <constraint firstItem="Wuc-Q4-yQt" firstAttribute="trailing" secondItem="nom-HP-ULM" secondAttribute="trailing" id="bJn-Kh-SdE"/>
+                            <constraint firstItem="Wuc-Q4-yQt" firstAttribute="top" secondItem="UOe-Fb-1vy" secondAttribute="bottom" constant="8" symbolic="YES" id="cFa-4V-jjt"/>
+                            <constraint firstItem="nom-HP-ULM" firstAttribute="trailing" secondItem="fjs-61-26T" secondAttribute="trailingMargin" id="jYe-RO-AE6"/>
+                            <constraint firstItem="Wuc-Q4-yQt" firstAttribute="leading" secondItem="fjs-61-26T" secondAttribute="leadingMargin" id="wA1-hZ-HHm"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Wuc-Q4-yQt"/>
+                                <exclude reference="UOe-Fb-1vy"/>
+                                <exclude reference="nom-HP-ULM"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="0Pe-KY-VRC"/>
+                                <exclude reference="S7U-ps-jXH"/>
+                                <exclude reference="1FY-kC-xKa"/>
+                                <exclude reference="bJn-Kh-SdE"/>
+                                <exclude reference="cFa-4V-jjt"/>
+                                <exclude reference="wA1-hZ-HHm"/>
+                                <exclude reference="8V1-Ig-v2X"/>
+                                <exclude reference="jYe-RO-AE6"/>
+                                <exclude reference="KLE-fh-YnT"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="Wuc-Q4-yQt"/>
+                                <include reference="UOe-Fb-1vy"/>
+                                <include reference="nom-HP-ULM"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="0Pe-KY-VRC"/>
+                                <include reference="S7U-ps-jXH"/>
+                                <include reference="1FY-kC-xKa"/>
+                                <include reference="bJn-Kh-SdE"/>
+                                <include reference="cFa-4V-jjt"/>
+                                <include reference="wA1-hZ-HHm"/>
+                                <include reference="8V1-Ig-v2X"/>
+                                <include reference="jYe-RO-AE6"/>
+                                <include reference="KLE-fh-YnT"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="P6w-AI-JuB">
+                        <barButtonItem key="leftBarButtonItem" title="Done" id="1UZ-uS-uWL">
+                            <connections>
+                                <segue destination="Tak-ZF-IvX" kind="unwind" unwindAction="unwindToDisplay:" id="Hh6-8j-X2E"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="colourPicker" destination="nom-HP-ULM" id="nVL-wE-2dB"/>
+                        <outlet property="meetingName" destination="UOe-Fb-1vy" id="L6a-DK-QNx"/>
+                        <outlet property="notes" destination="Wuc-Q4-yQt" id="QOy-Hp-k8I"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nv2-tv-SMX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Tak-ZF-IvX" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3184.5" y="1134"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2TR-IO-FZN">

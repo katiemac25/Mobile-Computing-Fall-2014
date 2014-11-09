@@ -19,6 +19,8 @@
     int colourIndex;
     Meeting *newMeeting;
     int new;//Keeps track if meeting is new or being saved again
+    UIAlertView *alert;
+    BOOL cancelConfirmed;
 }
 
 - (void)viewDidLoad {
@@ -26,6 +28,8 @@
     
     newMeeting = [[Meeting alloc] init];
     new = true;
+    
+    cancelConfirmed = false;
     
     //Get date and time when meeting starts
     [newMeeting setDate:[NSDate date]];
@@ -40,6 +44,9 @@
     [[self.notes layer] setBorderColor:[[UIColor grayColor] CGColor]];
     [[self.notes layer] setBorderWidth:1];
     [[self.notes layer] setCornerRadius:5];
+    
+    [self.navigationController.navigationBar
+     setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -130,6 +137,36 @@
 
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy{
     meetingList = meetingListCopy;
+}
+
+- (IBAction)confirmCancel:(id)sender {
+    alert = [[UIAlertView alloc]
+             initWithTitle:@"Are you sure you wish to cancel?"
+             message:@"Your meeting will not be saved"
+             delegate:self
+             cancelButtonTitle:@"Cancel"
+             otherButtonTitles:@"Ok",
+             nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    //If propose button selected...
+    if (buttonIndex == 1) {//Ok
+        cancelConfirmed = true;
+        [self performSegueWithIdentifier:@"UnwindToList" sender:self];
+    }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"UnwindToList"]){
+        if (cancelConfirmed == true) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+    return true;
 }
 
 @end

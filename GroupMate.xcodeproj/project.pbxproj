@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E3454141A0CC5F900DACC25 /* MeetingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3454131A0CC5F900DACC25 /* MeetingViewController.m */; };
+		8E7AA3F51A0FA89600BD9A1D /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7AA3F41A0FA89600BD9A1D /* EditViewController.m */; };
 		8E7D13F71A0AD2C8004ACC92 /* Meeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7D13F61A0AD2C8004ACC92 /* Meeting.m */; };
 		8EBC4E091A0194840086577B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC4E081A0194840086577B /* main.m */; };
 		8EBC4E0C1A0194840086577B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC4E0B1A0194840086577B /* AppDelegate.m */; };
@@ -32,6 +33,8 @@
 /* Begin PBXFileReference section */
 		8E3454121A0CC5F900DACC25 /* MeetingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingViewController.h; sourceTree = "<group>"; };
 		8E3454131A0CC5F900DACC25 /* MeetingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingViewController.m; sourceTree = "<group>"; };
+		8E7AA3F31A0FA89600BD9A1D /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
+		8E7AA3F41A0FA89600BD9A1D /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		8E7D13F51A0AD2C8004ACC92 /* Meeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meeting.h; sourceTree = "<group>"; };
 		8E7D13F61A0AD2C8004ACC92 /* Meeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meeting.m; sourceTree = "<group>"; };
 		8EBC4E031A0194840086577B /* GroupMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GroupMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +103,8 @@
 				8EF4FDAC1A019E5A005EDC49 /* NewMeetingViewController.m */,
 				8E3454121A0CC5F900DACC25 /* MeetingViewController.h */,
 				8E3454131A0CC5F900DACC25 /* MeetingViewController.m */,
+				8E7AA3F31A0FA89600BD9A1D /* EditViewController.h */,
+				8E7AA3F41A0FA89600BD9A1D /* EditViewController.m */,
 				8EBC4E101A0194840086577B /* Main.storyboard */,
 				8EBC4E131A0194840086577B /* Images.xcassets */,
 				8EBC4E151A0194840086577B /* LaunchScreen.xib */,
@@ -237,6 +242,7 @@
 				8E3454141A0CC5F900DACC25 /* MeetingViewController.m in Sources */,
 				8EBC4E0F1A0194840086577B /* ViewController.m in Sources */,
 				8EBC4E0C1A0194840086577B /* AppDelegate.m in Sources */,
+				8E7AA3F51A0FA89600BD9A1D /* EditViewController.m in Sources */,
 				8EBC4E091A0194840086577B /* main.m in Sources */,
 				8E7D13F71A0AD2C8004ACC92 /* Meeting.m in Sources */,
 				8EF4FDAD1A019E5A005EDC49 /* NewMeetingViewController.m in Sources */,
