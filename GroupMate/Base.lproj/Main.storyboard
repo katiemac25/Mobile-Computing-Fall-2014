@@ -55,11 +55,17 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="2pD-MQ-cAn" firstAttribute="leading" secondItem="Gsa-ND-h8V" secondAttribute="trailing" constant="17" id="Nsp-53-nTV"/>
-                                                <constraint firstItem="Gsa-ND-h8V" firstAttribute="top" secondItem="3x2-tO-2Et" secondAttribute="top" id="Pdx-NQ-F9d"/>
+                                                <constraint firstItem="Gsa-ND-h8V" firstAttribute="top" secondItem="3x2-tO-2Et" secondAttribute="top" id="Pdx-NQ-F9d">
+                                                    <variation key="widthClass=compact" constant="1"/>
+                                                </constraint>
                                                 <constraint firstItem="Gsa-ND-h8V" firstAttribute="centerY" secondItem="2pD-MQ-cAn" secondAttribute="centerY" id="RFU-ql-zwf"/>
                                                 <constraint firstItem="Gsa-ND-h8V" firstAttribute="leading" secondItem="3x2-tO-2Et" secondAttribute="leading" id="eAc-ms-SRH"/>
-                                                <constraint firstAttribute="trailing" secondItem="2pD-MQ-cAn" secondAttribute="trailing" id="qiX-rW-fpC"/>
-                                                <constraint firstItem="2pD-MQ-cAn" firstAttribute="top" secondItem="3x2-tO-2Et" secondAttribute="topMargin" constant="4" id="tlf-MZ-x7Y"/>
+                                                <constraint firstAttribute="trailing" secondItem="2pD-MQ-cAn" secondAttribute="trailing" id="qiX-rW-fpC">
+                                                    <variation key="widthClass=compact" constant="8"/>
+                                                </constraint>
+                                                <constraint firstItem="2pD-MQ-cAn" firstAttribute="top" secondItem="3x2-tO-2Et" secondAttribute="topMargin" constant="4" id="tlf-MZ-x7Y">
+                                                    <variation key="widthClass=compact" constant="5"/>
+                                                </constraint>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
@@ -140,7 +146,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1686" y="387"/>
+            <point key="canvasLocation" x="1686" y="386"/>
         </scene>
         <!--New Meeting-->
         <scene sceneID="TvU-w6-Kvm">
@@ -303,6 +309,11 @@
                                 <action selector="confirmCancel:" destination="PnM-EG-Vii" id="Y8i-2A-pHi"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="Dfy-U5-gZL">
+                            <connections>
+                                <action selector="saveMeeting:" destination="PnM-EG-Vii" id="VP0-4H-mgi"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="colourPicker" destination="256-ew-WFZ" id="n21-Je-s3T"/>
@@ -361,11 +372,11 @@
                                 <exclude reference="7g3-QR-jTP"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="uIO-AX-FLd"/>
                                 <exclude reference="Hre-sB-j9c"/>
                                 <exclude reference="uOg-1V-8T8"/>
                                 <exclude reference="w2n-Is-C9Q"/>
                                 <exclude reference="yD8-uz-L6K"/>
-                                <exclude reference="uIO-AX-FLd"/>
                                 <exclude reference="Lm7-TN-1PY"/>
                                 <exclude reference="P3R-Kl-pv3"/>
                             </mask>
@@ -376,11 +387,11 @@
                                 <include reference="7g3-QR-jTP"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="uIO-AX-FLd"/>
                                 <include reference="Hre-sB-j9c"/>
                                 <include reference="uOg-1V-8T8"/>
                                 <include reference="w2n-Is-C9Q"/>
                                 <include reference="yD8-uz-L6K"/>
-                                <include reference="uIO-AX-FLd"/>
                                 <include reference="Lm7-TN-1PY"/>
                                 <include reference="P3R-Kl-pv3"/>
                             </mask>
@@ -401,7 +412,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="dateLabel" destination="ltT-iY-MXE" id="08K-95-xcZ"/>
                         <outlet property="notesLabel" destination="7g3-QR-jTP" id="Mla-Hd-ggh"/>
@@ -462,6 +473,29 @@
                                     <action selector="changeColourTag:" destination="PnM-EG-Vii" eventType="touchUpInside" id="VuF-OC-bYV"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0v-sx-SkH">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="P2W-RH-P5M"/>
+                                </constraints>
+                                <state key="normal" title="Delete Meeting">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="P2W-RH-P5M"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="P2W-RH-P5M"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="deleteMeeting:" destination="Zgi-jf-CG0" eventType="touchUpInside" id="X4c-HZ-vPE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -469,10 +503,13 @@
                             <constraint firstItem="Wuc-Q4-yQt" firstAttribute="leading" secondItem="UOe-Fb-1vy" secondAttribute="leading" id="1FY-kC-xKa"/>
                             <constraint firstItem="nom-HP-ULM" firstAttribute="leading" secondItem="UOe-Fb-1vy" secondAttribute="trailing" constant="8" symbolic="YES" id="8V1-Ig-v2X"/>
                             <constraint firstItem="2Rg-7X-OAt" firstAttribute="top" secondItem="Wuc-Q4-yQt" secondAttribute="bottom" constant="210" id="KLE-fh-YnT"/>
+                            <constraint firstItem="W0v-sx-SkH" firstAttribute="leading" secondItem="Wuc-Q4-yQt" secondAttribute="leading" id="Qn9-4O-XBU"/>
                             <constraint firstItem="UOe-Fb-1vy" firstAttribute="top" secondItem="nom-HP-ULM" secondAttribute="top" id="S7U-ps-jXH"/>
                             <constraint firstItem="Wuc-Q4-yQt" firstAttribute="trailing" secondItem="nom-HP-ULM" secondAttribute="trailing" id="bJn-Kh-SdE"/>
                             <constraint firstItem="Wuc-Q4-yQt" firstAttribute="top" secondItem="UOe-Fb-1vy" secondAttribute="bottom" constant="8" symbolic="YES" id="cFa-4V-jjt"/>
                             <constraint firstItem="nom-HP-ULM" firstAttribute="trailing" secondItem="fjs-61-26T" secondAttribute="trailingMargin" id="jYe-RO-AE6"/>
+                            <constraint firstItem="W0v-sx-SkH" firstAttribute="trailing" secondItem="Wuc-Q4-yQt" secondAttribute="trailing" id="orY-iS-1zW"/>
+                            <constraint firstItem="2Rg-7X-OAt" firstAttribute="top" secondItem="W0v-sx-SkH" secondAttribute="bottom" constant="8" symbolic="YES" id="rre-6h-1fE"/>
                             <constraint firstItem="Wuc-Q4-yQt" firstAttribute="leading" secondItem="fjs-61-26T" secondAttribute="leadingMargin" id="wA1-hZ-HHm"/>
                         </constraints>
                         <variation key="default">
@@ -480,17 +517,21 @@
                                 <exclude reference="Wuc-Q4-yQt"/>
                                 <exclude reference="UOe-Fb-1vy"/>
                                 <exclude reference="nom-HP-ULM"/>
+                                <exclude reference="W0v-sx-SkH"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="KLE-fh-YnT"/>
                                 <exclude reference="0Pe-KY-VRC"/>
                                 <exclude reference="S7U-ps-jXH"/>
-                                <exclude reference="8V1-Ig-v2X"/>
-                                <exclude reference="jYe-RO-AE6"/>
                                 <exclude reference="1FY-kC-xKa"/>
                                 <exclude reference="bJn-Kh-SdE"/>
                                 <exclude reference="cFa-4V-jjt"/>
                                 <exclude reference="wA1-hZ-HHm"/>
+                                <exclude reference="8V1-Ig-v2X"/>
+                                <exclude reference="jYe-RO-AE6"/>
+                                <exclude reference="Qn9-4O-XBU"/>
+                                <exclude reference="orY-iS-1zW"/>
+                                <exclude reference="KLE-fh-YnT"/>
+                                <exclude reference="rre-6h-1fE"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -498,23 +539,33 @@
                                 <include reference="Wuc-Q4-yQt"/>
                                 <include reference="UOe-Fb-1vy"/>
                                 <include reference="nom-HP-ULM"/>
+                                <include reference="W0v-sx-SkH"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="KLE-fh-YnT"/>
                                 <include reference="0Pe-KY-VRC"/>
                                 <include reference="S7U-ps-jXH"/>
-                                <include reference="8V1-Ig-v2X"/>
-                                <include reference="jYe-RO-AE6"/>
                                 <include reference="1FY-kC-xKa"/>
                                 <include reference="bJn-Kh-SdE"/>
                                 <include reference="cFa-4V-jjt"/>
                                 <include reference="wA1-hZ-HHm"/>
+                                <include reference="8V1-Ig-v2X"/>
+                                <include reference="jYe-RO-AE6"/>
+                                <include reference="Qn9-4O-XBU"/>
+                                <include reference="orY-iS-1zW"/>
+                                <include reference="KLE-fh-YnT"/>
+                                <include reference="rre-6h-1fE"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="P6w-AI-JuB">
-                        <barButtonItem key="leftBarButtonItem" title="Done" id="1UZ-uS-uWL"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="1UZ-uS-uWL">
+                            <connections>
+                                <segue destination="eTV-fQ-9Qt" kind="unwind" unwindAction="unwindToDisplay:" id="rbo-sR-Fk2"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="FS2-J1-dLK"/>
                     </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="colourPicker" destination="nom-HP-ULM" id="nVL-wE-2dB"/>
                         <outlet property="meetingName" destination="UOe-Fb-1vy" id="L6a-DK-QNx"/>
@@ -522,8 +573,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nv2-tv-SMX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="eTV-fQ-9Qt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3184.5" y="1134"/>
+            <point key="canvasLocation" x="3181.5" y="1134"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2TR-IO-FZN">

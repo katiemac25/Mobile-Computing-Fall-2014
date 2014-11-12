@@ -21,5 +21,6 @@
 - (void) setMeeting:(Meeting*)currMeeting;
 - (IBAction)changeColourTag:(id)sender;
 - (IBAction)updateMeetingName:(id)sender;
+- (IBAction)deleteMeeting:(id)sender;
 
 @end

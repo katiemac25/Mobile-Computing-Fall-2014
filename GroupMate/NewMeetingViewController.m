@@ -33,12 +33,6 @@
     
     //Get date and time when meeting starts
     [newMeeting setDate:[NSDate date]];
-
-    //Add save button to UIBarButton
-    UIBarButtonItem *saveMeetingButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
-                                                                                        target:self
-                                                                                        action:@selector(saveMeeting)];
-    [self.navigationItem setRightBarButtonItem:saveMeetingButton];
     
     colourIndex = 0;
     [[self.notes layer] setBorderColor:[[UIColor grayColor] CGColor]];
@@ -86,8 +80,22 @@
         colourIndex = 0;
     }
 }
+- (void)setMeetingList:(NSMutableArray*) meetingListCopy{
+    meetingList = meetingListCopy;
+}
 
--(void) saveMeeting{
+- (IBAction)confirmCancel:(id)sender {
+    alert = [[UIAlertView alloc]
+             initWithTitle:@"Are you sure you wish to cancel?"
+             message:@"Your meeting will not be saved"
+             delegate:self
+             cancelButtonTitle:@"Cancel"
+             otherButtonTitles:@"Ok",
+             nil];
+    [alert show];
+}
+
+- (IBAction)saveMeeting:(id)sender {
     //Get meeting name
     if(![self.meetingName.text  isEqual: @""]){
         //If user has created a cutom meeting name, use it
@@ -133,21 +141,7 @@
         [meetingList replaceObjectAtIndex:[meetingList count] - 1 withObject:newMeeting];
     }
     
-}
-
-- (void)setMeetingList:(NSMutableArray*) meetingListCopy{
-    meetingList = meetingListCopy;
-}
-
-- (IBAction)confirmCancel:(id)sender {
-    alert = [[UIAlertView alloc]
-             initWithTitle:@"Are you sure you wish to cancel?"
-             message:@"Your meeting will not be saved"
-             delegate:self
-             cancelButtonTitle:@"Cancel"
-             otherButtonTitles:@"Ok",
-             nil];
-    [alert show];
+    [self performSegueWithIdentifier:@"UnwindToList" sender:self];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

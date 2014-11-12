@@ -19,12 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //Add delete button to UIBarButton
-    UIBarButtonItem *saveMeetingButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
-                                                                                       target:self
-                                                                                       action:@selector(deleteMeeting)];
-    [self.navigationItem setRightBarButtonItem:saveMeetingButton];
-    
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     
@@ -90,6 +84,9 @@
     }else{
         [self.navigationItem setTitle:@"New Meeting"];
     }
+}
+
+- (IBAction)deleteMeeting:(id)sender {
 }
 
 - (IBAction)changeColourTag:(id)sender {

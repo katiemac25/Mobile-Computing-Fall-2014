@@ -20,5 +20,6 @@
 - (IBAction)changeColourTag:(id)sender;
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
 - (IBAction)confirmCancel:(id)sender;
+- (IBAction)saveMeeting:(id)sender;
 
 @end
