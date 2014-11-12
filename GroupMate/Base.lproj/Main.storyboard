@@ -301,7 +301,6 @@
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="C6E-rK-0VP">
                             <connections>
                                 <action selector="confirmCancel:" destination="PnM-EG-Vii" id="Y8i-2A-pHi"/>
-                                <segue destination="j90-Ob-w5c" kind="unwind" unwindAction="unwindToList:" id="AWB-0V-gjt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -309,6 +308,7 @@
                         <outlet property="colourPicker" destination="256-ew-WFZ" id="n21-Je-s3T"/>
                         <outlet property="meetingName" destination="BVj-3n-MvQ" id="vFf-FQ-Lj1"/>
                         <outlet property="notes" destination="dDA-vz-xCP" id="Ogl-hY-NZc"/>
+                        <segue destination="j90-Ob-w5c" kind="unwind" identifier="UnwindToList" unwindAction="unwindToList:" id="kSj-bx-tTL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Dw-Yc-dVn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -482,15 +482,15 @@
                                 <exclude reference="nom-HP-ULM"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="KLE-fh-YnT"/>
                                 <exclude reference="0Pe-KY-VRC"/>
                                 <exclude reference="S7U-ps-jXH"/>
+                                <exclude reference="8V1-Ig-v2X"/>
+                                <exclude reference="jYe-RO-AE6"/>
                                 <exclude reference="1FY-kC-xKa"/>
                                 <exclude reference="bJn-Kh-SdE"/>
                                 <exclude reference="cFa-4V-jjt"/>
                                 <exclude reference="wA1-hZ-HHm"/>
-                                <exclude reference="8V1-Ig-v2X"/>
-                                <exclude reference="jYe-RO-AE6"/>
-                                <exclude reference="KLE-fh-YnT"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -500,24 +500,20 @@
                                 <include reference="nom-HP-ULM"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="KLE-fh-YnT"/>
                                 <include reference="0Pe-KY-VRC"/>
                                 <include reference="S7U-ps-jXH"/>
+                                <include reference="8V1-Ig-v2X"/>
+                                <include reference="jYe-RO-AE6"/>
                                 <include reference="1FY-kC-xKa"/>
                                 <include reference="bJn-Kh-SdE"/>
                                 <include reference="cFa-4V-jjt"/>
                                 <include reference="wA1-hZ-HHm"/>
-                                <include reference="8V1-Ig-v2X"/>
-                                <include reference="jYe-RO-AE6"/>
-                                <include reference="KLE-fh-YnT"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="P6w-AI-JuB">
-                        <barButtonItem key="leftBarButtonItem" title="Done" id="1UZ-uS-uWL">
-                            <connections>
-                                <segue destination="Tak-ZF-IvX" kind="unwind" unwindAction="unwindToDisplay:" id="Hh6-8j-X2E"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Done" id="1UZ-uS-uWL"/>
                     </navigationItem>
                     <connections>
                         <outlet property="colourPicker" destination="nom-HP-ULM" id="nVL-wE-2dB"/>
@@ -526,7 +522,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nv2-tv-SMX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Tak-ZF-IvX" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3184.5" y="1134"/>
         </scene>
