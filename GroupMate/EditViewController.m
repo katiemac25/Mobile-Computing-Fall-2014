@@ -14,6 +14,7 @@
 
 @implementation EditViewController{
     int colourIndex;
+    Meeting *newMeeting;
 }
 
 - (void)viewDidLoad {
@@ -70,12 +71,59 @@
 }
 */
 
-- (void) deleteMeeting{
-    
-}
-
 - (void) setMeeting:(Meeting*)currMeeting{
     meeting = currMeeting;
+    newMeeting = currMeeting;
+}
+- (void) setIndex:(int)currIndex{
+    index = currIndex;
+}
+- (void)setMeetingList:(NSMutableArray*) meetingListCopy{
+    meetingList = meetingListCopy;
+}
+
+- (IBAction)saveMeeting:(id)sender {
+    if(![self.meetingName.text  isEqual: @""]){
+        [newMeeting setName:self.meetingName.text];
+    }else{
+        [newMeeting setName:@"New Meeting"];
+    }
+    [newMeeting setNotes:self.notes.text];
+    meeting = newMeeting;
+    [meetingList replaceObjectAtIndex:index withObject:meeting];
+    [self performSegueWithIdentifier:@"UnwindToDisplayFromEdit" sender:self];
+}
+
+- (IBAction)changeColourTag:(id)sender {
+    if(colourIndex == 0){
+        [self.colourPicker setBackgroundColor:[UIColor orangeColor]];
+        [newMeeting setColour:@"Orange"];
+        colourIndex++;
+    }else if(colourIndex == 1){
+        [self.colourPicker setBackgroundColor:[UIColor yellowColor]];
+        [newMeeting setColour:@"Yellow"];
+        colourIndex++;
+    }else if(colourIndex == 2){
+        [self.colourPicker setBackgroundColor:[UIColor greenColor]];
+        [newMeeting setColour:@"Green"];
+        colourIndex++;
+    }else if(colourIndex == 3){
+        [self.colourPicker setBackgroundColor:[UIColor blueColor]];
+        [newMeeting setColour:@"Blue"];
+        colourIndex++;
+    }else if(colourIndex == 4){
+        [self.colourPicker setBackgroundColor:[UIColor purpleColor]];
+        [newMeeting setColour:@"Purple"];
+        colourIndex++;
+    }else if(colourIndex == 5){
+        [self.colourPicker setBackgroundColor:[UIColor blackColor]];
+        [newMeeting setColour:@"Black"];
+        colourIndex++;
+    }else if(colourIndex == 6){
+        [self.colourPicker setBackgroundColor:[UIColor redColor]];
+        [newMeeting setColour:@"Red"];
+        colourIndex = 0;
+    }
 }
 
 - (IBAction)updateMeetingName:(id)sender {
@@ -83,35 +131,14 @@
         [self.navigationItem setTitle:self.meetingName.text];
     }else{
         [self.navigationItem setTitle:@"New Meeting"];
+        [newMeeting setName:@"New Meeting"];
     }
 }
 
 - (IBAction)deleteMeeting:(id)sender {
+    [meetingList removeObjectAtIndex:index];
+    [self performSegueWithIdentifier:@"UnwindToListFromEdit" sender:self];
 }
 
-- (IBAction)changeColourTag:(id)sender {
-    if(colourIndex == 0){
-        [self.colourPicker setBackgroundColor:[UIColor orangeColor]];
-        colourIndex++;
-    }else if(colourIndex == 1){
-        [self.colourPicker setBackgroundColor:[UIColor yellowColor]];
-        colourIndex++;
-    }else if(colourIndex == 2){
-        [self.colourPicker setBackgroundColor:[UIColor greenColor]];
-        colourIndex++;
-    }else if(colourIndex == 3){
-        [self.colourPicker setBackgroundColor:[UIColor blueColor]];
-        colourIndex++;
-    }else if(colourIndex == 4){
-        [self.colourPicker setBackgroundColor:[UIColor purpleColor]];
-        colourIndex++;
-    }else if(colourIndex == 5){
-        [self.colourPicker setBackgroundColor:[UIColor blackColor]];
-        colourIndex++;
-    }else if(colourIndex == 6){
-        [self.colourPicker setBackgroundColor:[UIColor redColor]];
-        colourIndex = 0;
-    }
-}
 
 @end

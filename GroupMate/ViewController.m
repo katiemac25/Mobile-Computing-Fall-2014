@@ -123,8 +123,10 @@
         
         [controller setMeetingList:meetingList];
     }else if ([segue.identifier isEqualToString:@"viewMeetingSegue"]){
-         MeetingViewController *controller = [segue destinationViewController];
+        MeetingViewController *controller = [segue destinationViewController];
         [controller setMeeting:(Meeting*)[meetingList objectAtIndex:currMeetingIndex]];
+        [controller setMeetingList:meetingList];
+        [controller setIndex:(int)currMeetingIndex];
     }
 }
 
@@ -137,11 +139,17 @@
 }
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue{
-    if ([segue.identifier isEqualToString:@"leaveNewMeetingSegue"]) {
+    if ([segue.identifier isEqualToString:@"UnwindToList"]) {
+        ViewController *controller = [segue destinationViewController];
+        
+        [controller setMeetingList:meetingList];
+    }else if([segue.identifier isEqualToString:@"UnwindToListFromEdit"]){
         ViewController *controller = [segue destinationViewController];
         
         [controller setMeetingList:meetingList];
     }
+    [self.navigationController.navigationBar
+     setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
 }
 
 @end

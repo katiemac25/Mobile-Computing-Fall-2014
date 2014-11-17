@@ -18,7 +18,6 @@
 @implementation NewMeetingViewController{
     int colourIndex;
     Meeting *newMeeting;
-    int new;//Keeps track if meeting is new or being saved again
     UIAlertView *alert;
     BOOL cancelConfirmed;
 }
@@ -27,7 +26,6 @@
     [super viewDidLoad];
     
     newMeeting = [[Meeting alloc] init];
-    new = true;
     
     cancelConfirmed = false;
     
@@ -131,19 +129,27 @@
     
     //set meeting notes
     [newMeeting setNotes:self.notes.text];
-    
-    if(new){
-        //If meeting has not been saved before, add it to meetingList
-        [meetingList addObject:newMeeting];
-        new = false;
-    }else{
-        //If meeting has  been saved before, replace last item in meetingList
-        [meetingList replaceObjectAtIndex:[meetingList count] - 1 withObject:newMeeting];
-    }
+    [meetingList addObject:newMeeting];
     
     [self performSegueWithIdentifier:@"UnwindToList" sender:self];
 }
 
+- (IBAction)takePhoto:(id)sender {
+    picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    [imageView setImage:image];
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     //If propose button selected...
     if (buttonIndex == 1) {//Ok

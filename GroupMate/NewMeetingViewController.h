@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewMeetingViewController : UIViewController{
+@interface NewMeetingViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>{
     NSMutableArray *meetingList;
+    
+    IBOutlet UIImageView *imageView;
+    UIImagePickerController *picker;
+    UIImage *image;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *colourPicker;
@@ -21,5 +25,6 @@
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
 - (IBAction)confirmCancel:(id)sender;
 - (IBAction)saveMeeting:(id)sender;
+- (IBAction)takePhoto:(id)sender;
 
 @end

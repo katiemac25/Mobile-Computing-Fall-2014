@@ -18,6 +18,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSLog(@"test");
+    
+    [self updatePage];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"editSegue"]){
+        EditViewController *controller = [segue destinationViewController];
+        [controller setMeeting:meeting];
+        [controller setMeetingList:meetingList];
+        [controller setIndex:index];
+    }
+}
+
+- (void)updatePage{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
@@ -50,19 +70,6 @@
          setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     }
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"editSegue"]){
-        EditViewController *controller = [segue destinationViewController];
-        [controller setMeeting:meeting];
-    }
-}
-
 - (IBAction)editButton:(id)sender {
 }
 
@@ -72,6 +79,24 @@
 - (void) setMeeting:(Meeting*)currMeeting{
     meeting = currMeeting;
 }
+- (void) setIndex:(int)currIndex{
+    index = currIndex;
+}
+- (void)setMeetingList:(NSMutableArray*) meetingListCopy{
+    meetingList = meetingListCopy;
+}
 
-- (IBAction)unwindToDisplay:(UIStoryboardSegue *)segue{}
+- (IBAction)unwindToDisplay:(UIStoryboardSegue *)segue{
+    if ([segue.identifier isEqualToString:@"UnwindToDisplay"]) {
+        MeetingViewController *controller = [segue destinationViewController];
+        
+        [controller setMeetingList:meetingList];
+    }else if ([segue.identifier isEqualToString:@"UnwindToDisplayFromEdit"]) {
+        MeetingViewController *controller = [segue destinationViewController];
+        
+        [controller setMeetingList:meetingList];
+        [controller setMeeting:meeting];
+        [controller updatePage];
+    }
+}
 @end

@@ -10,17 +10,21 @@
 #import "Meeting.h"
 
 @interface EditViewController : UIViewController{
+    NSMutableArray *meetingList;
     Meeting *meeting;
+    int index;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *colourPicker;
 @property (weak, nonatomic) IBOutlet UITextField *meetingName;
 @property (weak, nonatomic) IBOutlet UITextView *notes;
 
-- (void) deleteMeeting;
 - (void) setMeeting:(Meeting*)currMeeting;
-- (IBAction)changeColourTag:(id)sender;
+- (void) setIndex:(int)currIndex;
 - (IBAction)updateMeetingName:(id)sender;
 - (IBAction)deleteMeeting:(id)sender;
+- (void)setMeetingList:(NSMutableArray*) meetingListCopy;
+- (IBAction)saveMeeting:(id)sender;
+- (IBAction)changeColourTag:(id)sender;
 
 @end
