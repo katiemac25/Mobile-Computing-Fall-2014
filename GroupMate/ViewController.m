@@ -32,13 +32,8 @@
     UIBarButtonItem *newMeeting = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                  target:self
                                                                                  action:@selector(addMeeting)];
-    //Add hamburger button to UIBarButton to view profile
-    UIBarButtonItem * viewProfileButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
-                                                                                 target:self
-                                                                                 action:@selector(viewProfile)];
     
     [self.navigationItem setRightBarButtonItem:newMeeting];
-    [self.navigationItem setLeftBarButtonItem:viewProfileButton];
     
     //Test meetings
     Meeting *testMeeting1 = [[Meeting alloc] init];

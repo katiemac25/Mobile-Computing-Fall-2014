@@ -15,6 +15,7 @@
 @synthesize colour;
 @synthesize notes;
 @synthesize date;
+@synthesize address;
 
 -(void) setName:(NSString*)meetingName{
     name = meetingName;
@@ -30,6 +31,10 @@
 
 - (void) setDate:(NSDate*)meetingDate{
     date = meetingDate;
+}
+
+- (void) setAddress:(NSString*)meetingAddress{
+    address = meetingAddress;
 }
 
 @end

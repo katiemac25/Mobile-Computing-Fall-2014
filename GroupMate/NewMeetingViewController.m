@@ -20,6 +20,13 @@
     Meeting *newMeeting;
     UIAlertView *alert;
     BOOL cancelConfirmed;
+    int imageCount;
+    NSString *meetingAddress;
+    
+    //Location variables
+    CLLocationManager *locationManager;
+    CLGeocoder *geocoder;
+    CLPlacemark *placemark;
 }
 
 - (void)viewDidLoad {
@@ -29,8 +36,17 @@
     
     cancelConfirmed = false;
     
+    imageCount = 0;
+    
     //Get date and time when meeting starts
     [newMeeting setDate:[NSDate date]];
+    
+    //Location
+    locationManager = [[CLLocationManager alloc] init];
+    geocoder = [[CLGeocoder alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
     
     colourIndex = 0;
     [[self.notes layer] setBorderColor:[[UIColor grayColor] CGColor]];
@@ -129,21 +145,58 @@
     
     //set meeting notes
     [newMeeting setNotes:self.notes.text];
+    
+    //set meeting address
+    [newMeeting setAddress:meetingAddress];
+    NSLog(@"%@", meetingAddress);
+    
+    //Add new meeting to meeting list
     [meetingList addObject:newMeeting];
     
     [self performSegueWithIdentifier:@"UnwindToList" sender:self];
 }
 
 - (IBAction)takePhoto:(id)sender {
-    picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
-    [self presentViewController:picker animated:YES completion:NULL];
+    BOOL hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+    if (hasCamera == NO){
+        UIAlertView *cameraAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:@"Camera Unavailable"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:nil, nil];
+        [cameraAlert show];
+        return;
+    }
+    imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    imagePicker.mediaTypes = [UIImagePickerController
+                              availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+    imagePicker.allowsEditing = YES;
+    [self presentViewController:imagePicker animated:YES completion:NULL];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    [imageView setImage:image];
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+    if(CFStringCompare((__bridge CFStringRef) mediaType, kUTTypeMovie, 0) == kCFCompareEqualTo){
+        NSString *moviePath = (NSString *) [[info objectForKey: UIImagePickerControllerMediaURL] path];
+        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (moviePath)){
+            UISaveVideoAtPathToSavedPhotosAlbum (moviePath, nil, nil, nil);
+        }
+    }else{
+        image = [info objectForKey:UIImagePickerControllerEditedImage];
+        UIImageWriteToSavedPhotosAlbum (image, nil, nil , nil);
+        if(imageCount == 0){
+            [imageView1 setImage:image];
+            imageCount++;
+        }else if(imageCount == 1){
+            [imageView2 setImage:image];
+            imageCount++;
+        }else if(imageCount == 0){
+            [imageView2 setImage:image];
+            imageCount++;
+        }
+    }
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -167,6 +220,29 @@
         }
     }
     return true;
+}
+
+#pragma mark - CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorAlert show];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
+    CLLocation *currLocation = newLocation;
+    
+    [geocoder reverseGeocodeLocation:currLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error == nil && [placemarks count] > 0) {
+            placemark = [placemarks lastObject];
+            meetingAddress = [NSString stringWithFormat:@"%@, %@, %@",
+                                 placemark.locality,
+                                 placemark.administrativeArea,
+                                 placemark.country];
+        }
+    }];
 }
 
 @end

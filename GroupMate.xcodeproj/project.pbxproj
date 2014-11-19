@@ -17,6 +17,7 @@
 		8EBC4E141A0194840086577B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EBC4E131A0194840086577B /* Images.xcassets */; };
 		8EBC4E171A0194840086577B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBC4E151A0194840086577B /* LaunchScreen.xib */; };
 		8EBC4E231A0194840086577B /* GroupMateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC4E221A0194840086577B /* GroupMateTests.m */; };
+		8ED07DB71A1CF55C00849A0C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ED07DB61A1CF55C00849A0C /* CoreLocation.framework */; };
 		8EF4FDAD1A019E5A005EDC49 /* NewMeetingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4FDAC1A019E5A005EDC49 /* NewMeetingViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		8EBC4E1C1A0194840086577B /* GroupMateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GroupMateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EBC4E211A0194840086577B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EBC4E221A0194840086577B /* GroupMateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupMateTests.m; sourceTree = "<group>"; };
+		8ED07DB61A1CF55C00849A0C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8EF4FDAB1A019E5A005EDC49 /* NewMeetingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMeetingViewController.h; sourceTree = "<group>"; };
 		8EF4FDAC1A019E5A005EDC49 /* NewMeetingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMeetingViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8ED07DB71A1CF55C00849A0C /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +78,7 @@
 		8EBC4DFA1A0194840086577B = {
 			isa = PBXGroup;
 			children = (
+				8ED07DB61A1CF55C00849A0C /* CoreLocation.framework */,
 				8EBC4E051A0194840086577B /* GroupMate */,
 				8EBC4E1F1A0194840086577B /* GroupMateTests */,
 				8EBC4E041A0194840086577B /* Products */,
@@ -188,6 +192,7 @@
 				TargetAttributes = {
 					8EBC4E021A0194840086577B = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = HQKPLQT856;
 					};
 					8EBC4E1B1A0194840086577B = {
 						CreatedOnToolsVersion = 6.1;
@@ -367,9 +372,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = GroupMate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -377,9 +385,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = GroupMate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

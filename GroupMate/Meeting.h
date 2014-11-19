@@ -19,10 +19,12 @@
 @property(nonatomic, retain) NSString *colour;
 @property(nonatomic, retain) NSString *notes;
 @property(nonatomic, retain) NSDate *date;
+@property(nonatomic, retain) NSString *address;
 
 - (void) setName:(NSString*)name;
 - (void) setColour:(NSString*)meetingColour;
 - (void) setNotes:(NSString*)meetingNotes;
 - (void) setDate:(NSDate*)meetingDate;
+- (void) setAddress:(NSString*)meetingAddress;
 
 @end

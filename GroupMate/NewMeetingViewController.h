@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface NewMeetingViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>{
+@interface NewMeetingViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIDocumentInteractionControllerDelegate>{
     NSMutableArray *meetingList;
     
-    IBOutlet UIImageView *imageView;
-    UIImagePickerController *picker;
+    IBOutlet UIImageView *imageView1;
+    IBOutlet UIImageView *imageView2;
+    IBOutlet UIImageView *imageView3;
+    UIImagePickerController *imagePicker;
     UIImage *image;
 }
 
