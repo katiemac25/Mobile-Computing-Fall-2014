@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02755EAC1A1D407500DA3828 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02755EAB1A1D407500DA3828 /* Images.xcassets */; };
+		027BA1441A1D447E00786D75 /* icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 027BA1411A1D447E00786D75 /* icon1.png */; };
+		027BA1451A1D447E00786D75 /* icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 027BA1421A1D447E00786D75 /* icon2.png */; };
+		027BA1461A1D447E00786D75 /* icon3.png in Resources */ = {isa = PBXBuildFile; fileRef = 027BA1431A1D447E00786D75 /* icon3.png */; };
+		02C68A6F1A1D4D8C005B160D /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 02C68A6E1A1D4D8C005B160D /* logo.png */; };
 		8E3454141A0CC5F900DACC25 /* MeetingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3454131A0CC5F900DACC25 /* MeetingViewController.m */; };
 		8E7AA3F51A0FA89600BD9A1D /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7AA3F41A0FA89600BD9A1D /* EditViewController.m */; };
 		8E7D13F71A0AD2C8004ACC92 /* Meeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7D13F61A0AD2C8004ACC92 /* Meeting.m */; };
@@ -14,7 +19,6 @@
 		8EBC4E0C1A0194840086577B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC4E0B1A0194840086577B /* AppDelegate.m */; };
 		8EBC4E0F1A0194840086577B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC4E0E1A0194840086577B /* ViewController.m */; };
 		8EBC4E121A0194840086577B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EBC4E101A0194840086577B /* Main.storyboard */; };
-		8EBC4E141A0194840086577B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EBC4E131A0194840086577B /* Images.xcassets */; };
 		8EBC4E171A0194840086577B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBC4E151A0194840086577B /* LaunchScreen.xib */; };
 		8EBC4E231A0194840086577B /* GroupMateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC4E221A0194840086577B /* GroupMateTests.m */; };
 		8ED07DB71A1CF55C00849A0C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ED07DB61A1CF55C00849A0C /* CoreLocation.framework */; };
@@ -32,6 +36,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02755EAB1A1D407500DA3828 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		027BA1411A1D447E00786D75 /* icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon1.png; sourceTree = "<group>"; };
+		027BA1421A1D447E00786D75 /* icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon2.png; sourceTree = "<group>"; };
+		027BA1431A1D447E00786D75 /* icon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon3.png; sourceTree = "<group>"; };
+		02C68A6E1A1D4D8C005B160D /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		8E3454121A0CC5F900DACC25 /* MeetingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingViewController.h; sourceTree = "<group>"; };
 		8E3454131A0CC5F900DACC25 /* MeetingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingViewController.m; sourceTree = "<group>"; };
 		8E7AA3F31A0FA89600BD9A1D /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
@@ -46,7 +55,6 @@
 		8EBC4E0D1A0194840086577B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		8EBC4E0E1A0194840086577B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8EBC4E111A0194840086577B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8EBC4E131A0194840086577B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8EBC4E161A0194840086577B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		8EBC4E1C1A0194840086577B /* GroupMateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GroupMateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EBC4E211A0194840086577B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -110,8 +118,8 @@
 				8E7AA3F31A0FA89600BD9A1D /* EditViewController.h */,
 				8E7AA3F41A0FA89600BD9A1D /* EditViewController.m */,
 				8EBC4E101A0194840086577B /* Main.storyboard */,
-				8EBC4E131A0194840086577B /* Images.xcassets */,
 				8EBC4E151A0194840086577B /* LaunchScreen.xib */,
+				02755EAB1A1D407500DA3828 /* Images.xcassets */,
 				8EBC4E061A0194840086577B /* Supporting Files */,
 			);
 			path = GroupMate;
@@ -120,6 +128,10 @@
 		8EBC4E061A0194840086577B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				027BA1411A1D447E00786D75 /* icon1.png */,
+				027BA1421A1D447E00786D75 /* icon2.png */,
+				027BA1431A1D447E00786D75 /* icon3.png */,
+				02C68A6E1A1D4D8C005B160D /* logo.png */,
 				8EBC4E071A0194840086577B /* Info.plist */,
 				8EBC4E081A0194840086577B /* main.m */,
 			);
@@ -224,9 +236,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02755EAC1A1D407500DA3828 /* Images.xcassets in Resources */,
+				027BA1461A1D447E00786D75 /* icon3.png in Resources */,
 				8EBC4E121A0194840086577B /* Main.storyboard in Resources */,
+				02C68A6F1A1D4D8C005B160D /* logo.png in Resources */,
+				027BA1441A1D447E00786D75 /* icon1.png in Resources */,
 				8EBC4E171A0194840086577B /* LaunchScreen.xib in Resources */,
-				8EBC4E141A0194840086577B /* Images.xcassets in Resources */,
+				027BA1451A1D447E00786D75 /* icon2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
