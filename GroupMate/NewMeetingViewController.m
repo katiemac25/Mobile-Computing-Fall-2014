@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Meeting.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface NewMeetingViewController ()
 
@@ -46,6 +47,10 @@
     geocoder = [[CLGeocoder alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    locationManager.distanceFilter = 20;
+    if([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]){
+        [locationManager requestWhenInUseAuthorization];
+    }
     [locationManager startUpdatingLocation];
     
     colourIndex = 0;
@@ -116,13 +121,13 @@
         [newMeeting setName:self.meetingName.text];
     }else{
         //If user has not created a custom meeting name, make meeting name
-        //"New Meeting - " plus the date and time of the meeting
+        //the date and time of the meeting
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterShortStyle];
         [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
         NSDate *date = [NSDate date];
         NSString *dateString = [dateFormatter stringFromDate:date];
-        NSString *meetingTitle = [NSString stringWithFormat:@"New Meeting - %@", dateString];
+        NSString *meetingTitle = [NSString stringWithFormat:@"%@", dateString];
         [newMeeting setName:meetingTitle];
     }
     
@@ -223,16 +228,15 @@
 }
 
 #pragma mark - CLLocationManagerDelegate
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     NSLog(@"didFailWithError: %@", error);
     UIAlertView *errorAlert = [[UIAlertView alloc]
                                initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [errorAlert show];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
-    CLLocation *currLocation = newLocation;
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    CLLocation *currLocation = [locations lastObject];
     
     [geocoder reverseGeocodeLocation:currLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error == nil && [placemarks count] > 0) {
