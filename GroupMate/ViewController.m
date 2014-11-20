@@ -20,7 +20,7 @@
     BOOL sortByDate;
     NSMutableArray *meetingDates, *meetingLocations;
     NSMutableDictionary *datesCount, *locationsCount;
-    NSArray *meetingsSortedByDate, *meetingsSortedByLocation;
+    NSArray *meetingsSortedByDate, *meetingsSortedByLocation, *alphabeticalLocations;
 }
 
 - (void)viewDidLoad {
@@ -86,7 +86,7 @@
         nsCount = [datesCount objectForKey:sectionHeader];
         return [nsCount intValue];
     }else{
-        sectionHeader = meetingLocations[section];
+        sectionHeader = alphabeticalLocations[section];
         nsCount = [locationsCount objectForKey:sectionHeader];
         return [nsCount intValue];
     }
@@ -97,7 +97,7 @@
     if(sortByDate){
         return meetingDates[section];
     }else{
-        return meetingLocations[section];
+        return alphabeticalLocations[section];
     }
 }
 
@@ -119,18 +119,21 @@
         }
         index += row;
         currMeeting = (Meeting*)[meetingsSortedByDate objectAtIndex:index];
-        NSLog(@"%lu - %@", (unsigned long)index, currMeeting.name);
     }else{
         NSLog(@"location");
         index = 0;
+        NSLog(@"Section %lu, Row: %lu", section, (unsigned long)row);
         for(int i = 0; i < section; i++){
-            sectionHeader = meetingLocations[section];
+            sectionHeader = meetingLocations[section - 1];
+            NSLog(@"Section Header: %@", sectionHeader);
             nsCount = [locationsCount objectForKey:sectionHeader];
+            NSLog(@"locationsCount: %@", nsCount);
             index += [nsCount intValue];
         }
         index += row;
         currMeeting = (Meeting*)[meetingsSortedByLocation objectAtIndex:index];
-        NSLog(@"%lu - %@", (unsigned long)index, currMeeting.name);
+        NSLog(@"Index: %lu", (unsigned long)index);
+        NSLog(@"meetingsSortedByLocation: %@", currMeeting.name);
     }
     
     UILabel *colourTag = (UILabel *)[cell viewWithTag:101];
@@ -159,7 +162,6 @@
 
 //Cell selected
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //currMeetingIndex = [meetingList count] - indexPath.row - 1;
     currMeetingIndex = indexPath.row;
     
     [self performSegueWithIdentifier:@"viewMeetingSegue"sender:self];
@@ -230,7 +232,10 @@
 }
 
 - (void) getMeetingDates{
+    [meetingDates removeAllObjects];
     [datesCount removeAllObjects];
+    //datesCount = [[NSMutableDictionary alloc] init];
+    
     NSNumber *nsCount;
     int incCount;
     for(int i = 0; i < meetingList.count; i++) {
@@ -256,7 +261,11 @@
 }
 
 - (void) getMeetingLocations{
+    NSLog(@"getMeetingLocations");
+    [meetingLocations removeAllObjects];
     [locationsCount removeAllObjects];
+    //locationsCount = [[NSMutableDictionary alloc] init];
+    
     NSNumber *nsCount;
     int incCount;
     Meeting *currMeeting;
@@ -264,29 +273,35 @@
         currMeeting = meetingList[i];
         if([meetingLocations containsObject:currMeeting.address] == NO){
             [meetingLocations addObject:currMeeting.address];
+            NSLog(@"%@", meetingLocations);
+            //LOCATIONSCOUNT NOT SETTING
             [locationsCount setObject:[NSNumber numberWithInt:1] forKey:currMeeting.address];
+            NSLog(@"%@", locationsCount);
         }else{
             nsCount = [locationsCount objectForKey:currMeeting.address];
             incCount = [nsCount intValue];
             nsCount = [NSNumber numberWithInt:incCount + 1];
             [locationsCount setObject:nsCount forKey:currMeeting.address];
+            NSLog(@"%@", locationsCount);
         }
     }
     [self sortMeetingListByLocation];
 }
 - (void) sortMeetingListByDate{
-    meetingsSortedByDate = [meetingList sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        NSDate *first = [(Meeting*)a date];
-        NSDate *second = [(Meeting*)b date];
-        return [first compare:second];
+    meetingsSortedByDate = [meetingList sortedArrayUsingComparator:^NSComparisonResult(id meetingA, id meetingB) {
+        NSDate *firstMeeting = [(Meeting*)meetingA date];
+        NSDate *secondMeeting = [(Meeting*)meetingB date];
+        return [firstMeeting compare:secondMeeting];
     }];
 }
 - (void) sortMeetingListByLocation{
-    meetingsSortedByLocation = [meetingList sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        NSString *first = [(Meeting*)a address];
-        NSString *second = [(Meeting*)b address];
-        return [first compare:second];
+    meetingsSortedByLocation = [meetingList sortedArrayUsingComparator:^NSComparisonResult(id meetingA, id meetingB) {
+        NSString *firstMeeting = [(Meeting*)meetingA address];
+        NSString *secondMeeting = [(Meeting*)meetingB address];
+        return [firstMeeting compare:secondMeeting];
     }];
+    
+    alphabeticalLocations = [[locationsCount allKeys] sortedArrayUsingSelector:@selector(compare:)];
 }
 
 @end

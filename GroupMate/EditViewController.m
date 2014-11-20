@@ -20,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.meetingName.delegate = self;
+    
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     
@@ -140,5 +142,9 @@
     [self performSegueWithIdentifier:@"UnwindToListFromEdit" sender:self];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
 
 @end

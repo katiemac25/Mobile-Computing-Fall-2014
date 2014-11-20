@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Meeting.h"
 
-@interface EditViewController : UIViewController{
+@interface EditViewController : UIViewController <UITextFieldDelegate>{
     NSMutableArray *meetingList;
     Meeting *meeting;
     int index;

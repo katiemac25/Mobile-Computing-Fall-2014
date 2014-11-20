@@ -33,6 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.meetingName.delegate = self;
+    
     newMeeting = [[Meeting alloc] init];
     
     cancelConfirmed = false;
@@ -252,6 +254,11 @@
                                  placemark.country];
         }
     }];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end
