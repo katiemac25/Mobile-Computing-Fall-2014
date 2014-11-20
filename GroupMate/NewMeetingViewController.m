@@ -152,8 +152,13 @@
     [newMeeting setNotes:self.notes.text];
     
     //set meeting address
-    [newMeeting setAddress:meetingAddress];
-    NSLog(@"%@", meetingAddress);
+    if(meetingAddress != nil){
+        [newMeeting setAddress:meetingAddress];
+        NSLog(@"%@", meetingAddress);
+    }else{
+        [newMeeting setAddress:@"Undefined"];
+        NSLog(@"Address Undefined");
+    }
     
     //Add new meeting to meeting list
     [meetingList addObject:newMeeting];

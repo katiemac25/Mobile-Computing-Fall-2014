@@ -14,11 +14,12 @@
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *meetingListTable;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *dateOrLocation;
 
 - (void) addMeeting:(Meeting*)meeting;
-- (void) viewProfile;
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue;
+- (IBAction)sortTable:(id)sender;
 
 
 @end
