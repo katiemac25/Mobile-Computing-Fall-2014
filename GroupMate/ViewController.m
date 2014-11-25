@@ -143,38 +143,43 @@
  ******************************************************************************
  ******************************************************************************/
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MeetingCell" forIndexPath:indexPath];
+    //Use custom MeetingCell
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MeetingCell"
+                                                            forIndexPath:indexPath];
+    //Get the current section & row
     NSUInteger section = [indexPath section];
     NSUInteger row = [indexPath row];
+    
+    //Declare other variables
     Meeting *currMeeting;
-    NSUInteger index;
+    NSUInteger index = 0;
     NSString *sectionHeader;
     NSNumber *nsCount;
     
     if(sortByDate){
-        index = 0;
+        //Calculate the row number by determining how many rows were in the
+        //previous date sections
+        
+        //For each previous section...
         for(int i = 0; i < section; i++){
-            sectionHeader = meetingDates[section - 1];
+            //Get the 
+            sectionHeader = meetingDates[i];
             nsCount = [datesCount objectForKey:sectionHeader];
             index += [nsCount intValue];
         }
         index += row;
+        //
         currMeeting = (Meeting*)[meetingsSortedByDate objectAtIndex:index];
     }else{
-        //NSLog(@"location");
-        index = 0;
-        //NSLog(@"Section %lu, Row: %lu", section, (unsigned long)row);
+        //Calculate the row number by determining how many rows were in the
+        //previous location sections
         for(int i = 0; i < section; i++){
-            sectionHeader = alphabeticalLocations[section - 1];
-           // NSLog(@"Section Header: %@", sectionHeader);
+            sectionHeader = alphabeticalLocations[i];
             nsCount = [locationsCount objectForKey:sectionHeader];
-            //NSLog(@"locationsCount: %@", nsCount);
             index += [nsCount intValue];
         }
         index += row;
         currMeeting = (Meeting*)[meetingsSortedByLocation objectAtIndex:index];
-        //NSLog(@"Index: %lu", (unsigned long)index);
-        //NSLog(@"meetingsSortedByLocation: %@", currMeeting.name);
     }
     
     UILabel *colourTag = (UILabel *)[cell viewWithTag:101];
@@ -201,7 +206,12 @@
     return cell;
 }
 
-//Cell selected
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: tableView:didSelectRowAtIndexPath
+ PURPOSE: Handles user selecting a meeting
+ ******************************************************************************
+ ******************************************************************************/
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //currMeetingIndex = indexPath.row;
     
@@ -210,23 +220,32 @@
     NSUInteger index = 0;
     NSString *sectionHeader;
     NSNumber *nsCount;
+    Meeting *selectedMeeting;
     
     if(sortByDate){
         for(int i = 0; i < section; i++){
-            sectionHeader = meetingDates[section - 1];
+            sectionHeader = meetingDates[i];
             nsCount = [datesCount objectForKey:sectionHeader];
             index += [nsCount intValue];
         }
         index += row;
+        selectedMeeting = (Meeting*)[meetingsSortedByDate objectAtIndex:index];
     }else{
         for(int i = 0; i < section; i++){
-            sectionHeader = alphabeticalLocations[section - 1];
+            sectionHeader = alphabeticalLocations[i];
             nsCount = [locationsCount objectForKey:sectionHeader];
             index += [nsCount intValue];
         }
         index += row;
+        selectedMeeting = (Meeting*)[meetingsSortedByLocation objectAtIndex:index];
     }
-    currMeetingIndex = index;
+    
+    for(int i = 0; i < meetingList.count; i++){
+        if(selectedMeeting == meetingList[i]){
+            currMeetingIndex = i;
+            break;
+        }
+    }
     
     [self performSegueWithIdentifier:@"viewMeetingSegue"sender:self];
 }
@@ -246,11 +265,9 @@
         [controller setMeetingList:meetingList];
     }else if ([segue.identifier isEqualToString:@"viewMeetingSegue"]){
         MeetingViewController *controller = [segue destinationViewController];
-        if(sortByDate){
-            [controller setMeeting:(Meeting*)[meetingsSortedByDate objectAtIndex:currMeetingIndex]];
-        }else{
-            [controller setMeeting:(Meeting*)[meetingsSortedByLocation objectAtIndex:currMeetingIndex]];
-        }
+        
+        [controller setMeeting:(Meeting*)[meetingList objectAtIndex:currMeetingIndex]];
+        
         [controller setMeetingList:meetingList];
         [controller setIndex:(int)currMeetingIndex];
     }
