@@ -158,8 +158,7 @@
         [newMeeting setAddress:meetingAddress];
         NSLog(@"%@", meetingAddress);
     }else{
-        [newMeeting setAddress:@"Undefined"];
-        NSLog(@"Address Undefined");
+        [newMeeting setAddress:@"No Address"];
     }
     
     //Add new meeting to meeting list

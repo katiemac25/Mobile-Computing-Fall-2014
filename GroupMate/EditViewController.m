@@ -88,7 +88,15 @@
     if(![self.meetingName.text  isEqual: @""]){
         [newMeeting setName:self.meetingName.text];
     }else{
-        [newMeeting setName:@"New Meeting"];
+        //If user has not created a custom meeting name, make meeting name
+        //the date and time of the meeting
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        NSDate *date = [NSDate date];
+        NSString *dateString = [dateFormatter stringFromDate:date];
+        NSString *meetingTitle = [NSString stringWithFormat:@"%@", dateString];
+        [newMeeting setName:meetingTitle];
     }
     [newMeeting setNotes:self.notes.text];
     meeting = newMeeting;
@@ -132,8 +140,15 @@
     if(![self.meetingName.text  isEqual: @""]){
         [self.navigationItem setTitle:self.meetingName.text];
     }else{
-        [self.navigationItem setTitle:@"New Meeting"];
-        [newMeeting setName:@"New Meeting"];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        NSDate *date = [NSDate date];
+        NSString *dateString = [dateFormatter stringFromDate:date];
+        NSString *meetingTitle = [NSString stringWithFormat:@"%@", dateString];
+        NSLog(@"%@", meetingTitle);
+        
+        [self.navigationItem setTitle:meetingTitle];
     }
 }
 
