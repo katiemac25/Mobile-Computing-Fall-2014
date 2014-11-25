@@ -61,7 +61,7 @@
     //Add '+' button to UIBarButton to create new meeting
     UIBarButtonItem *newMeeting = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                  target:self
-                                                                                 action:@selector(addMeeting)];
+                                                                                 action:@selector(newMeeting)];
     
     [self.navigationItem setRightBarButtonItem:newMeeting];
 }
@@ -156,32 +156,44 @@
     NSString *sectionHeader;
     NSNumber *nsCount;
     
+    //Calculate the row number by determining how many rows were in the
+    //previous sections
     if(sortByDate){
-        //Calculate the row number by determining how many rows were in the
-        //previous date sections
-        
         //For each previous section...
         for(int i = 0; i < section; i++){
-            //Get the 
+            //Get the section header
             sectionHeader = meetingDates[i];
+            
+            //Get the number of meeting under that section
             nsCount = [datesCount objectForKey:sectionHeader];
+            
+            //Add the number of meetings to the index
             index += [nsCount intValue];
         }
+        //Add the row in the current section to the index
         index += row;
-        //
+        
+        //Get meeting at calculated index from meetingsSortedByDate
         currMeeting = (Meeting*)[meetingsSortedByDate objectAtIndex:index];
     }else{
-        //Calculate the row number by determining how many rows were in the
-        //previous location sections
+        //For each previous section...
         for(int i = 0; i < section; i++){
+            //Get the section header
             sectionHeader = alphabeticalLocations[i];
+            
+            //Get the number of meeting under that section
             nsCount = [locationsCount objectForKey:sectionHeader];
+            
+            //Add the number of meetings to the index
             index += [nsCount intValue];
         }
+        //Add the row in the current section to the index
         index += row;
+        //Get meeting at calculated index from meetingsSortedByLocation
         currMeeting = (Meeting*)[meetingsSortedByLocation objectAtIndex:index];
     }
     
+    //Set colour tag of cell
     UILabel *colourTag = (UILabel *)[cell viewWithTag:101];
     
     if([currMeeting.colour isEqual: @"Red"]){
@@ -200,6 +212,7 @@
         colourTag.backgroundColor = [UIColor blackColor];
     }
     
+    //Set name of cell
     UILabel *meetingNameLabel = (UILabel *)[cell viewWithTag:100];
     meetingNameLabel.text = currMeeting.name;
 
@@ -213,8 +226,6 @@
  ******************************************************************************
  ******************************************************************************/
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //currMeetingIndex = indexPath.row;
-    
     NSUInteger section = [indexPath section];
     NSUInteger row = [indexPath row];
     NSUInteger index = 0;
@@ -222,6 +233,8 @@
     NSNumber *nsCount;
     Meeting *selectedMeeting;
     
+    //Calculate the row number by determining how many rows were in the
+    //previous sections
     if(sortByDate){
         for(int i = 0; i < section; i++){
             sectionHeader = meetingDates[i];
@@ -240,6 +253,8 @@
         selectedMeeting = (Meeting*)[meetingsSortedByLocation objectAtIndex:index];
     }
     
+    //Find selectedMeeting in meetingList, and save index so that it can be
+    //passed during prepareForSegue
     for(int i = 0; i < meetingList.count; i++){
         if(selectedMeeting == meetingList[i]){
             currMeetingIndex = i;
@@ -247,23 +262,37 @@
         }
     }
     
+    //Segue to view meeting
     [self performSegueWithIdentifier:@"viewMeetingSegue"sender:self];
 }
 
--(void) addMeeting{
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: newMeeting
+ PURPOSE: Segues to new meeting view
+ ******************************************************************************
+ ******************************************************************************/
+-(void) newMeeting{
     [self performSegueWithIdentifier:@"newMeetingSegue"sender:self];
 }
 
-- (void) addMeeting:(Meeting*)meeting{
-    [meetingList addObject:meeting];
-}
-
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: prepareForSegue:sender
+ PURPOSE: Performs actions that need to be done before segue happens, such as
+ passing objects to the destinationViewController
+ ******************************************************************************
+ ******************************************************************************/
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    //Take certain actions depending on the segue being called
     if ([segue.identifier isEqualToString:@"newMeetingSegue"]) {
+        //If newMeetingSegue is called, pass meetingList to
+        //destinationViewController
         NewMeetingViewController *controller = [segue destinationViewController];
-        
         [controller setMeetingList:meetingList];
     }else if ([segue.identifier isEqualToString:@"viewMeetingSegue"]){
+        //If viewMeetingSegue is called, pass meetingList, selected meeting, &
+        //currMeetingIndex to destinationViewController
         MeetingViewController *controller = [segue destinationViewController];
         
         [controller setMeeting:(Meeting*)[meetingList objectAtIndex:currMeetingIndex]];
@@ -273,38 +302,55 @@
     }
 }
 
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: unwindToList
+ PURPOSE: Performs actions that need to be done when unwinding to this view
+ ******************************************************************************
+ ******************************************************************************/
+- (IBAction)unwindToList:(UIStoryboardSegue *)segue{
+    //Get meeting list from destinationViewController
+    ViewController *controller = [segue destinationViewController];
+    [controller setMeetingList:meetingList];
+    
+    //Reset navigation bar to black
+    [self.navigationController.navigationBar
+     setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    
+    //Update data in case changes were made
+    [self getMeetingDates];
+    [self getMeetingLocations];
+    
+    //Save data in case changes were made
+    [self saveToFile];
+    
+    //Refresh table
+    [self.meetingListTable reloadData];
+}
+
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: setMeetingList
+ PURPOSE: Set the meetingList
+ ******************************************************************************
+ ******************************************************************************/
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy{
     meetingList = meetingListCopy;
 }
 
-- (void) viewWillAppear:(BOOL)animated{
-    [self.meetingListTable reloadData];
-}
-
-- (IBAction)unwindToList:(UIStoryboardSegue *)segue{
-    if ([segue.identifier isEqualToString:@"UnwindToList"]) {
-        ViewController *controller = [segue destinationViewController];
-        
-        [controller setMeetingList:meetingList];
-    }else if([segue.identifier isEqualToString:@"UnwindToListFromEdit"]){
-        ViewController *controller = [segue destinationViewController];
-        
-        [controller setMeetingList:meetingList];
-    }
-    [self.navigationController.navigationBar
-     setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
-    
-    [self getMeetingDates];
-    [self getMeetingLocations];
-    [self saveToFile];
-}
-
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: sortTable
+ PURPOSE: Determine how to sort the table when user selects Date or Location 
+ from segmented control
+ ******************************************************************************
+ ******************************************************************************/
 - (IBAction)sortTable:(id)sender {
     if(self.dateOrLocation.selectedSegmentIndex == 0){
-        //Date
+        //Sort by date
         sortByDate = true;
     }else{
-        //Location
+        //Sort by location
         sortByDate = false;
     }
     
@@ -312,59 +358,111 @@
     [self.meetingListTable reloadData];
 }
 
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: getMeetingDates
+ PURPOSE: 
+    - Parse through meetingList and determine how many different dates there 
+      are
+    - Save the different dates to  meetingDates so that they can be used as 
+      section headers for the table
+    - Keep track of how many meetings fall under each date & store this info in
+      datesCount
+ ******************************************************************************
+ ******************************************************************************/
 - (void) getMeetingDates{
+    //Clear previous data
     [meetingDates removeAllObjects];
     [datesCount removeAllObjects];
     
     NSNumber *nsCount;
     int incCount;
+    Meeting *currMeeting;
+    
     for(int i = 0; i < meetingList.count; i++) {
-        Meeting *currMeeting = meetingList[i];
+        //Get the current meeting & its date
+        currMeeting = meetingList[i];
         NSDate *currDate = currMeeting.date;
         
+        //Format date (MMM. DD, YYYY)
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
         [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
         NSString *dateString = [dateFormatter stringFromDate:currDate];
         
+        //Check if date is already in meetingDates
         if([meetingDates containsObject:dateString] == NO){
+            //If the date is not already in meetingDates, add it
             [meetingDates addObject:dateString];
+            
+            //Set number of meetings with this date to 1
             [datesCount setObject:[NSNumber numberWithInt:1] forKey:dateString];
         }else{
+            //If the date is already in meetingDates, increment datesCount for
+            //that date by 1
             nsCount = [datesCount objectForKey:dateString];
             incCount = [nsCount intValue];
             nsCount = [NSNumber numberWithInt:incCount + 1];
             [datesCount setObject:nsCount forKey:dateString];
         }
     }
+    
+    //Call sortMeetingListByDate
     [self sortMeetingListByDate];
 }
 
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: getMeetingLocations
+ PURPOSE:
+     - Parse through meetingList and determine how many different locations 
+       there are
+     - Save the different dates to  meetingLocations so that they can be used as
+       section headers for the table
+     - Keep track of how many meetings fall under each location & store this 
+       info in locationsCount
+ ******************************************************************************
+ ******************************************************************************/
 - (void) getMeetingLocations{
-    //NSLog(@"getMeetingLocations");
+    //Clear previous data
     [meetingLocations removeAllObjects];
     [locationsCount removeAllObjects];
     
     NSNumber *nsCount;
     int incCount;
     Meeting *currMeeting;
+    
     for(int i = 0; i < meetingList.count; i++) {
+        //Get the current meeting
         currMeeting = meetingList[i];
+        
+        //Check if location is already in meetingLocations
         if([meetingLocations containsObject:currMeeting.address] == NO){
+            //If the location is not already in meetingDates, add it
             [meetingLocations addObject:currMeeting.address];
-            //NSLog(@"%@", meetingLocations);
+            
+            //Set number of meetings with this location to 1
             [locationsCount setObject:[NSNumber numberWithInt:1] forKey:currMeeting.address];
-            //NSLog(@"%@", locationsCount);
         }else{
+            //If the date is already in meetingLocations, increment datesCount
+            //for that date by 1
             nsCount = [locationsCount objectForKey:currMeeting.address];
             incCount = [nsCount intValue];
             nsCount = [NSNumber numberWithInt:incCount + 1];
             [locationsCount setObject:nsCount forKey:currMeeting.address];
-            //NSLog(@"%@", locationsCount);
         }
     }
+    //Call sortMeetingListByLocation
     [self sortMeetingListByLocation];
 }
+
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: sortMeetingListByDate
+ PURPOSE: Sort the meetings by date in meetingsSortedByDate so that they can be 
+ called in the correct order
+ ******************************************************************************
+ ******************************************************************************/
 - (void) sortMeetingListByDate{
     meetingsSortedByDate = [meetingList sortedArrayUsingComparator:^NSComparisonResult(id meetingA, id meetingB) {
         NSDate *firstMeeting = [(Meeting*)meetingA date];
@@ -372,6 +470,14 @@
         return [firstMeeting compare:secondMeeting];
     }];
 }
+
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: sortMeetingListByLocation
+ PURPOSE: Sort the meetings alphabetically by location in
+ meetingsSortedByLocation so that they can be called in the correct order
+ ******************************************************************************
+ ******************************************************************************/
 - (void) sortMeetingListByLocation{
     meetingsSortedByLocation = [meetingList sortedArrayUsingComparator:^NSComparisonResult(id meetingA, id meetingB) {
         NSString *firstMeeting = [(Meeting*)meetingA address];
@@ -379,13 +485,18 @@
         return [firstMeeting compare:secondMeeting];
     }];
     
+    //Create an alternate array to hold the section names that is sorted
+    //alphabetically (prevents meetings from being put under wrong section in
+    //the table)
     alphabeticalLocations = [[locationsCount allKeys] sortedArrayUsingSelector:@selector(compare:)];
 }
 
-- (void) viewWillDisappear:(BOOL)animated{
-    [self saveToFile];
-}
-
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: saveToFile
+ PURPOSE: Save meetingList to file so that it can be recalled between sessions
+ ******************************************************************************
+ ******************************************************************************/
 - (void) saveToFile{
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *filePath = [docsPath stringByAppendingPathComponent:@"meetingList"];
