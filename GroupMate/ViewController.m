@@ -203,7 +203,30 @@
 
 //Cell selected
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    currMeetingIndex = indexPath.row;
+    //currMeetingIndex = indexPath.row;
+    
+    NSUInteger section = [indexPath section];
+    NSUInteger row = [indexPath row];
+    NSUInteger index = 0;
+    NSString *sectionHeader;
+    NSNumber *nsCount;
+    
+    if(sortByDate){
+        for(int i = 0; i < section; i++){
+            sectionHeader = meetingDates[section - 1];
+            nsCount = [datesCount objectForKey:sectionHeader];
+            index += [nsCount intValue];
+        }
+        index += row;
+    }else{
+        for(int i = 0; i < section; i++){
+            sectionHeader = alphabeticalLocations[section - 1];
+            nsCount = [locationsCount objectForKey:sectionHeader];
+            index += [nsCount intValue];
+        }
+        index += row;
+    }
+    currMeetingIndex = index;
     
     [self performSegueWithIdentifier:@"viewMeetingSegue"sender:self];
 }

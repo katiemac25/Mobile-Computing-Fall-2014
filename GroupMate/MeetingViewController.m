@@ -18,8 +18,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"test");
-    
     [self updatePage];
 }
 

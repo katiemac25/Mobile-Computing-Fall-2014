@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GroupMate/ViewController.m"
-            timestampString = "438620371.090295"
+            timestampString = "438620620.877389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
+            startingLineNumber = "326"
+            endingLineNumber = "326"
             landmarkName = "-getMeetingLocations"
             landmarkType = "5">
          </BreakpointContent>

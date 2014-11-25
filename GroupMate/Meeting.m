@@ -38,9 +38,7 @@
 }
 
 #pragma mark NSCoding
-
 - (void) encodeWithCoder:(NSCoder *)encoder {
-    NSLog(@"encodeWithCoder");
     [encoder encodeObject:name forKey:@"name"];
     [encoder encodeObject:colour forKey:@"colour"];
     [encoder encodeObject:notes forKey:@"notes"];
