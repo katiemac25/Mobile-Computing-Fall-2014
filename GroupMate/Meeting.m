@@ -37,4 +37,27 @@
     address = meetingAddress;
 }
 
+#pragma mark NSCoding
+
+- (void) encodeWithCoder:(NSCoder *)encoder {
+    NSLog(@"encodeWithCoder");
+    [encoder encodeObject:name forKey:@"name"];
+    [encoder encodeObject:colour forKey:@"colour"];
+    [encoder encodeObject:notes forKey:@"notes"];
+    [encoder encodeObject:date forKey:@"date"];
+    [encoder encodeObject:address forKey:@"address"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if(self){
+        name = [decoder decodeObjectForKey:@"name"];
+        colour = [decoder decodeObjectForKey:@"colour"];
+        notes = [decoder decodeObjectForKey:@"notes"];
+        date = [decoder decodeObjectForKey:@"date"];
+        address = [decoder decodeObjectForKey:@"address"];
+    }
+    return self;
+}
+
 @end

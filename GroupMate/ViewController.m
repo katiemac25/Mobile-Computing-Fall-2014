@@ -23,18 +23,37 @@
     NSArray *meetingsSortedByDate, *meetingsSortedByLocation, *alphabeticalLocations;
 }
 
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: viewDidLoad
+ PURPOSE: Set up view
+ ******************************************************************************
+ ******************************************************************************/
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //Allocate space for master meeting list
     meetingList = [[NSMutableArray alloc] init];
+    
     currMeetingIndex = -1;
     
+    //Initially set screen to sort by date
     sortByDate = true;
     
+    //Allocate space to items used for sorting by date & location
     meetingDates = [[NSMutableArray alloc] init];
     meetingLocations =[[NSMutableArray alloc] init];
     datesCount = [[NSMutableDictionary alloc] init];
     locationsCount = [[NSMutableDictionary alloc] init];
+    
+    //Get meetings saved to file
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [docsPath stringByAppendingPathComponent:@"meetingList"];
+    meetingList = [[NSKeyedUnarchiver unarchiveObjectWithFile:filePath] mutableCopy];
+    if([meetingList count] > 0){
+        [self getMeetingDates];
+        [self getMeetingLocations];
+    }
     
     //Remove warning about ambiguous row height
     self.meetingListTable.rowHeight = 44;
@@ -45,55 +64,71 @@
                                                                                  action:@selector(addMeeting)];
     
     [self.navigationItem setRightBarButtonItem:newMeeting];
-    
-    //Test meetings
-    /*Meeting *testMeeting1 = [[Meeting alloc] init];
-    [testMeeting1 setName:@"Test 1"];
-    [testMeeting1 setColour:@"Red"];
-    
-    [meetingList addObject:testMeeting1];
-    
-    Meeting *testMeeting2 = [[Meeting alloc] init];
-    [testMeeting2 setName:@"Test 2"];
-    [testMeeting2 setColour:@"Blue"];
-    
-    [meetingList addObject:testMeeting2];*/
 }
-
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: didReceiveMemoryWarning
+ ******************************************************************************
+ ******************************************************************************/
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: numberOfSectionsInTableView:
+ PURPOSE: Return the number of sections in table depending on whether sort by 
+ date or sort by location is being displayed
+ ******************************************************************************
+ ******************************************************************************/
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
     if(sortByDate){
         return meetingDates.count;
     }else{
         return meetingLocations.count;
     }
 }
-
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: tableView:numberOfRowsInSection
+ PURPOSE: Return the number of sections in table depending on whether sort by
+ date or sort by location is being displayed
+ ******************************************************************************
+ ******************************************************************************/
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    //return [meetingList count];
-    
+    // Return the number of rows in the sections in table depending on whether
+    // sort by date or sort by location is being displayed
     NSString *sectionHeader;
     NSNumber *nsCount;
     
     if(sortByDate){
+        // Get name of section from meetingDates
         sectionHeader = meetingDates[section];
+        
+        // Get number of meetings that fall under that date
         nsCount = [datesCount objectForKey:sectionHeader];
+        
+        // Convert number to an int & return
         return [nsCount intValue];
     }else{
+        // Get name of section from alphabeticalLocations
         sectionHeader = alphabeticalLocations[section];
+        
+        // Get number of meetings that fall under that location
         nsCount = [locationsCount objectForKey:sectionHeader];
+        
+        // Convert number to an int & return
         return [nsCount intValue];
     }
 }
-
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: tableView:titleForHeaderInSection
+ PURPOSE: Return name of section
+ ******************************************************************************
+ ******************************************************************************/
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    //For each section, you must return here it's label
     if(sortByDate){
         return meetingDates[section];
     }else{
@@ -101,6 +136,12 @@
     }
 }
 
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: tableView:cellForRowAtIndexPath
+ PURPOSE: Populate table view
+ ******************************************************************************
+ ******************************************************************************/
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MeetingCell" forIndexPath:indexPath];
     NSUInteger section = [indexPath section];
@@ -113,27 +154,27 @@
     if(sortByDate){
         index = 0;
         for(int i = 0; i < section; i++){
-            sectionHeader = meetingDates[section];
+            sectionHeader = meetingDates[section - 1];
             nsCount = [datesCount objectForKey:sectionHeader];
             index += [nsCount intValue];
         }
         index += row;
         currMeeting = (Meeting*)[meetingsSortedByDate objectAtIndex:index];
     }else{
-        NSLog(@"location");
+        //NSLog(@"location");
         index = 0;
-        NSLog(@"Section %lu, Row: %lu", section, (unsigned long)row);
+        //NSLog(@"Section %lu, Row: %lu", section, (unsigned long)row);
         for(int i = 0; i < section; i++){
-            sectionHeader = meetingLocations[section - 1];
-            NSLog(@"Section Header: %@", sectionHeader);
+            sectionHeader = alphabeticalLocations[section - 1];
+           // NSLog(@"Section Header: %@", sectionHeader);
             nsCount = [locationsCount objectForKey:sectionHeader];
-            NSLog(@"locationsCount: %@", nsCount);
+            //NSLog(@"locationsCount: %@", nsCount);
             index += [nsCount intValue];
         }
         index += row;
         currMeeting = (Meeting*)[meetingsSortedByLocation objectAtIndex:index];
-        NSLog(@"Index: %lu", (unsigned long)index);
-        NSLog(@"meetingsSortedByLocation: %@", currMeeting.name);
+        //NSLog(@"Index: %lu", (unsigned long)index);
+        //NSLog(@"meetingsSortedByLocation: %@", currMeeting.name);
     }
     
     UILabel *colourTag = (UILabel *)[cell viewWithTag:101];
@@ -187,7 +228,6 @@
         }else{
             [controller setMeeting:(Meeting*)[meetingsSortedByLocation objectAtIndex:currMeetingIndex]];
         }
-        //[controller setMeeting:(Meeting*)[meetingList objectAtIndex:currMeetingIndex]];
         [controller setMeetingList:meetingList];
         [controller setIndex:(int)currMeetingIndex];
     }
@@ -216,6 +256,7 @@
     
     [self getMeetingDates];
     [self getMeetingLocations];
+    [self saveToFile];
 }
 
 - (IBAction)sortTable:(id)sender {
@@ -234,7 +275,6 @@
 - (void) getMeetingDates{
     [meetingDates removeAllObjects];
     [datesCount removeAllObjects];
-    //datesCount = [[NSMutableDictionary alloc] init];
     
     NSNumber *nsCount;
     int incCount;
@@ -261,10 +301,9 @@
 }
 
 - (void) getMeetingLocations{
-    NSLog(@"getMeetingLocations");
+    //NSLog(@"getMeetingLocations");
     [meetingLocations removeAllObjects];
     [locationsCount removeAllObjects];
-    //locationsCount = [[NSMutableDictionary alloc] init];
     
     NSNumber *nsCount;
     int incCount;
@@ -273,16 +312,15 @@
         currMeeting = meetingList[i];
         if([meetingLocations containsObject:currMeeting.address] == NO){
             [meetingLocations addObject:currMeeting.address];
-            NSLog(@"%@", meetingLocations);
-            //LOCATIONSCOUNT NOT SETTING
+            //NSLog(@"%@", meetingLocations);
             [locationsCount setObject:[NSNumber numberWithInt:1] forKey:currMeeting.address];
-            NSLog(@"%@", locationsCount);
+            //NSLog(@"%@", locationsCount);
         }else{
             nsCount = [locationsCount objectForKey:currMeeting.address];
             incCount = [nsCount intValue];
             nsCount = [NSNumber numberWithInt:incCount + 1];
             [locationsCount setObject:nsCount forKey:currMeeting.address];
-            NSLog(@"%@", locationsCount);
+            //NSLog(@"%@", locationsCount);
         }
     }
     [self sortMeetingListByLocation];
@@ -302,6 +340,17 @@
     }];
     
     alphabeticalLocations = [[locationsCount allKeys] sortedArrayUsingSelector:@selector(compare:)];
+}
+
+- (void) viewWillDisappear:(BOOL)animated{
+    [self saveToFile];
+}
+
+- (void) saveToFile{
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [docsPath stringByAppendingPathComponent:@"meetingList"];
+    
+    [NSKeyedArchiver archiveRootObject:meetingList toFile:filePath];
 }
 
 @end

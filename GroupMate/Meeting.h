@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Meeting : NSObject{
+@interface Meeting : NSObject <NSCoding>{
     NSString *name;
     NSString *colour;
     NSString *notes;

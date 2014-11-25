@@ -204,8 +204,8 @@
         }else if(imageCount == 1){
             [imageView2 setImage:image];
             imageCount++;
-        }else if(imageCount == 0){
-            [imageView2 setImage:image];
+        }else if(imageCount == 2){
+            [imageView3 setImage:image];
             imageCount++;
         }
     }
