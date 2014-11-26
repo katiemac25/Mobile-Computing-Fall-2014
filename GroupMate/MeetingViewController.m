@@ -45,6 +45,18 @@
     [self.notesLabel setText:meeting.notes];
     [self.navigationItem setTitle:meeting.name];
     
+    if(meeting.images.count >= 1){
+        self.image1.image = [UIImage imageWithData:meeting.images[0]];
+    }
+    
+    if(meeting.images.count >= 2){
+        self.image2.image = [UIImage imageWithData:meeting.images[1]];
+    }
+    
+    if(meeting.images.count == 3){
+        self.image3.image = [UIImage imageWithData:meeting.images[2]];
+    }
+    
     if([meeting.colour  isEqual: @"Red"]){
         [self.navigationController.navigationBar
          setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor redColor]}];

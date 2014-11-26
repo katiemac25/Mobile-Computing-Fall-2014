@@ -18,6 +18,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *colourPicker;
 @property (weak, nonatomic) IBOutlet UITextField *meetingName;
 @property (weak, nonatomic) IBOutlet UITextView *notes;
+@property (strong, nonatomic) IBOutlet UIImageView *image1;
+@property (strong, nonatomic) IBOutlet UIImageView *image2;
+@property (strong, nonatomic) IBOutlet UIImageView *image3;
 
 - (void) setMeeting:(Meeting*)currMeeting;
 - (void) setIndex:(int)currIndex;

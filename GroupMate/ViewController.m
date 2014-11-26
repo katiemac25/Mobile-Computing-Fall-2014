@@ -32,9 +32,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //Allocate space for master meeting list
-    meetingList = [[NSMutableArray alloc] init];
-    
     currMeetingIndex = -1;
     
     //Initially set screen to sort by date
@@ -53,6 +50,9 @@
     if([meetingList count] > 0){
         [self getMeetingDates];
         [self getMeetingLocations];
+    }else{
+        //Allocate space for master meeting list
+        meetingList = [[NSMutableArray alloc] init];
     }
     
     //Remove warning about ambiguous row height

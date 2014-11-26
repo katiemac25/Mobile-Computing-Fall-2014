@@ -17,6 +17,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *notesLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *image1;
+@property (strong, nonatomic) IBOutlet UIImageView *image2;
+@property (strong, nonatomic) IBOutlet UIImageView *image3;
 
 - (IBAction)editButton:(id)sender;
 - (IBAction)backButton:(id)sender;

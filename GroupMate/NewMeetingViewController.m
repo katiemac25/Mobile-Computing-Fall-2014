@@ -127,8 +127,7 @@
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterShortStyle];
         [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        NSDate *date = [NSDate date];
-        NSString *dateString = [dateFormatter stringFromDate:date];
+        NSString *dateString = [dateFormatter stringFromDate:newMeeting.date];
         NSString *meetingTitle = [NSString stringWithFormat:@"%@", dateString];
         [newMeeting setName:meetingTitle];
     }
@@ -196,7 +195,8 @@
         }
     }else{
         image = [info objectForKey:UIImagePickerControllerEditedImage];
-        UIImageWriteToSavedPhotosAlbum (image, nil, nil , nil);
+        //UIImageWriteToSavedPhotosAlbum (image, nil, nil , nil);
+        
         if(imageCount == 0){
             [imageView1 setImage:image];
             imageCount++;
@@ -207,6 +207,9 @@
             [imageView3 setImage:image];
             imageCount++;
         }
+        
+        NSData* imageData = UIImageJPEGRepresentation(image, 1.0);
+        [newMeeting addImage:imageData];
     }
     [self dismissViewControllerAnimated:YES completion:NULL];
 }

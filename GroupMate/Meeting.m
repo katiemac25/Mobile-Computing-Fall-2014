@@ -16,6 +16,7 @@
 @synthesize notes;
 @synthesize date;
 @synthesize address;
+@synthesize images;
 
 -(void) setName:(NSString*)meetingName{
     name = meetingName;
@@ -37,6 +38,14 @@
     address = meetingAddress;
 }
 
+- (void) addImage:(NSData*)imageToAdd{
+    [images addObject:imageToAdd];
+}
+
+- (void) removeImage:(NSUInteger)index{
+    [images removeObjectAtIndex:index];
+}
+
 #pragma mark NSCoding
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:name forKey:@"name"];
@@ -44,6 +53,7 @@
     [encoder encodeObject:notes forKey:@"notes"];
     [encoder encodeObject:date forKey:@"date"];
     [encoder encodeObject:address forKey:@"address"];
+    [encoder encodeObject:images forKey:@"images"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -54,6 +64,7 @@
         notes = [decoder decodeObjectForKey:@"notes"];
         date = [decoder decodeObjectForKey:@"date"];
         address = [decoder decodeObjectForKey:@"address"];
+        images = [decoder decodeObjectForKey:@"images"];
     }
     return self;
 }

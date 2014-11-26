@@ -33,6 +33,7 @@
     [self.meetingName setText:meeting.name];
     
     [self.notes setText:meeting.notes];
+    [self updateImages];
     
     if([meeting.colour  isEqual: @"Red"]){
         [self.colourPicker setBackgroundColor:[UIColor redColor]];
@@ -102,6 +103,20 @@
     meeting = newMeeting;
     [meetingList replaceObjectAtIndex:index withObject:meeting];
     [self performSegueWithIdentifier:@"UnwindToDisplayFromEdit" sender:self];
+}
+
+- (void) updateImages{
+    if(meeting.images.count >= 1){
+        self.image1.image = [UIImage imageWithData:meeting.images[0]];
+    }
+    
+    if(meeting.images.count >= 2){
+        self.image2.image = [UIImage imageWithData:meeting.images[1]];
+    }
+    
+    if(meeting.images.count == 3){
+        self.image3.image = [UIImage imageWithData:meeting.images[2]];
+    }
 }
 
 - (IBAction)changeColourTag:(id)sender {

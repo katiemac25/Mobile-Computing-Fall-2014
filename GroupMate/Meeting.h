@@ -13,6 +13,8 @@
     NSString *colour;
     NSString *notes;
     NSDate *date;
+    NSString *address;
+    NSMutableArray *images;
 }
 
 @property(nonatomic, retain) NSString *name;
@@ -20,11 +22,14 @@
 @property(nonatomic, retain) NSString *notes;
 @property(nonatomic, retain) NSDate *date;
 @property(nonatomic, retain) NSString *address;
+@property(nonatomic, retain) NSMutableArray *images;
 
 - (void) setName:(NSString*)name;
 - (void) setColour:(NSString*)meetingColour;
 - (void) setNotes:(NSString*)meetingNotes;
 - (void) setDate:(NSDate*)meetingDate;
 - (void) setAddress:(NSString*)meetingAddress;
+- (void) addImage:(NSData*)imageToAdd;
+- (void) removeImage:(NSUInteger)index;
 
 @end
