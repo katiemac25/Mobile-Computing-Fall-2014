@@ -15,6 +15,7 @@
 @implementation EditViewController{
     int colourIndex;
     Meeting *newMeeting;
+    UIAlertView *deleteAlert;
 }
 
 - (void)viewDidLoad {
@@ -57,6 +58,12 @@
         [self.colourPicker setBackgroundColor:[UIColor blackColor]];
         colourIndex = 6;
     }
+    
+    deleteAlert = [[UIAlertView alloc] initWithTitle:@"Delete Image"
+                                             message:@"Are you sure you want to delete this image?"
+                                            delegate:self
+                                   cancelButtonTitle:@"Cancel"
+                                   otherButtonTitles:@"OK", nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -170,6 +177,19 @@
 - (IBAction)deleteMeeting:(id)sender {
     [meetingList removeObjectAtIndex:index];
     [self performSegueWithIdentifier:@"UnwindToListFromEdit" sender:self];
+}
+
+- (IBAction)deleteImage1:(id)sender{
+    deleteAlert.tag = 1;
+    [deleteAlert show];
+}
+- (IBAction)deleteImage2:(id)sender{
+    deleteAlert.tag = 2;
+    [deleteAlert show];
+}
+- (IBAction)deleteImage3:(id)sender{
+    deleteAlert.tag = 3;
+    [deleteAlert show];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

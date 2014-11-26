@@ -29,5 +29,8 @@
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
 - (IBAction)saveMeeting:(id)sender;
 - (IBAction)changeColourTag:(id)sender;
+- (IBAction)deleteImage1:(id)sender;
+- (IBAction)deleteImage2:(id)sender;
+- (IBAction)deleteImage3:(id)sender;
 
 @end
