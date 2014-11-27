@@ -39,6 +39,9 @@
 }
 
 - (void) addImage:(NSData*)imageToAdd{
+    if(images == nil){
+        images = [[NSMutableArray alloc]init];
+    }
     [images addObject:imageToAdd];
 }
 

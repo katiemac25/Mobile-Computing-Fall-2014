@@ -113,6 +113,10 @@
 }
 
 - (void) updateImages{
+    self.image1.image = nil;
+    self.image2.image = nil;
+    self.image3.image = nil;
+    
     if(meeting.images.count >= 1){
         self.image1.image = [UIImage imageWithData:meeting.images[0]];
     }
@@ -190,6 +194,19 @@
 - (IBAction)deleteImage3:(id)sender{
     deleteAlert.tag = 3;
     [deleteAlert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 1 && buttonIndex == 1) {//Delete image 1
+        [newMeeting removeImage:0];
+        [self updateImages];
+    }else if(alertView.tag == 2 && buttonIndex == 1) {//Delete image 2
+        [newMeeting removeImage:1];
+        [self updateImages];
+    }else if(alertView.tag == 3 && buttonIndex == 1) {//Delete image 3
+        [newMeeting removeImage:2];
+        [self updateImages];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
