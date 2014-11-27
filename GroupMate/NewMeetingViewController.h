@@ -30,5 +30,8 @@
 - (IBAction)confirmCancel:(id)sender;
 - (IBAction)saveMeeting:(id)sender;
 - (IBAction)takePhoto:(id)sender;
+- (IBAction)deleteImage1:(id)sender;
+- (IBAction)deleteImage2:(id)sender;
+- (IBAction)deleteImage3:(id)sender;
 
 @end

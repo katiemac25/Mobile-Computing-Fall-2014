@@ -101,10 +101,10 @@
 			children = (
 				8EBC4E0A1A0194840086577B /* AppDelegate.h */,
 				8EBC4E0B1A0194840086577B /* AppDelegate.m */,
-				8EBC4E0D1A0194840086577B /* ViewController.h */,
-				8EBC4E0E1A0194840086577B /* ViewController.m */,
 				8E7D13F51A0AD2C8004ACC92 /* Meeting.h */,
 				8E7D13F61A0AD2C8004ACC92 /* Meeting.m */,
+				8EBC4E0D1A0194840086577B /* ViewController.h */,
+				8EBC4E0E1A0194840086577B /* ViewController.m */,
 				8EF4FDAB1A019E5A005EDC49 /* NewMeetingViewController.h */,
 				8EF4FDAC1A019E5A005EDC49 /* NewMeetingViewController.m */,
 				8E3454121A0CC5F900DACC25 /* MeetingViewController.h */,

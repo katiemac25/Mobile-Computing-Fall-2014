@@ -23,6 +23,7 @@
     BOOL cancelConfirmed;
     int imageCount;
     NSString *meetingAddress;
+    UIAlertView *deleteAlert;
     
     //Location variables
     CLLocationManager *locationManager;
@@ -62,6 +63,16 @@
     
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    
+    imageView1.clipsToBounds = YES;
+    imageView2.clipsToBounds = YES;
+    imageView3.clipsToBounds = YES;
+    
+    deleteAlert = [[UIAlertView alloc] initWithTitle:@"Delete Image"
+                                             message:@"Are you sure you want to delete this image?"
+                                            delegate:self
+                                   cancelButtonTitle:@"Cancel"
+                                   otherButtonTitles:@"OK", nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -166,6 +177,24 @@
     [self performSegueWithIdentifier:@"UnwindToList" sender:self];
 }
 
+- (void) updateImages{
+    imageView1.image = nil;
+    imageView2.image = nil;
+    imageView3.image = nil;
+    
+    if(newMeeting.images.count >= 1){
+        imageView1.image = [UIImage imageWithData:newMeeting.images[0]];
+    }
+    
+    if(newMeeting.images.count >= 2){
+        imageView2.image = [UIImage imageWithData:newMeeting.images[1]];
+    }
+    
+    if(newMeeting.images.count == 3){
+        imageView3.image = [UIImage imageWithData:newMeeting.images[2]];
+    }
+}
+
 - (IBAction)takePhoto:(id)sender {
     BOOL hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     if (hasCamera == NO){
@@ -217,9 +246,31 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
+- (IBAction)deleteImage1:(id)sender{
+    deleteAlert.tag = 1;
+    [deleteAlert show];
+}
+- (IBAction)deleteImage2:(id)sender{
+    deleteAlert.tag = 2;
+    [deleteAlert show];
+}
+- (IBAction)deleteImage3:(id)sender{
+    deleteAlert.tag = 3;
+    [deleteAlert show];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    //If propose button selected...
-    if (buttonIndex == 1) {//Ok
+    if (alertView.tag == 1 && buttonIndex == 1) {//Delete image 1
+        [newMeeting removeImage:0];
+        [self updateImages];
+    }else if(alertView.tag == 2 && buttonIndex == 1) {//Delete image 2
+        [newMeeting removeImage:1];
+        [self updateImages];
+    }else if(alertView.tag == 3 && buttonIndex == 1) {//Delete image 3
+        [newMeeting removeImage:2];
+        [self updateImages];
+    }else if (buttonIndex == 1) {//Cancel OK
         cancelConfirmed = true;
         [self performSegueWithIdentifier:@"UnwindToList" sender:self];
     }
