@@ -29,9 +29,11 @@
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
 - (IBAction)confirmCancel:(id)sender;
 - (IBAction)saveMeeting:(id)sender;
-- (IBAction)takePhoto:(id)sender;
+- (void)takePhoto;
 - (IBAction)deleteImage1:(id)sender;
 - (IBAction)deleteImage2:(id)sender;
 - (IBAction)deleteImage3:(id)sender;
+- (void)attachPhoto;
+- (IBAction)addPhoto:(id)sender;
 
 @end

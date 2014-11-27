@@ -335,7 +335,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="takePhoto:" destination="PnM-EG-Vii" eventType="touchUpInside" id="X12-kP-8VO"/>
+                                    <action selector="addPhoto:" destination="PnM-EG-Vii" eventType="touchUpInside" id="4UC-ey-vWH"/>
                                 </connections>
                             </button>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wPu-3T-gHC">
@@ -343,6 +343,13 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="PZX-XD-tWf" appends="YES" id="0Tk-Rd-08H"/>
+                                </connections>
+                            </imageView>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G0l-Wi-8h6">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Czi-R8-vKm" appends="YES" id="fvs-lo-YWk"/>
                                 </connections>
                             </imageView>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hUu-5v-0Kc">
@@ -368,31 +375,30 @@
                                     <outletCollection property="gestureRecognizers" destination="qf2-gE-Faw" appends="YES" id="que-UP-5Zj"/>
                                 </connections>
                             </imageView>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G0l-Wi-8h6">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="Czi-R8-vKm" appends="YES" id="fvs-lo-YWk"/>
-                                </connections>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="256-ew-WFZ" firstAttribute="leading" secondItem="BVj-3n-MvQ" secondAttribute="trailing" constant="8" symbolic="YES" id="A5J-qJ-yh0"/>
                             <constraint firstItem="G0l-Wi-8h6" firstAttribute="trailing" secondItem="dDA-vz-xCP" secondAttribute="trailing" id="BZr-iC-q4B"/>
-                            <constraint firstAttribute="bottom" secondItem="SUb-mc-79o" secondAttribute="bottom" constant="20" symbolic="YES" id="INI-S6-Tmy"/>
+                            <constraint firstAttribute="bottom" secondItem="SUb-mc-79o" secondAttribute="bottom" constant="20" symbolic="YES" id="INI-S6-Tmy">
+                                <variation key="widthClass=compact" constant="20"/>
+                            </constraint>
                             <constraint firstItem="SUb-mc-79o" firstAttribute="leading" secondItem="hUu-5v-0Kc" secondAttribute="leading" id="Jhk-0G-Vhz"/>
                             <constraint firstItem="h2G-m2-UPv" firstAttribute="top" secondItem="mW2-dF-vSu" secondAttribute="bottom" constant="64" id="Nb7-Go-6iH"/>
                             <constraint firstItem="wPu-3T-gHC" firstAttribute="bottom" secondItem="hUu-5v-0Kc" secondAttribute="bottom" id="NpV-aR-8aL"/>
                             <constraint firstItem="SUb-mc-79o" firstAttribute="centerX" secondItem="wPu-3T-gHC" secondAttribute="centerX" id="Oav-8b-ZRi"/>
                             <constraint firstItem="h2G-m2-UPv" firstAttribute="top" secondItem="Lai-j0-fUg" secondAttribute="bottom" constant="49" id="Sw8-g2-H1x"/>
                             <constraint firstItem="256-ew-WFZ" firstAttribute="top" secondItem="BVj-3n-MvQ" secondAttribute="top" id="Tp9-ul-HaB"/>
-                            <constraint firstItem="SUb-mc-79o" firstAttribute="top" secondItem="hUu-5v-0Kc" secondAttribute="bottom" constant="18" id="UAb-r2-xGv"/>
+                            <constraint firstItem="SUb-mc-79o" firstAttribute="top" secondItem="hUu-5v-0Kc" secondAttribute="bottom" constant="18" id="UAb-r2-xGv">
+                                <variation key="widthClass=compact" constant="8"/>
+                            </constraint>
                             <constraint firstItem="wPu-3T-gHC" firstAttribute="top" secondItem="G0l-Wi-8h6" secondAttribute="top" id="V2Z-pq-gQl"/>
                             <constraint firstItem="G0l-Wi-8h6" firstAttribute="bottom" secondItem="wPu-3T-gHC" secondAttribute="bottom" id="Xeb-eS-Ez0"/>
                             <constraint firstItem="wPu-3T-gHC" firstAttribute="leading" secondItem="hUu-5v-0Kc" secondAttribute="trailing" constant="22" id="Xm9-yp-G0z"/>
                             <constraint firstItem="BVj-3n-MvQ" firstAttribute="leading" secondItem="dDA-vz-xCP" secondAttribute="leading" id="XpF-U3-Sc6"/>
-                            <constraint firstItem="hUu-5v-0Kc" firstAttribute="top" secondItem="dDA-vz-xCP" secondAttribute="bottom" constant="32" id="YB0-JL-FQt"/>
+                            <constraint firstItem="hUu-5v-0Kc" firstAttribute="top" secondItem="dDA-vz-xCP" secondAttribute="bottom" constant="32" id="YB0-JL-FQt">
+                                <variation key="widthClass=compact" constant="42"/>
+                            </constraint>
                             <constraint firstItem="dDA-vz-xCP" firstAttribute="top" secondItem="BVj-3n-MvQ" secondAttribute="bottom" constant="8" symbolic="YES" id="brq-z3-Vgd"/>
                             <constraint firstItem="G0l-Wi-8h6" firstAttribute="leading" secondItem="wPu-3T-gHC" secondAttribute="trailing" constant="22" id="bwB-DH-s5t"/>
                             <constraint firstItem="Lai-j0-fUg" firstAttribute="leading" secondItem="lOW-Xk-nlb" secondAttribute="leadingMargin" constant="-39" id="eHO-eg-GZj"/>
@@ -414,8 +420,8 @@
                                 <exclude reference="dDA-vz-xCP"/>
                                 <exclude reference="SUb-mc-79o"/>
                                 <exclude reference="wPu-3T-gHC"/>
-                                <exclude reference="hUu-5v-0Kc"/>
                                 <exclude reference="G0l-Wi-8h6"/>
+                                <exclude reference="hUu-5v-0Kc"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="eHO-eg-GZj"/>
@@ -427,11 +433,11 @@
                                 <exclude reference="brq-z3-Vgd"/>
                                 <exclude reference="u7J-R9-fW1"/>
                                 <exclude reference="ubl-Rm-i5w"/>
-                                <exclude reference="A5J-qJ-yh0"/>
-                                <exclude reference="Tp9-ul-HaB"/>
                                 <exclude reference="YB0-JL-FQt"/>
                                 <exclude reference="qzR-kd-hsc"/>
                                 <exclude reference="rxn-jT-2gI"/>
+                                <exclude reference="A5J-qJ-yh0"/>
+                                <exclude reference="Tp9-ul-HaB"/>
                                 <exclude reference="NpV-aR-8aL"/>
                                 <exclude reference="V2Z-pq-gQl"/>
                                 <exclude reference="Xm9-yp-G0z"/>
@@ -455,8 +461,8 @@
                                 <include reference="dDA-vz-xCP"/>
                                 <include reference="SUb-mc-79o"/>
                                 <include reference="wPu-3T-gHC"/>
-                                <include reference="hUu-5v-0Kc"/>
                                 <include reference="G0l-Wi-8h6"/>
+                                <include reference="hUu-5v-0Kc"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="eHO-eg-GZj"/>
@@ -468,11 +474,11 @@
                                 <include reference="brq-z3-Vgd"/>
                                 <include reference="u7J-R9-fW1"/>
                                 <include reference="ubl-Rm-i5w"/>
-                                <include reference="A5J-qJ-yh0"/>
-                                <include reference="Tp9-ul-HaB"/>
                                 <include reference="YB0-JL-FQt"/>
                                 <include reference="qzR-kd-hsc"/>
                                 <include reference="rxn-jT-2gI"/>
+                                <include reference="A5J-qJ-yh0"/>
+                                <include reference="Tp9-ul-HaB"/>
                                 <include reference="NpV-aR-8aL"/>
                                 <include reference="V2Z-pq-gQl"/>
                                 <include reference="Xm9-yp-G0z"/>
@@ -789,6 +795,18 @@
                                     <action selector="deleteMeeting:" destination="Zgi-jf-CG0" eventType="touchUpInside" id="X4c-HZ-vPE"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rm-aX-dHI">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Take Photo or Video">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="522" width="368" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="takePhoto:" destination="PnM-EG-Vii" eventType="touchUpInside" id="awW-hZ-70O"/>
+                                </connections>
+                            </button>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3fo-Ak-icK">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <gestureRecognizers/>
@@ -863,13 +881,19 @@
                             <constraint firstItem="nom-HP-ULM" firstAttribute="leading" secondItem="UOe-Fb-1vy" secondAttribute="trailing" constant="8" symbolic="YES" id="8V1-Ig-v2X"/>
                             <constraint firstItem="kvW-Br-FPq" firstAttribute="bottom" secondItem="3fo-Ak-icK" secondAttribute="bottom" id="Der-9I-xdp"/>
                             <constraint firstItem="3fo-Ak-icK" firstAttribute="centerX" secondItem="W0v-sx-SkH" secondAttribute="centerX" id="HRm-kJ-MLp"/>
-                            <constraint firstItem="2Rg-7X-OAt" firstAttribute="top" secondItem="Wuc-Q4-yQt" secondAttribute="bottom" constant="210" id="KLE-fh-YnT"/>
-                            <constraint firstItem="MZ8-qf-zbh" firstAttribute="top" secondItem="Wuc-Q4-yQt" secondAttribute="bottom" constant="18" id="KgG-BP-Rov"/>
+                            <constraint firstItem="2Rg-7X-OAt" firstAttribute="top" secondItem="Wuc-Q4-yQt" secondAttribute="bottom" constant="210" id="KLE-fh-YnT">
+                                <variation key="widthClass=compact" constant="258"/>
+                            </constraint>
+                            <constraint firstItem="MZ8-qf-zbh" firstAttribute="top" secondItem="Wuc-Q4-yQt" secondAttribute="bottom" constant="18" id="KgG-BP-Rov">
+                                <variation key="widthClass=compact" constant="28"/>
+                            </constraint>
                             <constraint firstItem="3fo-Ak-icK" firstAttribute="top" secondItem="MZ8-qf-zbh" secondAttribute="top" id="N5d-GN-jIK"/>
                             <constraint firstItem="kvW-Br-FPq" firstAttribute="top" secondItem="3fo-Ak-icK" secondAttribute="top" id="Nf3-xO-Ts7"/>
                             <constraint firstItem="W0v-sx-SkH" firstAttribute="leading" secondItem="Wuc-Q4-yQt" secondAttribute="leading" id="Qn9-4O-XBU"/>
                             <constraint firstItem="UOe-Fb-1vy" firstAttribute="top" secondItem="nom-HP-ULM" secondAttribute="top" id="S7U-ps-jXH"/>
-                            <constraint firstItem="W0v-sx-SkH" firstAttribute="top" secondItem="MZ8-qf-zbh" secondAttribute="bottom" constant="8" symbolic="YES" id="TYD-iM-uvu"/>
+                            <constraint firstItem="W0v-sx-SkH" firstAttribute="top" secondItem="MZ8-qf-zbh" secondAttribute="bottom" constant="8" symbolic="YES" id="TYD-iM-uvu">
+                                <variation key="widthClass=compact" constant="46"/>
+                            </constraint>
                             <constraint firstItem="kvW-Br-FPq" firstAttribute="trailing" secondItem="W0v-sx-SkH" secondAttribute="trailing" id="ZYa-3z-ntv"/>
                             <constraint firstItem="Wuc-Q4-yQt" firstAttribute="trailing" secondItem="nom-HP-ULM" secondAttribute="trailing" id="bJn-Kh-SdE"/>
                             <constraint firstItem="Wuc-Q4-yQt" firstAttribute="top" secondItem="UOe-Fb-1vy" secondAttribute="bottom" constant="8" symbolic="YES" id="cFa-4V-jjt"/>
@@ -886,6 +910,7 @@
                                 <exclude reference="UOe-Fb-1vy"/>
                                 <exclude reference="nom-HP-ULM"/>
                                 <exclude reference="W0v-sx-SkH"/>
+                                <exclude reference="6rm-aX-dHI"/>
                                 <exclude reference="3fo-Ak-icK"/>
                                 <exclude reference="MZ8-qf-zbh"/>
                                 <exclude reference="kvW-Br-FPq"/>
@@ -920,6 +945,7 @@
                                 <include reference="UOe-Fb-1vy"/>
                                 <include reference="nom-HP-ULM"/>
                                 <include reference="W0v-sx-SkH"/>
+                                <include reference="6rm-aX-dHI"/>
                                 <include reference="3fo-Ak-icK"/>
                                 <include reference="MZ8-qf-zbh"/>
                                 <include reference="kvW-Br-FPq"/>

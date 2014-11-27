@@ -195,7 +195,7 @@
     }
 }
 
-- (IBAction)takePhoto:(id)sender {
+- (void)takePhoto{
     BOOL hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     if (hasCamera == NO){
         UIAlertView *cameraAlert = [[UIAlertView alloc] initWithTitle:@"Error"
@@ -258,6 +258,33 @@
 - (IBAction)deleteImage3:(id)sender{
     deleteAlert.tag = 3;
     [deleteAlert show];
+}
+
+- (void)attachPhoto{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+- (IBAction)addPhoto:(id)sender {
+    UIActionSheet *cameraOrRoll = [[UIActionSheet alloc] initWithTitle:nil
+                                                              delegate:self
+                                                     cancelButtonTitle:@"Cancel"
+                                                destructiveButtonTitle:nil
+                                                     otherButtonTitles:@"Take Photo/Video",
+                                                                       @"Add From Camera Roll",
+                                                                       nil];
+    [cameraOrRoll showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 0){
+        [self takePhoto];
+    }else if(buttonIndex == 1){
+        [self attachPhoto];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
