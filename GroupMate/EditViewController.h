@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "Meeting.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
-@interface EditViewController : UIViewController <UITextFieldDelegate>{
+@interface EditViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIDocumentInteractionControllerDelegate, UITextFieldDelegate>{
     NSMutableArray *meetingList;
     Meeting *meeting;
     int index;
+    
+    UIImagePickerController *imagePicker;
+    UIImage *image;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *colourPicker;
@@ -32,5 +36,6 @@
 - (IBAction)deleteImage1:(id)sender;
 - (IBAction)deleteImage2:(id)sender;
 - (IBAction)deleteImage3:(id)sender;
+- (IBAction)addPhoto:(id)sender;
 
 @end

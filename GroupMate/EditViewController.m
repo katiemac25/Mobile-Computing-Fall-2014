@@ -7,6 +7,9 @@
 //
 
 #import "EditViewController.h"
+#import "ViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import "Meeting.h"
 
 @interface EditViewController ()
 
@@ -16,12 +19,15 @@
     int colourIndex;
     Meeting *newMeeting;
     UIAlertView *deleteAlert;
+    int imageCount;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.meetingName.delegate = self;
+    
+    imageCount = 0;
     
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
@@ -181,6 +187,85 @@
 - (IBAction)deleteMeeting:(id)sender {
     [meetingList removeObjectAtIndex:index];
     [self performSegueWithIdentifier:@"UnwindToListFromEdit" sender:self];
+}
+
+- (IBAction)addPhoto:(id)sender {
+    UIActionSheet *cameraOrRoll = [[UIActionSheet alloc] initWithTitle:nil
+                                                              delegate:self
+                                                     cancelButtonTitle:@"Cancel"
+                                                destructiveButtonTitle:nil
+                                                     otherButtonTitles:@"Take Photo/Video",
+                                   @"Add From Camera Roll",
+                                   nil];
+    [cameraOrRoll showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 0){
+        [self takePhoto];
+    }else if(buttonIndex == 1){
+        [self attachPhoto];
+    }
+}
+
+- (void)takePhoto{
+    BOOL hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+    if (hasCamera == NO){
+        UIAlertView *cameraAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                              message:@"Camera Unavailable"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                                    otherButtonTitles:nil, nil];
+        [cameraAlert show];
+        return;
+    }
+    imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    imagePicker.mediaTypes = [UIImagePickerController
+                              availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+    imagePicker.allowsEditing = YES;
+    [self presentViewController:imagePicker animated:YES completion:NULL];
+}
+
+- (void)attachPhoto{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+    if(CFStringCompare((__bridge CFStringRef) mediaType, kUTTypeMovie, 0) == kCFCompareEqualTo){
+        NSString *moviePath = (NSString *) [[info objectForKey: UIImagePickerControllerMediaURL] path];
+        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (moviePath)){
+            UISaveVideoAtPathToSavedPhotosAlbum (moviePath, nil, nil, nil);
+        }
+    }else{
+        image = [info objectForKey:UIImagePickerControllerEditedImage];
+        //UIImageWriteToSavedPhotosAlbum (image, nil, nil , nil);
+        
+        if(imageCount == 0){
+            [self.image1 setImage:image];
+            imageCount++;
+        }else if(imageCount == 1){
+            [self.image2 setImage:image];
+            imageCount++;
+        }else if(imageCount == 2){
+            [self.image3 setImage:image];
+            imageCount++;
+        }
+        
+        NSData* imageData = UIImageJPEGRepresentation(image, 1.0);
+        [newMeeting addImage:imageData];
+    }
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (IBAction)deleteImage1:(id)sender{

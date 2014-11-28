@@ -195,6 +195,25 @@
     }
 }
 
+- (IBAction)addPhoto:(id)sender {
+    UIActionSheet *cameraOrRoll = [[UIActionSheet alloc] initWithTitle:nil
+                                                              delegate:self
+                                                     cancelButtonTitle:@"Cancel"
+                                                destructiveButtonTitle:nil
+                                                     otherButtonTitles:@"Take Photo/Video",
+                                   @"Add From Camera Roll",
+                                   nil];
+    [cameraOrRoll showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 0){
+        [self takePhoto];
+    }else if(buttonIndex == 1){
+        [self attachPhoto];
+    }
+}
+
 - (void)takePhoto{
     BOOL hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     if (hasCamera == NO){
@@ -213,6 +232,14 @@
                               availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
     imagePicker.allowsEditing = YES;
     [self presentViewController:imagePicker animated:YES completion:NULL];
+}
+
+- (void)attachPhoto{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:NULL];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
@@ -260,32 +287,7 @@
     [deleteAlert show];
 }
 
-- (void)attachPhoto{
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    picker.allowsEditing = YES;
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentViewController:picker animated:YES completion:NULL];
-}
 
-- (IBAction)addPhoto:(id)sender {
-    UIActionSheet *cameraOrRoll = [[UIActionSheet alloc] initWithTitle:nil
-                                                              delegate:self
-                                                     cancelButtonTitle:@"Cancel"
-                                                destructiveButtonTitle:nil
-                                                     otherButtonTitles:@"Take Photo/Video",
-                                                                       @"Add From Camera Roll",
-                                                                       nil];
-    [cameraOrRoll showInView:[UIApplication sharedApplication].keyWindow];
-}
-
-- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex == 0){
-        [self takePhoto];
-    }else if(buttonIndex == 1){
-        [self attachPhoto];
-    }
-}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 1 && buttonIndex == 1) {//Delete image 1
