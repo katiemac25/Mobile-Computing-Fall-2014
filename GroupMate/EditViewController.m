@@ -19,7 +19,7 @@
 @implementation EditViewController{
     int colourIndex;
     Meeting *newMeeting;
-    UIAlertView *deleteAlert;
+    UIAlertView *deleteImageAlert, *deleteMeetingAlert;
 }
 
 - (void)viewDidLoad {
@@ -66,11 +66,16 @@
         colourIndex = 6;
     }
     
-    deleteAlert = [[UIAlertView alloc] initWithTitle:@"Delete Image"
+    deleteImageAlert = [[UIAlertView alloc] initWithTitle:@"Delete Image"
                                              message:@"Are you sure you want to delete this image?"
                                             delegate:self
                                    cancelButtonTitle:@"Cancel"
                                    otherButtonTitles:@"OK", nil];
+    deleteMeetingAlert = [[UIAlertView alloc] initWithTitle:@"Delete Meeting"
+                                                    message:@"Are you sure you want to delete this meeting?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"OK", nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -168,8 +173,8 @@
 }
 
 - (IBAction)deleteMeeting:(id)sender {
-    [meetingList removeObjectAtIndex:index];
-    [self performSegueWithIdentifier:@"UnwindToListFromEdit" sender:self];
+    [deleteMeetingAlert show];
+    deleteMeetingAlert.tag = -2;
 }
 
 - (IBAction)addPhoto:(id)sender {
@@ -242,22 +247,14 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (IBAction)deleteImage1:(id)sender{
-    deleteAlert.tag = 1;
-    [deleteAlert show];
-}
-- (IBAction)deleteImage2:(id)sender{
-    deleteAlert.tag = 2;
-    [deleteAlert show];
-}
-- (IBAction)deleteImage3:(id)sender{
-    deleteAlert.tag = 3;
-    [deleteAlert show];
-}
-
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [newMeeting removeImage:alertView.tag];
-    [self.imageCollectionView reloadData];
+    if(alertView.tag == -2 && buttonIndex == 1){
+        [meetingList removeObjectAtIndex:index];
+        [self performSegueWithIdentifier:@"UnwindToListFromEdit" sender:self];
+    }else if(buttonIndex == 1){
+        [newMeeting removeImage:alertView.tag];
+        [self.imageCollectionView reloadData];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

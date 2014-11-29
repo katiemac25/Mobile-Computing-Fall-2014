@@ -23,7 +23,7 @@
     UIAlertView *alert;
     BOOL cancelConfirmed;
     NSString *meetingAddress;
-    UIAlertView *deleteAlert;
+    UIAlertView *deleteImageAlert;
     
     //Location variables
     CLLocationManager *locationManager;
@@ -66,7 +66,7 @@
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     
-    deleteAlert = [[UIAlertView alloc] initWithTitle:@"Delete Image"
+    deleteImageAlert = [[UIAlertView alloc] initWithTitle:@"Delete Image"
                                              message:@"Are you sure you want to delete this image?"
                                             delegate:self
                                    cancelButtonTitle:@"Cancel"
