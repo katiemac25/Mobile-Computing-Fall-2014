@@ -48,7 +48,18 @@
 - (void) removeImage:(NSUInteger)index{
     [images removeObjectAtIndex:index];
 }
-
+- (id)copy{
+    Meeting *meetingCopy = [[Meeting alloc] init];
+    
+    meetingCopy.name = name;
+    meetingCopy.colour = colour;
+    meetingCopy.notes = notes;
+    meetingCopy.date = date;
+    meetingCopy.address = address;
+    meetingCopy.images = [images copy];
+    
+    return meetingCopy;
+}
 #pragma mark NSCoding
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:name forKey:@"name"];
