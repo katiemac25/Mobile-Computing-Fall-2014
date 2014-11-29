@@ -10,7 +10,7 @@
 #import "Meeting.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface EditViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIDocumentInteractionControllerDelegate, UITextFieldDelegate>{
+@interface EditViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIDocumentInteractionControllerDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate>{
     NSMutableArray *meetingList;
     Meeting *meeting;
     int index;

@@ -10,7 +10,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface NewMeetingViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UITextFieldDelegate>{
+@interface NewMeetingViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate>{
     NSMutableArray *meetingList;
     
     IBOutlet UIImageView *imageView1;

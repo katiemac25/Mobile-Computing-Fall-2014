@@ -70,11 +70,6 @@
          setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     }
 }
-- (IBAction)editButton:(id)sender {
-}
-
-- (IBAction)backButton:(id)sender {
-}
 
 - (void) setMeeting:(Meeting*)currMeeting{
     meeting = currMeeting;

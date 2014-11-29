@@ -57,7 +57,10 @@
     [locationManager startUpdatingLocation];
     
     colourIndex = 0;
-    [[self.notes layer] setBorderColor:[[UIColor grayColor] CGColor]];
+    [[self.notes layer] setBorderColor:[[UIColor colorWithRed:226.0f/255.0f
+                                                        green:226.0f/255.0f
+                                                         blue:226.0f/255.0f
+                                                        alpha:1.0f] CGColor]];
     [[self.notes layer] setBorderWidth:1];
     [[self.notes layer] setCornerRadius:5];
     
@@ -168,7 +171,7 @@
         [newMeeting setAddress:meetingAddress];
         NSLog(@"%@", meetingAddress);
     }else{
-        [newMeeting setAddress:@"No Address"];
+        [newMeeting setAddress:@"No Location"];
     }
     
     //Add new meeting to meeting list

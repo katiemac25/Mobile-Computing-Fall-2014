@@ -17,10 +17,11 @@
 
 @implementation ViewController{
     NSUInteger currMeetingIndex;
-    BOOL sortByDate;
+    BOOL sortByDate, searchEnabled;
     NSMutableArray *meetingDates, *meetingLocations;
     NSMutableDictionary *datesCount, *locationsCount;
     NSArray *meetingsSortedByDate, *meetingsSortedByLocation, *alphabeticalLocations;
+    NSMutableArray *searchResults;
 }
 
 /******************************************************************************
@@ -37,11 +38,16 @@
     //Initially set screen to sort by date
     sortByDate = true;
     
+    searchEnabled = false;
+    
     //Allocate space to items used for sorting by date & location
     meetingDates = [[NSMutableArray alloc] init];
     meetingLocations =[[NSMutableArray alloc] init];
     datesCount = [[NSMutableDictionary alloc] init];
     locationsCount = [[NSMutableDictionary alloc] init];
+    
+    //Allocate space for search results
+    searchResults = [[NSMutableArray alloc] init];
     
     //Get meetings saved to file
     NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -83,7 +89,9 @@
  ******************************************************************************
  ******************************************************************************/
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if(sortByDate){
+    if (searchEnabled) {
+        return 1;
+    }else if(sortByDate){
         return meetingDates.count;
     }else{
         return meetingLocations.count;
@@ -102,7 +110,9 @@
     NSString *sectionHeader;
     NSNumber *nsCount;
     
-    if(sortByDate){
+    if (searchEnabled) {
+        return [searchResults count];
+    }else if(sortByDate){
         // Get name of section from meetingDates
         sectionHeader = meetingDates[section];
         
@@ -129,7 +139,9 @@
  ******************************************************************************
  ******************************************************************************/
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if(sortByDate){
+    if (searchEnabled) {
+        return @"Search Results";
+    }else if(sortByDate){
         return meetingDates[section];
     }else{
         return alphabeticalLocations[section];
@@ -143,22 +155,31 @@
  ******************************************************************************
  ******************************************************************************/
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"MeetingCell";
+    
     //Use custom MeetingCell
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MeetingCell"
-                                                            forIndexPath:indexPath];
+    MeetingTableViewCell *cell = (MeetingTableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    // Configure the cell...
+    if (cell == nil) {
+        cell = [[MeetingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     //Get the current section & row
     NSUInteger section = [indexPath section];
     NSUInteger row = [indexPath row];
     
     //Declare other variables
     Meeting *currMeeting;
-    NSUInteger index = 0;
+    NSUInteger index;
     NSString *sectionHeader;
     NSNumber *nsCount;
     
     //Calculate the row number by determining how many rows were in the
     //previous sections
-    if(sortByDate){
+    if (searchEnabled) {
+        currMeeting = (Meeting*)[searchResults objectAtIndex:row];
+    }else if(sortByDate){
+        index = 0;
         //For each previous section...
         for(int i = 0; i < section; i++){
             //Get the section header
@@ -176,6 +197,7 @@
         //Get meeting at calculated index from meetingsSortedByDate
         currMeeting = (Meeting*)[meetingsSortedByDate objectAtIndex:index];
     }else{
+        index = 0;
         //For each previous section...
         for(int i = 0; i < section; i++){
             //Get the section header
@@ -194,27 +216,24 @@
     }
     
     //Set colour tag of cell
-    UILabel *colourTag = (UILabel *)[cell viewWithTag:101];
-    
     if([currMeeting.colour isEqual: @"Red"]){
-        colourTag.backgroundColor = [UIColor redColor];
+        cell.colour.backgroundColor = [UIColor redColor];
     }else if([currMeeting.colour isEqual: @"Orange"]){
-        colourTag.backgroundColor = [UIColor orangeColor];
+        cell.colour.backgroundColor = [UIColor orangeColor];
     }else if([currMeeting.colour isEqual: @"Yellow"]){
-        colourTag.backgroundColor = [UIColor yellowColor];
+        cell.colour.backgroundColor = [UIColor yellowColor];
     }else if([currMeeting.colour isEqual: @"Green"]){
-        colourTag.backgroundColor = [UIColor greenColor];
+        cell.colour.backgroundColor = [UIColor greenColor];
     }else if([currMeeting.colour isEqual: @"Blue"]){
-        colourTag.backgroundColor = [UIColor blueColor];
+        cell.colour.backgroundColor = [UIColor blueColor];
     }else if([currMeeting.colour isEqual: @"Purple"]){
-        colourTag.backgroundColor = [UIColor purpleColor];
+        cell.colour.backgroundColor = [UIColor purpleColor];
     }else if([currMeeting.colour isEqual: @"Black"]){
-        colourTag.backgroundColor = [UIColor blackColor];
+        cell.colour.backgroundColor = [UIColor blackColor];
     }
     
     //Set name of cell
-    UILabel *meetingNameLabel = (UILabel *)[cell viewWithTag:100];
-    meetingNameLabel.text = currMeeting.name;
+    cell.title.text = currMeeting.name;
 
     return cell;
 }
@@ -233,9 +252,12 @@
     NSNumber *nsCount;
     Meeting *selectedMeeting;
     
-    //Calculate the row number by determining how many rows were in the
-    //previous sections
-    if(sortByDate){
+    
+    if(searchEnabled){
+        selectedMeeting = (Meeting*)[searchResults objectAtIndex:row];
+    }else if(sortByDate){
+        //Calculate the row number by determining how many rows were in the
+        //previous sections
         for(int i = 0; i < section; i++){
             sectionHeader = meetingDates[i];
             nsCount = [datesCount objectForKey:sectionHeader];
@@ -244,6 +266,8 @@
         index += row;
         selectedMeeting = (Meeting*)[meetingsSortedByDate objectAtIndex:index];
     }else{
+        //Calculate the row number by determining how many rows were in the
+        //previous sections
         for(int i = 0; i < section; i++){
             sectionHeader = alphabeticalLocations[i];
             nsCount = [locationsCount objectForKey:sectionHeader];
@@ -355,6 +379,39 @@
     }
     
     //Refresh table
+    [self.meetingListTable reloadData];
+}
+
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: search
+ PURPOSE: Parse through meetingList & create a new array of search results to be
+ displayed in table
+ ******************************************************************************
+ ******************************************************************************/
+- (IBAction)search:(id)sender {
+    NSString *searchText = self.searchTextField.text;
+    
+    [searchResults removeAllObjects];
+    
+    if ([searchText  isEqual: @""]) {
+        searchEnabled = false;
+    }else{
+        searchEnabled = true;
+        Meeting *currMeeting;
+        for(int i = 0; i < meetingList.count; i++){
+            currMeeting = meetingList[i];
+            if([[currMeeting.name lowercaseString] containsString:[searchText lowercaseString]]){
+                [searchResults addObject:currMeeting];
+            }else if ([[currMeeting.notes lowercaseString] containsString:[searchText lowercaseString]]){
+                [searchResults addObject:currMeeting];
+            }else if ([[currMeeting.address lowercaseString] containsString:[searchText lowercaseString]]){
+                [searchResults addObject:currMeeting];
+            }else if ([[currMeeting.colour lowercaseString] containsString:[searchText lowercaseString]]){
+                [searchResults addObject:currMeeting];
+            }
+        }
+    }
     [self.meetingListTable reloadData];
 }
 
