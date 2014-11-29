@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Meeting.h"
 #import "ImageCollectionViewCell.h"
+#import "ImageViewController.h"
 
 @interface EditViewController ()
 
@@ -20,6 +21,7 @@
     int colourIndex;
     Meeting *newMeeting;
     UIAlertView *deleteImageAlert, *deleteMeetingAlert;
+    UIImage *imageToView;
 }
 
 - (void)viewDidLoad {
@@ -83,15 +85,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"EditMeetingViewImage"]){
+        ImageViewController *controller = [segue destinationViewController];
+        [controller setImage:imageToView];
+    }
 }
-*/
 
 - (void) setMeeting:(Meeting*)currMeeting{
     meeting = currMeeting;
@@ -279,6 +278,12 @@
     [cell.image setImage:[UIImage imageWithData:meeting.images[row]]];
     
     return cell;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    ImageCollectionViewCell *cell = (ImageCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    imageToView = cell.image.image;
+    [self performSegueWithIdentifier:@"EditMeetingViewImage" sender:self];
 }
 
 @end

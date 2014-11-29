@@ -12,6 +12,7 @@
 #import "Meeting.h"
 #import <CoreLocation/CoreLocation.h>
 #import "ImageCollectionViewCell.h"
+#import "ImageViewController.h"
 
 @interface NewMeetingViewController ()
 
@@ -24,6 +25,7 @@
     BOOL cancelConfirmed;
     NSString *meetingAddress;
     UIAlertView *deleteImageAlert;
+    UIImage *imageToView;
     
     //Location variables
     CLLocationManager *locationManager;
@@ -265,6 +267,12 @@
     }
     return true;
 }
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"NewMeetingImageView"]){
+        ImageViewController *controller = [segue destinationViewController];
+        [controller setImage:imageToView];
+    }
+}
 
 #pragma mark - CLLocationManagerDelegate
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
@@ -311,5 +319,10 @@
     [cell.image setImage:[UIImage imageWithData:newMeeting.images[row]]];
     
     return cell;
+}
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    ImageCollectionViewCell *cell = (ImageCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    imageToView = cell.image.image;
+    [self performSegueWithIdentifier:@"NewMeetingImageView" sender:self];
 }
 @end

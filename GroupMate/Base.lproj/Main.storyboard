@@ -420,7 +420,6 @@
                                         </variation>
                                         <connections>
                                             <outlet property="image" destination="8Wc-Wd-Vub" id="gd6-eV-WDc"/>
-                                            <outletCollection property="gestureRecognizers" destination="iug-4H-J1W" appends="YES" id="Wg0-7m-MAp"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -537,11 +536,11 @@
                         <outlet property="meetingName" destination="BVj-3n-MvQ" id="vFf-FQ-Lj1"/>
                         <outlet property="notes" destination="dDA-vz-xCP" id="Ogl-hY-NZc"/>
                         <segue destination="j90-Ob-w5c" kind="unwind" identifier="UnwindToList" unwindAction="unwindToList:" id="kSj-bx-tTL"/>
+                        <segue destination="gFJ-zJ-Ywu" kind="show" identifier="NewMeetingImageView" id="xGW-Vu-URH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Dw-Yc-dVn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="j90-Ob-w5c" userLabel="Exit" sceneMemberID="exit"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="iug-4H-J1W"/>
             </objects>
             <point key="canvasLocation" x="2392.5" y="387"/>
         </scene>
@@ -711,12 +710,57 @@
                         <outlet property="dateLabel" destination="ltT-iY-MXE" id="08K-95-xcZ"/>
                         <outlet property="imageCollectionView" destination="fbr-aL-qlr" id="A4e-v4-Y8t"/>
                         <outlet property="notesLabel" destination="7g3-QR-jTP" id="Mla-Hd-ggh"/>
+                        <segue destination="gFJ-zJ-Ywu" kind="show" identifier="ViewMeetingViewImage" id="Jo3-9H-jhf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LXh-qN-g9f" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Uqc-FN-HRQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2392.5" y="1134"/>
+        </scene>
+        <!--Image View-->
+        <scene sceneID="jN3-tP-mid">
+            <objects>
+                <viewController id="gFJ-zJ-Ywu" userLabel="Image View" customClass="ImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2fd-89-1xY"/>
+                        <viewControllerLayoutGuide type="bottom" id="wAx-tR-ePR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="d7X-RD-SZr">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eEg-Sy-7bl">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <gestureRecognizers/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
+                                </variation>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="eEg-Sy-7bl"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="eEg-Sy-7bl"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="imageView" destination="eEg-Sy-7bl" id="H8w-8r-Ohw"/>
+                        <segue destination="oqg-Wm-tge" kind="unwind" identifier="UnwindFromImageView" unwindAction="unwindToDisplay:" id="vvD-q4-0gy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yts-GD-zuk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="oqg-Wm-tge" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3181.5" y="387"/>
         </scene>
         <!--Edit Meeting-->
         <scene sceneID="cgs-DW-hSZ">
@@ -835,10 +879,10 @@
                                                 <exclude reference="ZRy-6K-wPs"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <exclude reference="uoy-sw-tSq"/>
                                                 <exclude reference="aYS-JP-2WX"/>
                                                 <exclude reference="bTA-1Z-2vh"/>
                                                 <exclude reference="kgw-Yd-nUD"/>
+                                                <exclude reference="uoy-sw-tSq"/>
                                             </mask>
                                         </variation>
                                         <variation key="widthClass=compact">
@@ -846,10 +890,10 @@
                                                 <include reference="ZRy-6K-wPs"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <include reference="uoy-sw-tSq"/>
                                                 <include reference="aYS-JP-2WX"/>
                                                 <include reference="bTA-1Z-2vh"/>
                                                 <include reference="kgw-Yd-nUD"/>
+                                                <include reference="uoy-sw-tSq"/>
                                             </mask>
                                         </variation>
                                     </collectionViewCell>
@@ -896,8 +940,18 @@
                                 <exclude reference="dzp-fk-mSj"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="KLE-fh-YnT"/>
+                                <exclude reference="rre-6h-1fE"/>
                                 <exclude reference="0Pe-KY-VRC"/>
                                 <exclude reference="S7U-ps-jXH"/>
+                                <exclude reference="C9v-oq-QBg"/>
+                                <exclude reference="Qdy-bb-Yrm"/>
+                                <exclude reference="dtU-FT-743"/>
+                                <exclude reference="Qn9-4O-XBU"/>
+                                <exclude reference="U8g-nZ-e30"/>
+                                <exclude reference="orY-iS-1zW"/>
+                                <exclude reference="8V1-Ig-v2X"/>
+                                <exclude reference="jYe-RO-AE6"/>
                                 <exclude reference="1FY-kC-xKa"/>
                                 <exclude reference="bJn-Kh-SdE"/>
                                 <exclude reference="cFa-4V-jjt"/>
@@ -905,16 +959,6 @@
                                 <exclude reference="3wG-s9-lZh"/>
                                 <exclude reference="fjl-TS-sC5"/>
                                 <exclude reference="jKb-Ue-s3M"/>
-                                <exclude reference="8V1-Ig-v2X"/>
-                                <exclude reference="jYe-RO-AE6"/>
-                                <exclude reference="C9v-oq-QBg"/>
-                                <exclude reference="Qdy-bb-Yrm"/>
-                                <exclude reference="dtU-FT-743"/>
-                                <exclude reference="Qn9-4O-XBU"/>
-                                <exclude reference="U8g-nZ-e30"/>
-                                <exclude reference="orY-iS-1zW"/>
-                                <exclude reference="KLE-fh-YnT"/>
-                                <exclude reference="rre-6h-1fE"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -927,8 +971,18 @@
                                 <include reference="dzp-fk-mSj"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="KLE-fh-YnT"/>
+                                <include reference="rre-6h-1fE"/>
                                 <include reference="0Pe-KY-VRC"/>
                                 <include reference="S7U-ps-jXH"/>
+                                <include reference="C9v-oq-QBg"/>
+                                <include reference="Qdy-bb-Yrm"/>
+                                <include reference="dtU-FT-743"/>
+                                <include reference="Qn9-4O-XBU"/>
+                                <include reference="U8g-nZ-e30"/>
+                                <include reference="orY-iS-1zW"/>
+                                <include reference="8V1-Ig-v2X"/>
+                                <include reference="jYe-RO-AE6"/>
                                 <include reference="1FY-kC-xKa"/>
                                 <include reference="bJn-Kh-SdE"/>
                                 <include reference="cFa-4V-jjt"/>
@@ -936,16 +990,6 @@
                                 <include reference="3wG-s9-lZh"/>
                                 <include reference="fjl-TS-sC5"/>
                                 <include reference="jKb-Ue-s3M"/>
-                                <include reference="8V1-Ig-v2X"/>
-                                <include reference="jYe-RO-AE6"/>
-                                <include reference="C9v-oq-QBg"/>
-                                <include reference="Qdy-bb-Yrm"/>
-                                <include reference="dtU-FT-743"/>
-                                <include reference="Qn9-4O-XBU"/>
-                                <include reference="U8g-nZ-e30"/>
-                                <include reference="orY-iS-1zW"/>
-                                <include reference="KLE-fh-YnT"/>
-                                <include reference="rre-6h-1fE"/>
                             </mask>
                         </variation>
                     </view>
@@ -968,6 +1012,7 @@
                         <outlet property="meetingName" destination="UOe-Fb-1vy" id="L6a-DK-QNx"/>
                         <outlet property="notes" destination="Wuc-Q4-yQt" id="QOy-Hp-k8I"/>
                         <segue destination="d9U-z1-ePD" kind="unwind" identifier="UnwindToListFromEdit" unwindAction="unwindToList:" id="4ue-tJ-lTb"/>
+                        <segue destination="gFJ-zJ-Ywu" kind="show" identifier="EditMeetingViewImage" id="xCc-F4-PJg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nv2-tv-SMX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -994,4 +1039,7 @@
             <point key="canvasLocation" x="957" y="387"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="xGW-Vu-URH"/>
+    </inferredMetricsTieBreakers>
 </document>

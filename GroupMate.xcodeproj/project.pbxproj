@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8E3454141A0CC5F900DACC25 /* MeetingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3454131A0CC5F900DACC25 /* MeetingViewController.m */; };
 		8E55F2C21A1E545F0036AC67 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E55F2C11A1E545F0036AC67 /* icon.png */; };
+		8E76D7021A2A73AA0065869D /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D7011A2A73AA0065869D /* ImageViewController.m */; };
 		8E7AA3F51A0FA89600BD9A1D /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7AA3F41A0FA89600BD9A1D /* EditViewController.m */; };
 		8E7D13F71A0AD2C8004ACC92 /* Meeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7D13F61A0AD2C8004ACC92 /* Meeting.m */; };
 		8EBC4E091A0194840086577B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC4E081A0194840086577B /* main.m */; };
@@ -38,6 +39,8 @@
 		8E3454121A0CC5F900DACC25 /* MeetingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingViewController.h; sourceTree = "<group>"; };
 		8E3454131A0CC5F900DACC25 /* MeetingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingViewController.m; sourceTree = "<group>"; };
 		8E55F2C11A1E545F0036AC67 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../../../../../../Downloads/icon.png; sourceTree = "<group>"; };
+		8E76D7001A2A73AA0065869D /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		8E76D7011A2A73AA0065869D /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		8E7AA3F31A0FA89600BD9A1D /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		8E7AA3F41A0FA89600BD9A1D /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		8E7D13F51A0AD2C8004ACC92 /* Meeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meeting.h; sourceTree = "<group>"; };
@@ -117,6 +120,8 @@
 				8E3454131A0CC5F900DACC25 /* MeetingViewController.m */,
 				8E7AA3F31A0FA89600BD9A1D /* EditViewController.h */,
 				8E7AA3F41A0FA89600BD9A1D /* EditViewController.m */,
+				8E76D7001A2A73AA0065869D /* ImageViewController.h */,
+				8E76D7011A2A73AA0065869D /* ImageViewController.m */,
 				8EBC4E101A0194840086577B /* Main.storyboard */,
 				8EE2D12B1A2A402300677452 /* Custom Elements */,
 				8EBC4E131A0194840086577B /* Images.xcassets */,
@@ -266,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E76D7021A2A73AA0065869D /* ImageViewController.m in Sources */,
 				8E3454141A0CC5F900DACC25 /* MeetingViewController.m in Sources */,
 				8EBC4E0F1A0194840086577B /* ViewController.m in Sources */,
 				8EBC4E0C1A0194840086577B /* AppDelegate.m in Sources */,

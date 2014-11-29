@@ -9,12 +9,15 @@
 #import "MeetingViewController.h"
 #import "EditViewController.h"
 #import "ImageCollectionViewCell.h"
+#import "ImageViewController.h"
 
 @interface MeetingViewController ()
 
 @end
 
-@implementation MeetingViewController
+@implementation MeetingViewController{
+    UIImage *imageToView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,6 +36,9 @@
         [controller setMeeting:meeting];
         [controller setMeetingList:meetingList];
         [controller setIndex:index];
+    }else if ([segue.identifier isEqualToString:@"ViewMeetingViewImage"]){
+        ImageViewController *controller = [segue destinationViewController];
+        [controller setImage:imageToView];
     }
 }
 
@@ -114,5 +120,10 @@
     [cell.image setImage:[UIImage imageWithData:meeting.images[row]]];
     
     return cell;
+}
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    ImageCollectionViewCell *cell = (ImageCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    imageToView = cell.image.image;
+    [self performSegueWithIdentifier:@"ViewMeetingViewImage" sender:self];
 }
 @end

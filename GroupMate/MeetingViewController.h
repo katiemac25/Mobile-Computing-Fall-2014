@@ -21,7 +21,6 @@
 
 - (void) setMeeting:(Meeting*)currMeeting;
 - (void) setIndex:(int)currIndex;
-- (IBAction)unwindToDisplay:(UIStoryboardSegue *)segue;
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
 
 @end
