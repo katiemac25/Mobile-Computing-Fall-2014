@@ -8,6 +8,7 @@
 
 #import "MeetingViewController.h"
 #import "EditViewController.h"
+#import "ImageCollectionViewCell.h"
 
 @interface MeetingViewController ()
 
@@ -45,7 +46,7 @@
     [self.notesLabel setText:meeting.notes];
     [self.navigationItem setTitle:meeting.name];
     
-    [self updateImageViews];
+    [self.imageCollectionView reloadData];
     
     if([meeting.colour  isEqual: @"Red"]){
         [self.navigationController.navigationBar
@@ -93,24 +94,25 @@
         [controller setMeeting:meeting];
         [controller updatePage];
     }
-    [self updateImageViews];
+    [self.imageCollectionView reloadData];
 }
 
-- (void)updateImageViews{
-    self.image1.image = nil;
-    self.image2.image = nil;
-    self.image3.image = nil;
+#pragma mark - UICollectionView
+- (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return [meeting.images count];
+}
+
+- (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    ImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
+    cell = [cell init];
     
-    if(meeting.images.count >= 1){
-        self.image1.image = [UIImage imageWithData:meeting.images[0]];
-    }
+    NSInteger row = indexPath.row;
+    [cell.image setImage:[UIImage imageWithData:meeting.images[row]]];
     
-    if(meeting.images.count >= 2){
-        self.image2.image = [UIImage imageWithData:meeting.images[1]];
-    }
-    
-    if(meeting.images.count == 3){
-        self.image3.image = [UIImage imageWithData:meeting.images[2]];
-    }
+    return cell;
 }
 @end

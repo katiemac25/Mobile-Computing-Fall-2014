@@ -10,7 +10,7 @@
 #import "Meeting.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface EditViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIDocumentInteractionControllerDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate>{
+@interface EditViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIDocumentInteractionControllerDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>{
     NSMutableArray *meetingList;
     Meeting *meeting;
     int index;
@@ -22,9 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *colourPicker;
 @property (weak, nonatomic) IBOutlet UITextField *meetingName;
 @property (weak, nonatomic) IBOutlet UITextView *notes;
-@property (strong, nonatomic) IBOutlet UIImageView *image1;
-@property (strong, nonatomic) IBOutlet UIImageView *image2;
-@property (strong, nonatomic) IBOutlet UIImageView *image3;
+@property (strong, nonatomic) IBOutlet UICollectionView *imageCollectionView;
 
 - (void) setMeeting:(Meeting*)currMeeting;
 - (void) setIndex:(int)currIndex;
@@ -33,9 +31,6 @@
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
 - (IBAction)saveMeeting:(id)sender;
 - (IBAction)changeColourTag:(id)sender;
-- (IBAction)deleteImage1:(id)sender;
-- (IBAction)deleteImage2:(id)sender;
-- (IBAction)deleteImage3:(id)sender;
 - (IBAction)addPhoto:(id)sender;
 
 @end

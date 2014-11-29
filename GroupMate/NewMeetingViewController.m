@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Meeting.h"
 #import <CoreLocation/CoreLocation.h>
+#import "ImageCollectionViewCell.h"
 
 @interface NewMeetingViewController ()
 
@@ -21,7 +22,6 @@
     Meeting *newMeeting;
     UIAlertView *alert;
     BOOL cancelConfirmed;
-    int imageCount;
     NSString *meetingAddress;
     UIAlertView *deleteAlert;
     
@@ -40,7 +40,6 @@
     
     cancelConfirmed = false;
     
-    imageCount = 0;
     
     //Get date and time when meeting starts
     [newMeeting setDate:[NSDate date]];
@@ -66,10 +65,6 @@
     
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
-    
-    imageView1.clipsToBounds = YES;
-    imageView2.clipsToBounds = YES;
-    imageView3.clipsToBounds = YES;
     
     deleteAlert = [[UIAlertView alloc] initWithTitle:@"Delete Image"
                                              message:@"Are you sure you want to delete this image?"
@@ -127,6 +122,7 @@
              cancelButtonTitle:@"Cancel"
              otherButtonTitles:@"Ok",
              nil];
+    alert.tag = -1;
     [alert show];
 }
 
@@ -178,24 +174,6 @@
     [meetingList addObject:newMeeting];
     
     [self performSegueWithIdentifier:@"UnwindToList" sender:self];
-}
-
-- (void) updateImages{
-    imageView1.image = nil;
-    imageView2.image = nil;
-    imageView3.image = nil;
-    
-    if(newMeeting.images.count >= 1){
-        imageView1.image = [UIImage imageWithData:newMeeting.images[0]];
-    }
-    
-    if(newMeeting.images.count >= 2){
-        imageView2.image = [UIImage imageWithData:newMeeting.images[1]];
-    }
-    
-    if(newMeeting.images.count == 3){
-        imageView3.image = [UIImage imageWithData:newMeeting.images[2]];
-    }
 }
 
 - (IBAction)addPhoto:(id)sender {
@@ -256,19 +234,9 @@
         image = [info objectForKey:UIImagePickerControllerEditedImage];
         //UIImageWriteToSavedPhotosAlbum (image, nil, nil , nil);
         
-        if(imageCount == 0){
-            [imageView1 setImage:image];
-            imageCount++;
-        }else if(imageCount == 1){
-            [imageView2 setImage:image];
-            imageCount++;
-        }else if(imageCount == 2){
-            [imageView3 setImage:image];
-            imageCount++;
-        }
-        
         NSData* imageData = UIImageJPEGRepresentation(image, 1.0);
         [newMeeting addImage:imageData];
+        [self.imageCollectionView reloadData];
     }
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
@@ -277,34 +245,13 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (IBAction)deleteImage1:(id)sender{
-    deleteAlert.tag = 1;
-    [deleteAlert show];
-}
-- (IBAction)deleteImage2:(id)sender{
-    deleteAlert.tag = 2;
-    [deleteAlert show];
-}
-- (IBAction)deleteImage3:(id)sender{
-    deleteAlert.tag = 3;
-    [deleteAlert show];
-}
-
-
-
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == 1 && buttonIndex == 1) {//Delete image 1
-        [newMeeting removeImage:0];
-        [self updateImages];
-    }else if(alertView.tag == 2 && buttonIndex == 1) {//Delete image 2
-        [newMeeting removeImage:1];
-        [self updateImages];
-    }else if(alertView.tag == 3 && buttonIndex == 1) {//Delete image 3
-        [newMeeting removeImage:2];
-        [self updateImages];
-    }else if (buttonIndex == 1) {//Cancel OK
+    if (alertView.tag == -1 && buttonIndex == 1) {//Cancel OK
         cancelConfirmed = true;
         [self performSegueWithIdentifier:@"UnwindToList" sender:self];
+    }else{//Delete image
+        [newMeeting removeImage:alertView.tag];
+        [self.imageCollectionView reloadData];
     }
 }
 
@@ -346,4 +293,23 @@
     return YES;
 }
 
+#pragma mark - UICollectionView
+- (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return [newMeeting.images count];
+}
+
+- (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    ImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
+    cell = [cell init];
+    
+    NSInteger row = indexPath.row;
+    
+    [cell.image setImage:[UIImage imageWithData:newMeeting.images[row]]];
+    
+    return cell;
+}
 @end

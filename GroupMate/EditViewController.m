@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Meeting.h"
+#import "ImageCollectionViewCell.h"
 
 @interface EditViewController ()
 
@@ -19,15 +20,12 @@
     int colourIndex;
     Meeting *newMeeting;
     UIAlertView *deleteAlert;
-    int imageCount;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.meetingName.delegate = self;
-    
-    imageCount = 0;
     
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
@@ -43,7 +41,7 @@
     [self.meetingName setText:meeting.name];
     
     [self.notes setText:meeting.notes];
-    [self updateImages];
+    [self.imageCollectionView reloadData];
     
     if([meeting.colour  isEqual: @"Red"]){
         [self.colourPicker setBackgroundColor:[UIColor redColor]];
@@ -119,24 +117,6 @@
     meeting = newMeeting;
     [meetingList replaceObjectAtIndex:index withObject:meeting];
     [self performSegueWithIdentifier:@"UnwindToDisplayFromEdit" sender:self];
-}
-
-- (void) updateImages{
-    self.image1.image = nil;
-    self.image2.image = nil;
-    self.image3.image = nil;
-    
-    if(meeting.images.count >= 1){
-        self.image1.image = [UIImage imageWithData:meeting.images[0]];
-    }
-    
-    if(meeting.images.count >= 2){
-        self.image2.image = [UIImage imageWithData:meeting.images[1]];
-    }
-    
-    if(meeting.images.count == 3){
-        self.image3.image = [UIImage imageWithData:meeting.images[2]];
-    }
 }
 
 - (IBAction)changeColourTag:(id)sender {
@@ -250,16 +230,7 @@
         image = [info objectForKey:UIImagePickerControllerEditedImage];
         //UIImageWriteToSavedPhotosAlbum (image, nil, nil , nil);
         
-        if(imageCount == 0){
-            [self.image1 setImage:image];
-            imageCount++;
-        }else if(imageCount == 1){
-            [self.image2 setImage:image];
-            imageCount++;
-        }else if(imageCount == 2){
-            [self.image3 setImage:image];
-            imageCount++;
-        }
+        [self.imageCollectionView reloadData];
         
         NSData* imageData = UIImageJPEGRepresentation(image, 1.0);
         [newMeeting addImage:imageData];
@@ -285,21 +256,32 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == 1 && buttonIndex == 1) {//Delete image 1
-        [newMeeting removeImage:0];
-        [self updateImages];
-    }else if(alertView.tag == 2 && buttonIndex == 1) {//Delete image 2
-        [newMeeting removeImage:1];
-        [self updateImages];
-    }else if(alertView.tag == 3 && buttonIndex == 1) {//Delete image 3
-        [newMeeting removeImage:2];
-        [self updateImages];
-    }
+    [newMeeting removeImage:alertView.tag];
+    [self.imageCollectionView reloadData];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+#pragma mark - UICollectionView
+- (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return [meeting.images count];
+}
+
+- (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    ImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
+    cell = [cell init];
+    
+    NSInteger row = indexPath.row;
+    [cell.image setImage:[UIImage imageWithData:meeting.images[row]]];
+    
+    return cell;
 }
 
 @end

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Meeting.h"
 
-@interface MeetingViewController : UIViewController <UIGestureRecognizerDelegate>{
+@interface MeetingViewController : UIViewController <UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>{
     NSMutableArray *meetingList;
     Meeting *meeting;
     int index;
@@ -17,14 +17,11 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *notesLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *image1;
-@property (strong, nonatomic) IBOutlet UIImageView *image2;
-@property (strong, nonatomic) IBOutlet UIImageView *image3;
+@property (strong, nonatomic) IBOutlet UICollectionView *imageCollectionView;
 
 - (void) setMeeting:(Meeting*)currMeeting;
 - (void) setIndex:(int)currIndex;
 - (IBAction)unwindToDisplay:(UIStoryboardSegue *)segue;
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
-- (IBAction)swipeToUnwind:(id)sender;
 
 @end

@@ -20,6 +20,7 @@
 		8EBC4E231A0194840086577B /* GroupMateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC4E221A0194840086577B /* GroupMateTests.m */; };
 		8ED07DB71A1CF55C00849A0C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ED07DB61A1CF55C00849A0C /* CoreLocation.framework */; };
 		8EE2D12A1A292A2B00677452 /* MeetingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2D1291A292A2B00677452 /* MeetingTableViewCell.m */; };
+		8EE2D12E1A2A407C00677452 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2D12D1A2A407C00677452 /* ImageCollectionViewCell.m */; };
 		8EF4FDAD1A019E5A005EDC49 /* NewMeetingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4FDAC1A019E5A005EDC49 /* NewMeetingViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,8 @@
 		8ED07DB61A1CF55C00849A0C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8EE2D1281A292A2B00677452 /* MeetingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingTableViewCell.h; sourceTree = "<group>"; };
 		8EE2D1291A292A2B00677452 /* MeetingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingTableViewCell.m; sourceTree = "<group>"; };
+		8EE2D12C1A2A407C00677452 /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
+		8EE2D12D1A2A407C00677452 /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
 		8EF4FDAB1A019E5A005EDC49 /* NewMeetingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMeetingViewController.h; sourceTree = "<group>"; };
 		8EF4FDAC1A019E5A005EDC49 /* NewMeetingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMeetingViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,8 +118,7 @@
 				8E7AA3F31A0FA89600BD9A1D /* EditViewController.h */,
 				8E7AA3F41A0FA89600BD9A1D /* EditViewController.m */,
 				8EBC4E101A0194840086577B /* Main.storyboard */,
-				8EE2D1281A292A2B00677452 /* MeetingTableViewCell.h */,
-				8EE2D1291A292A2B00677452 /* MeetingTableViewCell.m */,
+				8EE2D12B1A2A402300677452 /* Custom Elements */,
 				8EBC4E131A0194840086577B /* Images.xcassets */,
 				8E55F2C11A1E545F0036AC67 /* icon.png */,
 				8EBC4E151A0194840086577B /* LaunchScreen.xib */,
@@ -149,6 +151,17 @@
 				8EBC4E211A0194840086577B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8EE2D12B1A2A402300677452 /* Custom Elements */ = {
+			isa = PBXGroup;
+			children = (
+				8EE2D12C1A2A407C00677452 /* ImageCollectionViewCell.h */,
+				8EE2D12D1A2A407C00677452 /* ImageCollectionViewCell.m */,
+				8EE2D1281A292A2B00677452 /* MeetingTableViewCell.h */,
+				8EE2D1291A292A2B00677452 /* MeetingTableViewCell.m */,
+			);
+			name = "Custom Elements";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +270,7 @@
 				8EBC4E0F1A0194840086577B /* ViewController.m in Sources */,
 				8EBC4E0C1A0194840086577B /* AppDelegate.m in Sources */,
 				8E7AA3F51A0FA89600BD9A1D /* EditViewController.m in Sources */,
+				8EE2D12E1A2A407C00677452 /* ImageCollectionViewCell.m in Sources */,
 				8EBC4E091A0194840086577B /* main.m in Sources */,
 				8EE2D12A1A292A2B00677452 /* MeetingTableViewCell.m in Sources */,
 				8E7D13F71A0AD2C8004ACC92 /* Meeting.m in Sources */,
