@@ -17,7 +17,10 @@
 
 @implementation MeetingViewController{
     UIImage *imageToView;
+<<<<<<< HEAD
     NSInteger imageToViewIndex;
+=======
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
 }
 
 - (void)viewDidLoad {
@@ -110,7 +113,10 @@
 }
 
 - (IBAction)swipeFromEdge:(id)sender {
+<<<<<<< HEAD
     NSLog(@"Swiped!");
+=======
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
 }
 
 - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
@@ -157,7 +163,10 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ImageCollectionViewCell *cell = (ImageCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     imageToView = cell.image.image;
+<<<<<<< HEAD
     imageToViewIndex = indexPath.row;
+=======
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
     [self performSegueWithIdentifier:@"ViewMeetingViewImage" sender:self];
 }
 @end

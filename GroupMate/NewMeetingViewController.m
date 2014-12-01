@@ -26,7 +26,10 @@
     NSString *meetingAddress;
     UIAlertView *deleteImageAlert;
     UIImage *imageToView;
+<<<<<<< HEAD
     NSInteger imageToViewIndex;
+=======
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
     
     //Location variables
     CLLocationManager *locationManager;
@@ -272,7 +275,10 @@
     if ([segue.identifier isEqualToString:@"NewMeetingImageView"]){
         ImageViewController *controller = [segue destinationViewController];
         [controller setImage:imageToView];
+<<<<<<< HEAD
         [controller setImageIndex:imageToViewIndex];
+=======
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
         [controller setMeetingName:newMeeting.name];
     }
 }
@@ -326,7 +332,10 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ImageCollectionViewCell *cell = (ImageCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     imageToView = cell.image.image;
+<<<<<<< HEAD
     imageToViewIndex = indexPath.row;
+=======
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
     [self performSegueWithIdentifier:@"NewMeetingImageView" sender:self];
 }
 @end

@@ -19,7 +19,16 @@
     
     [self.imageView setImage:image];
     
+<<<<<<< HEAD
     [self.navigationItem setRightBarButtonItem:nil];
+=======
+    //Add share button to UIBarButton to create new meeting
+    UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                                target:self
+                                                                                action:@selector(shareImage)];
+    
+    [self.navigationItem setRightBarButtonItem:share];
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,24 +41,36 @@
 - (void) setMeetingName:(NSString *)currName{
     meetingName = currName;
 }
+<<<<<<< HEAD
 - (void) setImageIndex:(NSInteger)index{
     imageIndex = index;
 }
 
 - (IBAction)share:(id)sender {
+=======
+
+- (void) shareImage{
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
     UIActionSheet *selectSocialMedia = [[UIActionSheet alloc] initWithTitle:nil
                                                                    delegate:self
                                                           cancelButtonTitle:@"Cancel"
                                                      destructiveButtonTitle:nil
                                                           otherButtonTitles:@"Facebook",
+<<<<<<< HEAD
                                         @"Twitter",
+=======
+                                                                            @"Twitter",
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
                                         nil];
     [selectSocialMedia showInView:[UIApplication sharedApplication].keyWindow];
 }
 
+<<<<<<< HEAD
 - (IBAction)deleteImage:(id)sender {
 }
 
+=======
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
 - (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex == 0){
         [self postFacebook];

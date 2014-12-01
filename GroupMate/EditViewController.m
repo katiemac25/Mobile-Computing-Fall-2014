@@ -22,7 +22,10 @@
     Meeting *newMeeting;
     UIAlertView *deleteImageAlert, *deleteMeetingAlert;
     UIImage *imageToView;
+<<<<<<< .merge_file_rZ1n55
     NSInteger imageToViewIndex;
+=======
+>>>>>>> .merge_file_91GtfV
 }
 
 - (void)viewDidLoad {
@@ -91,7 +94,10 @@
         ImageViewController *controller = [segue destinationViewController];
         [controller setImage:imageToView];
         [controller setMeetingName:newMeeting.name];
+<<<<<<< .merge_file_rZ1n55
         [controller setImageIndex:imageToViewIndex];
+=======
+>>>>>>> .merge_file_91GtfV
     }
 }
 
@@ -286,7 +292,10 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ImageCollectionViewCell *cell = (ImageCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     imageToView = cell.image.image;
+<<<<<<< .merge_file_rZ1n55
     imageToViewIndex = indexPath.row;
+=======
+>>>>>>> .merge_file_91GtfV
     [self performSegueWithIdentifier:@"EditMeetingViewImage" sender:self];
 }
 

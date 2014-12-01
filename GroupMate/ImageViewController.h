@@ -13,15 +13,21 @@
 @interface ImageViewController : ViewController{
     UIImage *image;
     NSString *meetingName;
+<<<<<<< HEAD
     NSInteger imageIndex;
+=======
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
 }
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
 - (void) setImage:(UIImage*)currImage;
 - (void) setMeetingName:(NSString*)currName;
+<<<<<<< HEAD
 - (void) setImageIndex:(NSInteger)index;
 - (IBAction)share:(id)sender;
 - (IBAction)deleteImage:(id)sender;
+=======
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
 
 @end

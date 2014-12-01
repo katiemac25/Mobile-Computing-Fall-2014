@@ -7,10 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+<<<<<<< HEAD
 		8E2416A11A2CD45E001F829F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E2416A01A2CD45E001F829F /* Social.framework */; };
 		8E2416A31A2CD489001F829F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E2416A21A2CD489001F829F /* UIKit.framework */; };
 		8E3454141A0CC5F900DACC25 /* MeetingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3454131A0CC5F900DACC25 /* MeetingViewController.m */; };
 		8E55F2C21A1E545F0036AC67 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E55F2C11A1E545F0036AC67 /* icon.png */; };
+=======
+		02EE99921A2CEFDB00EF2925 /* icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 02EE998E1A2CEFDB00EF2925 /* icon1.png */; };
+		02EE99931A2CEFDB00EF2925 /* icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 02EE998F1A2CEFDB00EF2925 /* icon2.png */; };
+		02EE99941A2CEFDB00EF2925 /* icon3.png in Resources */ = {isa = PBXBuildFile; fileRef = 02EE99901A2CEFDB00EF2925 /* icon3.png */; };
+		02EE99951A2CEFDB00EF2925 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 02EE99911A2CEFDB00EF2925 /* logo.png */; };
+		8E2416A11A2CD45E001F829F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E2416A01A2CD45E001F829F /* Social.framework */; };
+		8E2416A31A2CD489001F829F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E2416A21A2CD489001F829F /* UIKit.framework */; };
+		8E3454141A0CC5F900DACC25 /* MeetingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3454131A0CC5F900DACC25 /* MeetingViewController.m */; };
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
 		8E76D7021A2A73AA0065869D /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D7011A2A73AA0065869D /* ImageViewController.m */; };
 		8E7AA3F51A0FA89600BD9A1D /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7AA3F41A0FA89600BD9A1D /* EditViewController.m */; };
 		8E7D13F71A0AD2C8004ACC92 /* Meeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7D13F61A0AD2C8004ACC92 /* Meeting.m */; };
@@ -38,11 +48,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+<<<<<<< HEAD
+=======
+		02EE998E1A2CEFDB00EF2925 /* icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon1.png; sourceTree = "<group>"; };
+		02EE998F1A2CEFDB00EF2925 /* icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon2.png; sourceTree = "<group>"; };
+		02EE99901A2CEFDB00EF2925 /* icon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon3.png; sourceTree = "<group>"; };
+		02EE99911A2CEFDB00EF2925 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
 		8E2416A01A2CD45E001F829F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		8E2416A21A2CD489001F829F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8E3454121A0CC5F900DACC25 /* MeetingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingViewController.h; sourceTree = "<group>"; };
 		8E3454131A0CC5F900DACC25 /* MeetingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingViewController.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		8E55F2C11A1E545F0036AC67 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../../../../../../Downloads/icon.png; sourceTree = "<group>"; };
+=======
+>>>>>>> 4e655cf12fec726b26d1d6691bf5b09a0efd31e0
 		8E76D7001A2A73AA0065869D /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		8E76D7011A2A73AA0065869D /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		8E7AA3F31A0FA89600BD9A1D /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
@@ -143,6 +163,10 @@
 		8EBC4E061A0194840086577B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				02EE998E1A2CEFDB00EF2925 /* icon1.png */,
+				02EE998F1A2CEFDB00EF2925 /* icon2.png */,
+				02EE99901A2CEFDB00EF2925 /* icon3.png */,
+				02EE99911A2CEFDB00EF2925 /* logo.png */,
 				8EBC4E071A0194840086577B /* Info.plist */,
 				8EBC4E081A0194840086577B /* main.m */,
 			);
@@ -260,7 +284,11 @@
 			files = (
 				8E55F2C21A1E545F0036AC67 /* icon.png in Resources */,
 				8EBC4E121A0194840086577B /* Main.storyboard in Resources */,
+				02EE99931A2CEFDB00EF2925 /* icon2.png in Resources */,
+				02EE99941A2CEFDB00EF2925 /* icon3.png in Resources */,
 				8EBC4E171A0194840086577B /* LaunchScreen.xib in Resources */,
+				02EE99951A2CEFDB00EF2925 /* logo.png in Resources */,
+				02EE99921A2CEFDB00EF2925 /* icon1.png in Resources */,
 				8EBC4E141A0194840086577B /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
