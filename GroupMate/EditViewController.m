@@ -22,6 +22,7 @@
     Meeting *newMeeting;
     UIAlertView *deleteImageAlert, *deleteMeetingAlert;
     UIImage *imageToView;
+    NSInteger imageToViewIndex;
 }
 
 - (void)viewDidLoad {
@@ -90,6 +91,7 @@
         ImageViewController *controller = [segue destinationViewController];
         [controller setImage:imageToView];
         [controller setMeetingName:newMeeting.name];
+        [controller setImageIndex:imageToViewIndex];
     }
 }
 
@@ -284,6 +286,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ImageCollectionViewCell *cell = (ImageCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     imageToView = cell.image.image;
+    imageToViewIndex = indexPath.row;
     [self performSegueWithIdentifier:@"EditMeetingViewImage" sender:self];
 }
 

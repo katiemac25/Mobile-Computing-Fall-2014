@@ -19,12 +19,7 @@
     
     [self.imageView setImage:image];
     
-    //Add share button to UIBarButton to create new meeting
-    UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                                target:self
-                                                                                action:@selector(shareImage)];
-    
-    [self.navigationItem setRightBarButtonItem:share];
+    [self.navigationItem setRightBarButtonItem:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,16 +32,22 @@
 - (void) setMeetingName:(NSString *)currName{
     meetingName = currName;
 }
+- (void) setImageIndex:(NSInteger)index{
+    imageIndex = index;
+}
 
-- (void) shareImage{
+- (IBAction)share:(id)sender {
     UIActionSheet *selectSocialMedia = [[UIActionSheet alloc] initWithTitle:nil
                                                                    delegate:self
                                                           cancelButtonTitle:@"Cancel"
                                                      destructiveButtonTitle:nil
                                                           otherButtonTitles:@"Facebook",
-                                                                            @"Twitter",
+                                        @"Twitter",
                                         nil];
     [selectSocialMedia showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+- (IBAction)deleteImage:(id)sender {
 }
 
 - (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
