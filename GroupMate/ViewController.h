@@ -8,17 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "Meeting.h"
+#import "MeetingTableViewCell.h"
 
 @interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
     NSMutableArray *meetingList;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *meetingListTable;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *dateOrLocation;
+@property (strong, nonatomic) IBOutlet UITextField *searchTextField;
 
-- (void) addMeeting:(Meeting*)meeting;
-- (void) viewProfile;
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue;
+- (IBAction)sortTable:(id)sender;
+- (IBAction)search:(id)sender;
+- (void)handleOpenURL:(NSURL *)url;
 
 
 @end

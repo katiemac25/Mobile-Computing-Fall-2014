@@ -8,17 +8,19 @@
 
 #import "MeetingViewController.h"
 #import "EditViewController.h"
+#import "ImageCollectionViewCell.h"
+#import "ImageViewController.h"
 
 @interface MeetingViewController ()
 
 @end
 
-@implementation MeetingViewController
+@implementation MeetingViewController{
+    UIImage *imageToView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    NSLog(@"test");
     
     [self updatePage];
 }
@@ -34,6 +36,10 @@
         [controller setMeeting:meeting];
         [controller setMeetingList:meetingList];
         [controller setIndex:index];
+    }else if ([segue.identifier isEqualToString:@"ViewMeetingViewImage"]){
+        ImageViewController *controller = [segue destinationViewController];
+        [controller setImage:imageToView];
+        [controller setMeetingName:meeting.name];
     }
 }
 
@@ -46,6 +52,8 @@
     [self.dateLabel setText:dateString];
     [self.notesLabel setText:meeting.notes];
     [self.navigationItem setTitle:meeting.name];
+    
+    [self.imageCollectionView reloadData];
     
     if([meeting.colour  isEqual: @"Red"]){
         [self.navigationController.navigationBar
@@ -70,11 +78,6 @@
          setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     }
 }
-- (IBAction)editButton:(id)sender {
-}
-
-- (IBAction)backButton:(id)sender {
-}
 
 - (void) setMeeting:(Meeting*)currMeeting{
     meeting = currMeeting;
@@ -84,6 +87,35 @@
 }
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy{
     meetingList = meetingListCopy;
+}
+
+- (IBAction)emailMeeting:(id)sender {
+    NSString *emailTitle = [NSString stringWithFormat:@"GroupMate Meeting: %@", meeting.name];
+    NSString *messageBody = @"Here is a copy of the meeting from GroupMate:";
+
+    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+    mc.mailComposeDelegate = self;
+    [mc setSubject:emailTitle];
+    [mc setMessageBody:messageBody isHTML:NO];
+
+    NSData *fileData = [NSKeyedArchiver archivedDataWithRootObject:meeting];
+                         
+    // Add attachment
+    [mc addAttachmentData:fileData mimeType:@"text" fileName:[NSString stringWithFormat:@"%@.mtng", meeting.name]];
+
+    // Present mail view controller on screen
+    [self presentViewController:mc animated:YES completion:NULL];
+
+}
+
+- (IBAction)swipeFromEdge:(id)sender {
+}
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    if(result == MFMailComposeResultFailed){
+       NSLog(@"Error: %@", [error localizedDescription]);
+    }
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (IBAction)unwindToDisplay:(UIStoryboardSegue *)segue{
@@ -98,5 +130,31 @@
         [controller setMeeting:meeting];
         [controller updatePage];
     }
+
+    [self.imageCollectionView reloadData];
+}
+
+#pragma mark - UICollectionView
+- (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return [meeting.images count];
+}
+
+- (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    ImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
+    cell = [cell init];
+    
+    NSInteger row = indexPath.row;
+    [cell.image setImage:[UIImage imageWithData:meeting.images[row]]];
+    
+    return cell;
+}
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    ImageCollectionViewCell *cell = (ImageCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    imageToView = cell.image.image;
+    [self performSegueWithIdentifier:@"ViewMeetingViewImage" sender:self];
 }
 @end

@@ -8,16 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "Meeting.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
-@interface EditViewController : UIViewController{
+@interface EditViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIDocumentInteractionControllerDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>{
     NSMutableArray *meetingList;
     Meeting *meeting;
     int index;
+    
+    UIImagePickerController *imagePicker;
+    UIImage *image;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *colourPicker;
 @property (weak, nonatomic) IBOutlet UITextField *meetingName;
 @property (weak, nonatomic) IBOutlet UITextView *notes;
+@property (strong, nonatomic) IBOutlet UICollectionView *imageCollectionView;
 
 - (void) setMeeting:(Meeting*)currMeeting;
 - (void) setIndex:(int)currIndex;
@@ -26,5 +31,6 @@
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
 - (IBAction)saveMeeting:(id)sender;
 - (IBAction)changeColourTag:(id)sender;
+- (IBAction)addPhoto:(id)sender;
 
 @end

@@ -7,6 +7,11 @@
 //
 
 #import "EditViewController.h"
+#import "ViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import "Meeting.h"
+#import "ImageCollectionViewCell.h"
+#import "ImageViewController.h"
 
 @interface EditViewController ()
 
@@ -15,15 +20,22 @@
 @implementation EditViewController{
     int colourIndex;
     Meeting *newMeeting;
+    UIAlertView *deleteImageAlert, *deleteMeetingAlert;
+    UIImage *imageToView;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.meetingName.delegate = self;
+    
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     
-    [[self.notes layer] setBorderColor:[[UIColor grayColor] CGColor]];
+    [[self.notes layer] setBorderColor:[[UIColor colorWithRed:226.0f/255.0f
+                                                        green:226.0f/255.0f
+                                                         blue:226.0f/255.0f
+                                                        alpha:1.0f] CGColor]];
     [[self.notes layer] setBorderWidth:1];
     [[self.notes layer] setCornerRadius:5];
     
@@ -31,6 +43,7 @@
     [self.meetingName setText:meeting.name];
     
     [self.notes setText:meeting.notes];
+    [self.imageCollectionView reloadData];
     
     if([meeting.colour  isEqual: @"Red"]){
         [self.colourPicker setBackgroundColor:[UIColor redColor]];
@@ -54,6 +67,17 @@
         [self.colourPicker setBackgroundColor:[UIColor blackColor]];
         colourIndex = 6;
     }
+    
+    deleteImageAlert = [[UIAlertView alloc] initWithTitle:@"Delete Image"
+                                             message:@"Are you sure you want to delete this image?"
+                                            delegate:self
+                                   cancelButtonTitle:@"Cancel"
+                                   otherButtonTitles:@"OK", nil];
+    deleteMeetingAlert = [[UIAlertView alloc] initWithTitle:@"Delete Meeting"
+                                                    message:@"Are you sure you want to delete this meeting?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"OK", nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,15 +85,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"EditMeetingViewImage"]){
+        ImageViewController *controller = [segue destinationViewController];
+        [controller setImage:imageToView];
+        [controller setMeetingName:newMeeting.name];
+    }
 }
-*/
 
 - (void) setMeeting:(Meeting*)currMeeting{
     meeting = currMeeting;
@@ -86,7 +108,15 @@
     if(![self.meetingName.text  isEqual: @""]){
         [newMeeting setName:self.meetingName.text];
     }else{
-        [newMeeting setName:@"New Meeting"];
+        //If user has not created a custom meeting name, make meeting name
+        //the date and time of the meeting
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        NSDate *date = [NSDate date];
+        NSString *dateString = [dateFormatter stringFromDate:date];
+        NSString *meetingTitle = [NSString stringWithFormat:@"%@", dateString];
+        [newMeeting setName:meetingTitle];
     }
     [newMeeting setNotes:self.notes.text];
     meeting = newMeeting;
@@ -130,15 +160,131 @@
     if(![self.meetingName.text  isEqual: @""]){
         [self.navigationItem setTitle:self.meetingName.text];
     }else{
-        [self.navigationItem setTitle:@"New Meeting"];
-        [newMeeting setName:@"New Meeting"];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        NSDate *date = [NSDate date];
+        NSString *dateString = [dateFormatter stringFromDate:date];
+        NSString *meetingTitle = [NSString stringWithFormat:@"%@", dateString];
+        NSLog(@"%@", meetingTitle);
+        
+        [self.navigationItem setTitle:meetingTitle];
     }
 }
 
 - (IBAction)deleteMeeting:(id)sender {
-    [meetingList removeObjectAtIndex:index];
-    [self performSegueWithIdentifier:@"UnwindToListFromEdit" sender:self];
+    [deleteMeetingAlert show];
+    deleteMeetingAlert.tag = -2;
 }
 
+- (IBAction)addPhoto:(id)sender {
+    UIActionSheet *cameraOrRoll = [[UIActionSheet alloc] initWithTitle:nil
+                                                              delegate:self
+                                                     cancelButtonTitle:@"Cancel"
+                                                destructiveButtonTitle:nil
+                                                     otherButtonTitles:@"Take Photo/Video",
+                                   @"Add From Camera Roll",
+                                   nil];
+    [cameraOrRoll showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 0){
+        [self takePhoto];
+    }else if(buttonIndex == 1){
+        [self attachPhoto];
+    }
+}
+
+- (void)takePhoto{
+    BOOL hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+    if (hasCamera == NO){
+        UIAlertView *cameraAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                              message:@"Camera Unavailable"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                                    otherButtonTitles:nil, nil];
+        [cameraAlert show];
+        return;
+    }
+    imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    imagePicker.mediaTypes = [UIImagePickerController
+                              availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+    imagePicker.allowsEditing = YES;
+    [self presentViewController:imagePicker animated:YES completion:NULL];
+}
+
+- (void)attachPhoto{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+    if(CFStringCompare((__bridge CFStringRef) mediaType, kUTTypeMovie, 0) == kCFCompareEqualTo){
+        NSString *moviePath = (NSString *) [[info objectForKey: UIImagePickerControllerMediaURL] path];
+        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (moviePath)){
+            UISaveVideoAtPathToSavedPhotosAlbum (moviePath, nil, nil, nil);
+        }
+    }else{
+        image = [info objectForKey:UIImagePickerControllerEditedImage];
+        //UIImageWriteToSavedPhotosAlbum (image, nil, nil , nil);
+        
+        [self.imageCollectionView reloadData];
+        
+        NSData* imageData = UIImageJPEGRepresentation(image, 1.0);
+        [newMeeting addImage:imageData];
+    }
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(alertView.tag == -2 && buttonIndex == 1){
+        [meetingList removeObjectAtIndex:index];
+        [self performSegueWithIdentifier:@"UnwindToListFromEdit" sender:self];
+    }else if(buttonIndex == 1){
+        [newMeeting removeImage:alertView.tag];
+        [self.imageCollectionView reloadData];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark - UICollectionView
+- (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return [meeting.images count];
+}
+
+- (UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    ImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
+    cell = [cell init];
+    
+    NSInteger row = indexPath.row;
+    [cell.image setImage:[UIImage imageWithData:meeting.images[row]]];
+    
+    return cell;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    ImageCollectionViewCell *cell = (ImageCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    imageToView = cell.image.image;
+    [self performSegueWithIdentifier:@"EditMeetingViewImage" sender:self];
+}
 
 @end

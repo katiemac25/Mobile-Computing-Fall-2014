@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #import "Meeting.h"
 
-@interface MeetingViewController : UIViewController{
+@interface MeetingViewController : UIViewController <UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, MFMailComposeViewControllerDelegate>{
     NSMutableArray *meetingList;
     Meeting *meeting;
     int index;
@@ -17,12 +18,12 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *notesLabel;
+@property (strong, nonatomic) IBOutlet UICollectionView *imageCollectionView;
 
-- (IBAction)editButton:(id)sender;
-- (IBAction)backButton:(id)sender;
 - (void) setMeeting:(Meeting*)currMeeting;
 - (void) setIndex:(int)currIndex;
-- (IBAction)unwindToDisplay:(UIStoryboardSegue *)segue;
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
+- (IBAction)emailMeeting:(id)sender;
+- (IBAction)swipeFromEdge:(id)sender;
 
 @end
