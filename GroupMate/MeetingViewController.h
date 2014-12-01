@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #import "Meeting.h"
 
-@interface MeetingViewController : UIViewController <UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>{
+@interface MeetingViewController : UIViewController <UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, MFMailComposeViewControllerDelegate>{
     NSMutableArray *meetingList;
     Meeting *meeting;
     int index;
@@ -22,5 +23,6 @@
 - (void) setMeeting:(Meeting*)currMeeting;
 - (void) setIndex:(int)currIndex;
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
+- (IBAction)emailMeeting:(id)sender;
 
 @end

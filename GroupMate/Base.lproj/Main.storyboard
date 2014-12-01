@@ -565,11 +565,20 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7g3-QR-jTP">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFb-AN-if0">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Email Meeting">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="emailMeeting:" destination="Gw4-oj-0Qv" eventType="touchUpInside" id="gUD-jP-TEv"/>
+                                </connections>
+                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fbr-aL-qlr">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -633,17 +642,24 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="yFb-AN-if0" firstAttribute="bottom" secondItem="fbr-aL-qlr" secondAttribute="bottom" id="03S-6G-12R">
+                                <variation key="widthClass=compact" constant="38"/>
+                            </constraint>
+                            <constraint firstItem="yFb-AN-if0" firstAttribute="trailing" secondItem="fbr-aL-qlr" secondAttribute="trailing" id="0dL-uK-SUv"/>
                             <constraint firstItem="fbr-aL-qlr" firstAttribute="leading" secondItem="7g3-QR-jTP" secondAttribute="leading" id="8VE-Gh-5l5"/>
-                            <constraint firstAttribute="bottom" secondItem="fbr-aL-qlr" secondAttribute="bottom" constant="20" symbolic="YES" id="CHb-Sv-IHP"/>
+                            <constraint firstAttribute="bottom" secondItem="fbr-aL-qlr" secondAttribute="bottom" constant="20" symbolic="YES" id="CHb-Sv-IHP">
+                                <variation key="widthClass=compact" constant="58"/>
+                            </constraint>
                             <constraint firstItem="ltT-iY-MXE" firstAttribute="leading" secondItem="uwC-4M-1IY" secondAttribute="leadingMargin" id="Hre-sB-j9c"/>
                             <constraint firstItem="7g3-QR-jTP" firstAttribute="top" secondItem="ltT-iY-MXE" secondAttribute="bottom" constant="8" symbolic="YES" id="Lm7-TN-1PY"/>
                             <constraint firstItem="7g3-QR-jTP" firstAttribute="trailing" secondItem="ltT-iY-MXE" secondAttribute="trailing" id="P3R-Kl-pv3"/>
                             <constraint firstItem="fbr-aL-qlr" firstAttribute="top" secondItem="7g3-QR-jTP" secondAttribute="bottom" id="Vz8-lR-y7O">
-                                <variation key="widthClass=compact" constant="21"/>
+                                <variation key="widthClass=compact" constant="23"/>
                             </constraint>
                             <constraint firstItem="fbr-aL-qlr" firstAttribute="trailing" secondItem="7g3-QR-jTP" secondAttribute="trailing" id="g3y-mt-ucX"/>
+                            <constraint firstItem="yFb-AN-if0" firstAttribute="leading" secondItem="fbr-aL-qlr" secondAttribute="leading" id="jXx-ls-1OJ"/>
                             <constraint firstItem="6To-Aj-0kM" firstAttribute="top" secondItem="7g3-QR-jTP" secondAttribute="bottom" constant="222" id="uIO-AX-FLd">
-                                <variation key="widthClass=compact" constant="253"/>
+                                <variation key="widthClass=compact" constant="293"/>
                             </constraint>
                             <constraint firstItem="ltT-iY-MXE" firstAttribute="trailing" secondItem="uwC-4M-1IY" secondAttribute="trailingMargin" id="uOg-1V-8T8"/>
                             <constraint firstItem="ltT-iY-MXE" firstAttribute="leading" secondItem="7g3-QR-jTP" secondAttribute="leading" id="w2n-Is-C9Q"/>
@@ -653,10 +669,10 @@
                             <mask key="subviews">
                                 <exclude reference="ltT-iY-MXE"/>
                                 <exclude reference="7g3-QR-jTP"/>
+                                <exclude reference="yFb-AN-if0"/>
                                 <exclude reference="fbr-aL-qlr"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="uIO-AX-FLd"/>
                                 <exclude reference="Hre-sB-j9c"/>
                                 <exclude reference="uOg-1V-8T8"/>
                                 <exclude reference="w2n-Is-C9Q"/>
@@ -667,16 +683,20 @@
                                 <exclude reference="CHb-Sv-IHP"/>
                                 <exclude reference="Vz8-lR-y7O"/>
                                 <exclude reference="g3y-mt-ucX"/>
+                                <exclude reference="03S-6G-12R"/>
+                                <exclude reference="0dL-uK-SUv"/>
+                                <exclude reference="jXx-ls-1OJ"/>
+                                <exclude reference="uIO-AX-FLd"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="ltT-iY-MXE"/>
                                 <include reference="7g3-QR-jTP"/>
+                                <include reference="yFb-AN-if0"/>
                                 <include reference="fbr-aL-qlr"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="uIO-AX-FLd"/>
                                 <include reference="Hre-sB-j9c"/>
                                 <include reference="uOg-1V-8T8"/>
                                 <include reference="w2n-Is-C9Q"/>
@@ -687,6 +707,10 @@
                                 <include reference="CHb-Sv-IHP"/>
                                 <include reference="Vz8-lR-y7O"/>
                                 <include reference="g3y-mt-ucX"/>
+                                <include reference="03S-6G-12R"/>
+                                <include reference="0dL-uK-SUv"/>
+                                <include reference="jXx-ls-1OJ"/>
+                                <include reference="uIO-AX-FLd"/>
                             </mask>
                         </variation>
                     </view>
@@ -727,13 +751,14 @@
                         <viewControllerLayoutGuide type="bottom" id="wAx-tR-ePR"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="d7X-RD-SZr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eEg-Sy-7bl">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <gestureRecognizers/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="600"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                 </variation>
                             </imageView>
                         </subviews>
@@ -1040,6 +1065,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="xGW-Vu-URH"/>
+        <segue reference="Jo3-9H-jhf"/>
     </inferredMetricsTieBreakers>
 </document>

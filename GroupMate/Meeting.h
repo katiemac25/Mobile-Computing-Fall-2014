@@ -31,5 +31,6 @@
 - (void) setAddress:(NSString*)meetingAddress;
 - (void) addImage:(NSData*)imageToAdd;
 - (void) removeImage:(NSUInteger)index;
+- (Meeting*)importFromURL:(NSURL *)importURL;
 
 @end

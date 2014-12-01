@@ -561,4 +561,20 @@
     [NSKeyedArchiver archiveRootObject:meetingList toFile:filePath];
 }
 
+/******************************************************************************
+ ******************************************************************************
+ FUNCTION: saveToFile
+ PURPOSE: Save meetingList to file so that it can be recalled between sessions
+ ******************************************************************************
+ ******************************************************************************/
+- (void)handleOpenURL:(NSURL *)url {
+    Meeting *meetingFromEmail = [[Meeting alloc] init];
+    meetingFromEmail = [meetingFromEmail importFromURL:url];
+    if(meetingFromEmail.name != nil){
+        [meetingList addObject:meetingFromEmail];
+        //Refresh table
+        [self.meetingListTable reloadData];
+    }
+}
+
 @end

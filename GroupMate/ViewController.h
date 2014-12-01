@@ -22,6 +22,7 @@
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue;
 - (IBAction)sortTable:(id)sender;
 - (IBAction)search:(id)sender;
+- (void)handleOpenURL:(NSURL *)url;
 
 
 @end

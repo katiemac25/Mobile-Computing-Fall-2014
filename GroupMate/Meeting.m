@@ -60,6 +60,14 @@
     
     return meetingCopy;
 }
+- (Meeting*)importFromURL:(NSURL *)importURL {
+    NSData *data = [NSData dataWithContentsOfURL:importURL];
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+    
+    Meeting *decodedMeeting = [unarchiver decodeObjectForKey:@"root"];
+    [unarchiver finishDecoding];
+    return decodedMeeting;
+}
 #pragma mark NSCoding
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:name forKey:@"name"];
