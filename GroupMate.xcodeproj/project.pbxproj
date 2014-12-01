@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E2416A11A2CD45E001F829F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E2416A01A2CD45E001F829F /* Social.framework */; };
+		8E2416A31A2CD489001F829F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E2416A21A2CD489001F829F /* UIKit.framework */; };
 		8E3454141A0CC5F900DACC25 /* MeetingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3454131A0CC5F900DACC25 /* MeetingViewController.m */; };
 		8E55F2C21A1E545F0036AC67 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E55F2C11A1E545F0036AC67 /* icon.png */; };
 		8E76D7021A2A73AA0065869D /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D7011A2A73AA0065869D /* ImageViewController.m */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8E2416A01A2CD45E001F829F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		8E2416A21A2CD489001F829F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8E3454121A0CC5F900DACC25 /* MeetingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeetingViewController.h; sourceTree = "<group>"; };
 		8E3454131A0CC5F900DACC25 /* MeetingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeetingViewController.m; sourceTree = "<group>"; };
 		8E55F2C11A1E545F0036AC67 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../../../../../../Downloads/icon.png; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E2416A31A2CD489001F829F /* UIKit.framework in Frameworks */,
+				8E2416A11A2CD45E001F829F /* Social.framework in Frameworks */,
 				8ED07DB71A1CF55C00849A0C /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,6 +95,8 @@
 		8EBC4DFA1A0194840086577B = {
 			isa = PBXGroup;
 			children = (
+				8E2416A21A2CD489001F829F /* UIKit.framework */,
+				8E2416A01A2CD45E001F829F /* Social.framework */,
 				8ED07DB61A1CF55C00849A0C /* CoreLocation.framework */,
 				8EBC4E051A0194840086577B /* GroupMate */,
 				8EBC4E1F1A0194840086577B /* GroupMateTests */,

@@ -271,6 +271,7 @@
     if ([segue.identifier isEqualToString:@"NewMeetingImageView"]){
         ImageViewController *controller = [segue destinationViewController];
         [controller setImage:imageToView];
+        [controller setMeetingName:newMeeting.name];
     }
 }
 

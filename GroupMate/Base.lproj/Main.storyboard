@@ -713,6 +713,9 @@
                                 <include reference="g3y-mt-ucX"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="4l0-DK-fDC" appends="YES" id="riA-aw-Y2K"/>
+                        </connections>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Meeting" id="l3b-kF-Fh7">
@@ -739,6 +742,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LXh-qN-g9f" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Uqc-FN-HRQ" userLabel="Exit" sceneMemberID="exit"/>
+                <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="4l0-DK-fDC">
+                    <rectEdge key="edges" left="YES"/>
+                    <connections>
+                        <action selector="swipeFromEdge:" destination="Gw4-oj-0Qv" id="okv-a5-wAz"/>
+                    </connections>
+                </screenEdgePanGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2392.5" y="1134"/>
         </scene>
@@ -1079,6 +1088,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="xCc-F4-PJg"/>
+        <segue reference="Jo3-9H-jhf"/>
     </inferredMetricsTieBreakers>
 </document>

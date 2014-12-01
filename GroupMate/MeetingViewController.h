@@ -24,5 +24,6 @@
 - (void) setIndex:(int)currIndex;
 - (void)setMeetingList:(NSMutableArray*) meetingListCopy;
 - (IBAction)emailMeeting:(id)sender;
+- (IBAction)swipeFromEdge:(id)sender;
 
 @end

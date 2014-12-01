@@ -7,13 +7,17 @@
 //
 
 #import "ViewController.h"
+#import <UIKit/UIKit.h>
+#import <Social/Social.h>
 
 @interface ImageViewController : ViewController{
     UIImage *image;
+    NSString *meetingName;
 }
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
 - (void) setImage:(UIImage*)currImage;
+- (void) setMeetingName:(NSString*)currName;
 
 @end

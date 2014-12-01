@@ -39,6 +39,7 @@
     }else if ([segue.identifier isEqualToString:@"ViewMeetingViewImage"]){
         ImageViewController *controller = [segue destinationViewController];
         [controller setImage:imageToView];
+        [controller setMeetingName:meeting.name];
     }
 }
 
@@ -107,6 +108,9 @@
 
 }
 
+- (IBAction)swipeFromEdge:(id)sender {
+}
+
 - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
     if(result == MFMailComposeResultFailed){
        NSLog(@"Error: %@", [error localizedDescription]);
@@ -125,9 +129,6 @@
         [controller setMeetingList:meetingList];
         [controller setMeeting:meeting];
         [controller updatePage];
-    }else if ([segue.identifier isEqualToString:@"ViewMeetingViewImage"]){
-        ImageViewController *controller = [segue destinationViewController];
-        [controller setImage:imageToView];
     }
 
     [self.imageCollectionView reloadData];
