@@ -125,7 +125,11 @@
         [controller setMeetingList:meetingList];
         [controller setMeeting:meeting];
         [controller updatePage];
+    }else if ([segue.identifier isEqualToString:@"ViewMeetingViewImage"]){
+        ImageViewController *controller = [segue destinationViewController];
+        [controller setImage:imageToView];
     }
+
     [self.imageCollectionView reloadData];
 }
 

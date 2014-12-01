@@ -19,7 +19,12 @@
     
     [self.imageView setImage:image];
     
-    [self.navigationItem setRightBarButtonItem:nil];
+    //Add share button to UIBarButton to create new meeting
+    UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                                target:self
+                                                                                action:@selector(shareImage)];
+    
+    [self.navigationItem setRightBarButtonItem:share];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -28,6 +33,10 @@
 }
 - (void) setImage:(UIImage*)currImage{
     image = currImage;
+}
+
+- (void) shareImage{
+    
 }
 
 @end
